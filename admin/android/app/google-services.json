@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "769782009060",
+    "project_id": "abukaf-herbs",
+    "storage_bucket": "abukaf-herbs.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:769782009060:android:16dc949bdc345a18fb30f1",
+        "android_client_info": {
+          "package_name": "com.example.admin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIqtmSjQ0KvzA5xdj_gfAgBH8ZFGf_5Js"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:769782009060:android:9e67e8f8d169acc9fb30f1",
+        "android_client_info": {
+          "package_name": "com.example.mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIqtmSjQ0KvzA5xdj_gfAgBH8ZFGf_5Js"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

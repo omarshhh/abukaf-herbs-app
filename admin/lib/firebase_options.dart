@@ -41,48 +41,48 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCXR4AFw9F9vT399fLV9Iy1ElggTt63I9g',
-    appId: '1:769782009060:web:b23f268011dd49fefb30f1',
-    messagingSenderId: '769782009060',
-    projectId: 'abukaf-herbs',
-    authDomain: 'abukaf-herbs.firebaseapp.com',
-    storageBucket: 'abukaf-herbs.firebasestorage.app',
-    measurementId: 'G-CF8PF276Z1',
+    apiKey: 'AIzaSyBhXB15TsLuDUTGKX_oOrW4HtswNMNcmIk',
+    appId: '1:317734015226:web:88961e07d691aa49baf943',
+    messagingSenderId: '317734015226',
+    projectId: 'abukaf-herbs-aa01e',
+    authDomain: 'abukaf-herbs-aa01e.firebaseapp.com',
+    storageBucket: 'abukaf-herbs-aa01e.firebasestorage.app',
+    measurementId: 'G-RNV99YX57R',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyClTkC9_HECrxsRViln6rW4-v5tX5YB1-I',
-    appId: '1:317734015226:android:1ae0c1e976f901c6baf943',
-    messagingSenderId: '317734015226',
-    projectId: 'abukaf-herbs-aa01e',
-    storageBucket: 'abukaf-herbs-aa01e.firebasestorage.app',
+    apiKey: 'AIzaSyCIqtmSjQ0KvzA5xdj_gfAgBH8ZFGf_5Js',
+    appId: '1:769782009060:android:16dc949bdc345a18fb30f1',
+    messagingSenderId: '769782009060',
+    projectId: 'abukaf-herbs',
+    storageBucket: 'abukaf-herbs.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyC-dxT0IE1O8w7FdPHx1upqNiDn7iS6TLI',
-    appId: '1:769782009060:ios:d098a8e352d6f0b6fb30f1',
+    appId: '1:769782009060:ios:1477b0239efd584afb30f1',
     messagingSenderId: '769782009060',
     projectId: 'abukaf-herbs',
     storageBucket: 'abukaf-herbs.firebasestorage.app',
-    iosBundleId: 'com.example.mobile',
+    iosBundleId: 'com.example.admin',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyC-dxT0IE1O8w7FdPHx1upqNiDn7iS6TLI',
-    appId: '1:769782009060:ios:d098a8e352d6f0b6fb30f1',
+    appId: '1:769782009060:ios:1477b0239efd584afb30f1',
     messagingSenderId: '769782009060',
     projectId: 'abukaf-herbs',
     storageBucket: 'abukaf-herbs.firebasestorage.app',
-    iosBundleId: 'com.example.mobile',
+    iosBundleId: 'com.example.admin',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
     apiKey: 'AIzaSyCXR4AFw9F9vT399fLV9Iy1ElggTt63I9g',
-    appId: '1:769782009060:web:7258d0540a0ebd75fb30f1',
+    appId: '1:769782009060:web:78eff0fa4066d397fb30f1',
     messagingSenderId: '769782009060',
     projectId: 'abukaf-herbs',
     authDomain: 'abukaf-herbs.firebaseapp.com',
     storageBucket: 'abukaf-herbs.firebasestorage.app',
-    measurementId: 'G-DYWF6RCGPX',
+    measurementId: 'G-N3T6F46772',
   );
 }

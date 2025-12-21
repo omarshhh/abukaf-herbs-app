@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "769782009060",
-    "project_id": "abukaf-herbs",
-    "storage_bucket": "abukaf-herbs.firebasestorage.app"
+    "project_number": "317734015226",
+    "project_id": "abukaf-herbs-aa01e",
+    "storage_bucket": "abukaf-herbs-aa01e.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:769782009060:android:9e67e8f8d169acc9fb30f1",
+        "mobilesdk_app_id": "1:317734015226:android:1ae0c1e976f901c6baf943",
         "android_client_info": {
           "package_name": "com.example.mobile"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCIqtmSjQ0KvzA5xdj_gfAgBH8ZFGf_5Js"
+          "current_key": "AIzaSyClTkC9_HECrxsRViln6rW4-v5tX5YB1-I"
         }
       ],
       "services": {
