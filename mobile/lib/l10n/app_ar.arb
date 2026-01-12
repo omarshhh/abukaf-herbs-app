@@ -1,0 +1,66 @@
+{
+  "@@locale": "ar",
+
+  "appName": "AbuKaf Herbs",
+
+  "loginTitle": "تسجيل الدخول",
+  "welcomeTitle": "أهلاً بك في AbuKaf Herbs",
+  "emailOrPhone": "رقم الهاتف أو البريد الإلكتروني",
+  "email": "البريد الإلكتروني",
+  "password": "كلمة المرور",
+  "loginButton": "تسجيل الدخول",
+  "googleLoginButton": "الدخول باستخدام Google",
+  "forgotPassword": "نسيت كلمة المرور؟",
+
+  "noAccountRegister": "ليس لديك حساب؟ أنشئ حسابًا",
+
+  "registerTitle": "إنشاء حساب",
+  "firstName": "الاسم الأول",
+  "lastName": "اسم العائلة",
+  "phoneNumber": "رقم الهاتف",
+  "confirmPassword": "تأكيد كلمة المرور",
+  "createAccount": "إنشاء حساب",
+  "alreadyHaveAccountLogin": "لديك حساب؟ تسجيل الدخول",
+
+  "errorRequired": "هذا الحقل مطلوب",
+  "errorSomethingWrong": "حدث خطأ، يرجى المحاولة مرة أخرى",
+  "errorNetwork": "لا يوجد اتصال بالإنترنت",
+  "errorUnauthorized": "غير مصرح لك",
+  "errorUnknown": "حدث خطأ غير متوقع",
+
+  "errorEmailRequired": "البريد الإلكتروني مطلوب",
+  "errorInvalidEmail": "البريد الإلكتروني غير صحيح",
+  "errorEmailAlreadyUsed": "البريد الإلكتروني مستخدم مسبقًا",
+  "errorEmailNotFound": "لا يوجد حساب بهذا البريد الإلكتروني",
+
+  "errorPasswordRequired": "كلمة المرور مطلوبة",
+  "errorPasswordShort": "كلمة المرور يجب أن تكون 8 أحرف على الأقل",
+  "errorPasswordWeak": "كلمة المرور ضعيفة",
+  "errorWrongPassword": "كلمة المرور غير صحيحة",
+
+  "errorConfirmPasswordRequired": "يرجى تأكيد كلمة المرور",
+  "errorPasswordsNotMatch": "كلمتا المرور غير متطابقتين",
+
+  "errorFirstNameRequired": "الاسم الأول مطلوب",
+  "errorLastNameRequired": "اسم العائلة مطلوب",
+
+  "errorPhoneRequired": "رقم الهاتف مطلوب",
+  "errorInvalidPhone": "رقم الهاتف غير صحيح",
+  "errorPhoneAlreadyUsed": "رقم الهاتف مستخدم مسبقًا",
+
+  "errorLoginFailed": "فشل تسجيل الدخول",
+  "errorRegisterFailed": "فشل إنشاء الحساب",
+  "errorAccountDisabled": "تم تعطيل هذا الحساب",
+  "errorUserNotFound": "المستخدم غير موجود",
+
+  "errorGoogleCanceled": "تم إلغاء تسجيل الدخول عبر Google",
+  "errorGoogleFailed": "فشل تسجيل الدخول عبر Google",
+
+  "errorLocationRequired": "الموقع مطلوب",
+  "errorLocationDenied": "تم رفض إذن الموقع",
+  "errorLocationDisabled": "خدمات الموقع غير مفعلة",
+
+  "errorEmptyCart": "سلة المشتريات فارغة",
+  "errorOrderFailed": "فشل تنفيذ الطلب",
+  "errorPaymentFailed": "فشل الدفع"
+}

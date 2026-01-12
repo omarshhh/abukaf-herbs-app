@@ -1,0 +1,66 @@
+{
+  "@@locale": "en",
+
+  "appName": "AbuKaf Herbs",
+
+  "loginTitle": "Login",
+  "welcomeTitle": "Welcome to AbuKaf Herbs",
+  "emailOrPhone": "Phone or Email",
+  "email": "Email",
+  "password": "Password",
+  "loginButton": "Sign in",
+  "googleLoginButton": "Continue with Google",
+  "forgotPassword": "Forgot password?",
+
+  "noAccountRegister": "Don't have an account? Create one",
+
+  "registerTitle": "Create Account",
+  "firstName": "First name",
+  "lastName": "Last name",
+  "phoneNumber": "Phone number",
+  "confirmPassword": "Confirm password",
+  "createAccount": "Create account",
+  "alreadyHaveAccountLogin": "Already have an account? Sign in",
+
+  "errorRequired": "This field is required",
+  "errorSomethingWrong": "Something went wrong, please try again",
+  "errorNetwork": "No internet connection",
+  "errorUnauthorized": "You are not authorized",
+  "errorUnknown": "Unexpected error occurred",
+
+  "errorEmailRequired": "Email is required",
+  "errorInvalidEmail": "Invalid email address",
+  "errorEmailAlreadyUsed": "This email is already in use",
+  "errorEmailNotFound": "No account found with this email",
+
+  "errorPasswordRequired": "Password is required",
+  "errorPasswordShort": "Password must be at least 8 characters",
+  "errorPasswordWeak": "Password is too weak",
+  "errorWrongPassword": "Incorrect password",
+
+  "errorConfirmPasswordRequired": "Please confirm your password",
+  "errorPasswordsNotMatch": "Passwords do not match",
+
+  "errorFirstNameRequired": "First name is required",
+  "errorLastNameRequired": "Last name is required",
+
+  "errorPhoneRequired": "Phone number is required",
+  "errorInvalidPhone": "Invalid phone number",
+  "errorPhoneAlreadyUsed": "Phone number already in use",
+
+  "errorLoginFailed": "Login failed",
+  "errorRegisterFailed": "Registration failed",
+  "errorAccountDisabled": "This account has been disabled",
+  "errorUserNotFound": "User not found",
+
+  "errorGoogleCanceled": "Google sign-in canceled",
+  "errorGoogleFailed": "Google sign-in failed",
+
+  "errorLocationRequired": "Location is required",
+  "errorLocationDenied": "Location permission denied",
+  "errorLocationDisabled": "Location services are disabled",
+
+  "errorEmptyCart": "Your cart is empty",
+  "errorOrderFailed": "Failed to place order",
+  "errorPaymentFailed": "Payment failed"
+}
