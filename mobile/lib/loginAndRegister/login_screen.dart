@@ -3,6 +3,8 @@ import 'package:mobile/l10n/app_localizations.dart';
 import 'package:mobile/loginAndRegister/Register_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobile/auth/auth_gate.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -12,6 +14,86 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  // google sign-in
+  Future<void> _signInWithGoogle(AppLocalizations t) async {
+    setState(() => _loading = true);
+
+    try {
+      // 1) Start Google sign-in flow
+      final googleUser = await GoogleSignIn().signIn();
+
+      // User canceled
+      if (googleUser == null) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(t.errorGoogleCanceled)));
+        return;
+      }
+
+      // 2) Get tokens
+      final googleAuth = await googleUser.authentication;
+
+      // 3) Build Firebase credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      // 4) Sign in to Firebase
+      final userCred = await FirebaseAuth.instance.signInWithCredential(
+        credential,
+      );
+
+      final user = userCred.user;
+      if (user == null) throw Exception('Google user is null');
+
+      // 5) Create/Update Firestore user doc (minimal profile)
+      final uid = user.uid;
+      final ref = FirebaseFirestore.instance.collection('users').doc(uid);
+
+      // Read once
+      final snap = await ref.get();
+
+      if (!snap.exists) {
+        // ✅ First time only: create minimal doc
+        await ref.set({
+          'uid': uid,
+          'email': user.email,
+          'provider': 'google',
+          'createdAt': FieldValue.serverTimestamp(),
+
+          // New users are incomplete by default
+          'profileCompleted': false,
+
+          'lastLoginAt': FieldValue.serverTimestamp(),
+        });
+      } else {
+        // ✅ Existing user: DO NOT touch profileCompleted / names / phone / createdAt
+        await ref.update({
+          'lastLoginAt': FieldValue.serverTimestamp(),
+        });
+      }
+
+      if (!mounted) return;
+
+      // 6) Go to AuthGate (then ProfileGate decides)
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => const AuthGate()),
+        (_) => false,
+      );
+    } catch (e) {
+      if (!mounted) return;
+      debugPrint('Google sign-in error: $e');
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(t.errorGoogleFailed)));
+    } finally {
+      if (mounted) setState(() => _loading = false);
+    }
+  }
+
   bool _obscurePassword = true;
   bool _loading = false;
 
@@ -21,28 +103,28 @@ class _LoginScreenState extends State<LoginScreen> {
 
   // Map FirebaseAuth errors to localized messages
   String _mapAuthErrorToMessage(AppLocalizations t, FirebaseAuthException e) {
-  switch (e.code) {
-    case 'user-not-found':
-    case 'wrong-password':
-    case 'invalid-credential':
-      return t.errorInvalidCredentials;
+    switch (e.code) {
+      case 'user-not-found':
+      case 'wrong-password':
+      case 'invalid-credential':
+        return t.errorInvalidCredentials;
 
-    case 'invalid-email':
-      return t.errorInvalidEmail;
+      case 'invalid-email':
+        return t.errorInvalidEmail;
 
-    case 'user-disabled':
-      return t.errorAccountDisabled;
+      case 'user-disabled':
+        return t.errorAccountDisabled;
 
-    case 'too-many-requests':
-      return t.errorSomethingWrong;
+      case 'too-many-requests':
+        return t.errorSomethingWrong;
 
-    case 'network-request-failed':
-      return t.errorNetwork;
+      case 'network-request-failed':
+        return t.errorNetwork;
 
-    default:
-      return t.errorLoginFailed;
+      default:
+        return t.errorLoginFailed;
+    }
   }
-}
 
   @override
   void dispose() {
@@ -63,7 +145,6 @@ class _LoginScreenState extends State<LoginScreen> {
             padding: const EdgeInsets.all(16),
             child: Form(
               key: _formKey,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -173,7 +254,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                               if (!mounted) return;
 
-                              //  Go to AuthGate 
+                              //  Go to AuthGate
                               Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
@@ -211,9 +292,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   // Google login (later)
                   OutlinedButton(
-                    onPressed: () {
-                      // tODO: Implement Google sign-in later
-                    },
+                    onPressed: _loading ? null : () => _signInWithGoogle(t),
                     child: Text(t.googleLoginButton),
                   ),
 
