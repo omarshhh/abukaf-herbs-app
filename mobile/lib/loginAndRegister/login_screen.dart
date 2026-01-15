@@ -56,23 +56,22 @@ class _LoginScreenState extends State<LoginScreen> {
       final snap = await ref.get();
 
       if (!snap.exists) {
-        // ✅ First time only: create minimal doc
+        // New user doc
         await ref.set({
           'uid': uid,
           'email': user.email,
           'provider': 'google',
           'createdAt': FieldValue.serverTimestamp(),
-
-          // New users are incomplete by default
-          'profileCompleted': false,
-
           'lastLoginAt': FieldValue.serverTimestamp(),
+          'profileCompleted': false,
         });
       } else {
-        // ✅ Existing user: DO NOT touch profileCompleted / names / phone / createdAt
-        await ref.update({
+        // Existing user: safe merge (won't overwrite profile fields)
+        await ref.set({
           'lastLoginAt': FieldValue.serverTimestamp(),
-        });
+          'provider': 'google',
+          'email': user.email,
+        }, SetOptions(merge: true));
       }
 
       if (!mounted) return;
@@ -251,6 +250,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                     email: email,
                                     password: password,
                                   );
+                              final uid =
+                                  FirebaseAuth.instance.currentUser!.uid;
+
+                              await FirebaseFirestore.instance
+                                  .collection('users')
+                                  .doc(uid)
+                                  .set({
+                                    'lastLoginAt': FieldValue.serverTimestamp(),
+                                    'provider': 'password',
+                                    'email': email.toLowerCase(),
+                                  }, SetOptions(merge: true));
 
                               if (!mounted) return;
 

@@ -47,7 +47,7 @@ class _ProfileGateState extends State<ProfileGate> {
     final ref = FirebaseFirestore.instance.collection('users').doc(user.uid);
 
     try {
-      final doc = await ref.get(const GetOptions(source: Source.server));
+      final doc = await ref.get();
 
       _docExists = doc.exists;
       final data = doc.data() ?? {};
@@ -64,26 +64,10 @@ class _ProfileGateState extends State<ProfileGate> {
       );
       debugPrint('[ProfileGate] data=$data');
     } catch (e) {
-      debugPrint('[ProfileGate] server get failed: $e');
+      debugPrint('[ProfileGate] get failed: $e');
 
-      final doc = await ref.get(const GetOptions(source: Source.cache));
-
-      _docExists = doc.exists;
-      final data = doc.data() ?? {};
-
-      final completedFlag = (data['profileCompleted'] == true);
-      final basics = _hasBasics(data);
-
-      _completed = completedFlag || basics;
-
-      debugPrint('[ProfileGate] (cache) uid=${user.uid}');
-      debugPrint(
-        '[ProfileGate] (cache) exists=$_docExists completed=$_completed',
-      );
-      debugPrint(
-        '[ProfileGate] (cache) completedFlag=$completedFlag hasBasics=$basics',
-      );
-      debugPrint('[ProfileGate] (cache) data=$data');
+      _docExists = false;
+      _completed = false;
     }
 
     if (mounted) setState(() => _loading = false);
@@ -95,7 +79,6 @@ class _ProfileGateState extends State<ProfileGate> {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
-    // If no doc OR not completed => ask for completion
     if (!_docExists || !_completed) {
       return const CompleteProfileScreen();
     }

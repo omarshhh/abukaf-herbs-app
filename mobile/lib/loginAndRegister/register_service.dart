@@ -42,19 +42,27 @@ class RegisterService {
         });
 
         tx.set(userRef, {
-          'firstName': firstName,
-          'lastName': lastName,
-          'phone': phone,
-          'email': email,
+          'uid': uid,
+          'firstName': firstName.trim(),
+          'lastName': lastName.trim(),
+          'phone': phone.trim(),
+          'email': email.trim().toLowerCase(),
           'role': 'user',
+
+          // ✅ This flow collects all profile data now
           'profileCompleted': true,
+
+          // Meta
+          'provider': 'password',
           'createdAt': FieldValue.serverTimestamp(),
+          'lastLoginAt': FieldValue.serverTimestamp(),
         });
+
       });
     } catch (e) {
       // Rollback Auth if Firestore fails
       try {
-        await FirebaseAuth.instance.currentUser?.delete();
+        await cred.user?.delete();
       } catch (_) {}
 
       rethrow; 
