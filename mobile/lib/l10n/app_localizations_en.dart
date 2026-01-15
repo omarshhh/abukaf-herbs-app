@@ -18,9 +18,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get welcomeTitle => 'Welcome to AbuKaf Herbs';
 
   @override
-  String get emailOrPhone => 'Phone or Email';
-
-  @override
   String get email => 'Email';
 
   @override
@@ -85,6 +82,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorEmailNotFound => 'No account found with this email';
+
+  @override
+  String get errorInvalidCredentials =>
+      'البريد الإلكتروني أو كلمة المرور غير صحيحة';
 
   @override
   String get errorPasswordRequired => 'Password is required';
@@ -154,4 +155,68 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorPaymentFailed => 'Payment failed';
+
+  @override
+  String get locationTitle => 'Set Delivery Location';
+
+  @override
+  String get locationMyLocation => 'My location';
+
+  @override
+  String get locationMoveMapHint =>
+      'Move the map and place the pin accurately on your home';
+
+  @override
+  String get locationStreetLabel => 'Street name';
+
+  @override
+  String get locationBuildingLabel => 'Building number';
+
+  @override
+  String get locationFloorLabel => 'Floor';
+
+  @override
+  String get locationNotesLabel => 'Additional notes (optional)';
+
+  @override
+  String get locationNotesHint => 'Example: next to pharmacy, back entrance...';
+
+  @override
+  String get locationSaveButton => 'Save delivery location';
+
+  @override
+  String get locationServiceDisabled =>
+      'Location services are disabled. Enable GPS and try again.';
+
+  @override
+  String get locationPermissionDenied =>
+      'Location permission is required to continue.';
+
+  @override
+  String get locationPermissionDeniedForever =>
+      'Permission permanently denied. Enable location permission from settings.';
+
+  @override
+  String get locationCantGetCurrent => 'Could not get your current location.';
+
+  @override
+  String get locationPickOnMapError => 'Please pick your location on the map.';
+
+  @override
+  String get locationStreetRequired => 'Street name is required.';
+
+  @override
+  String get locationBuildingRequired => 'Building number is required.';
+
+  @override
+  String get locationFloorRequired => 'Floor is required.';
+
+  @override
+  String get locationNotLoggedIn => 'User is not logged in.';
+
+  @override
+  String get locationSavedSuccess => 'Delivery location saved successfully.';
+
+  @override
+  String get locationSaveFailed => 'Failed to save location. Please try again.';
 }

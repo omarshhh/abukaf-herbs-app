@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/l10n/app_localizations.dart';
 import 'package:mobile/loginAndRegister/Register_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mobile/auth/auth_gate.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -9,17 +11,38 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-
 class _LoginScreenState extends State<LoginScreen> {
-
   bool _obscurePassword = true;
-
-  
+  bool _loading = false;
 
   final _formKey = GlobalKey<FormState>();
-
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  // Map FirebaseAuth errors to localized messages
+  String _mapAuthErrorToMessage(AppLocalizations t, FirebaseAuthException e) {
+  switch (e.code) {
+    case 'user-not-found':
+    case 'wrong-password':
+    case 'invalid-credential':
+      return t.errorInvalidCredentials;
+
+    case 'invalid-email':
+      return t.errorInvalidEmail;
+
+    case 'user-disabled':
+      return t.errorAccountDisabled;
+
+    case 'too-many-requests':
+      return t.errorSomethingWrong;
+
+    case 'network-request-failed':
+      return t.errorNetwork;
+
+    default:
+      return t.errorLoginFailed;
+  }
+}
 
   @override
   void dispose() {
@@ -28,20 +51,19 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-
+  @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
 
     return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(16),
             child: Form(
               key: _formKey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -70,20 +92,17 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   const SizedBox(height: 24),
 
-                  // Email / Phone
+                  // Email
                   TextFormField(
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(labelText: t.emailOrPhone),
+                    decoration: InputDecoration(labelText: t.email),
                     validator: (value) {
-                      if (value == null || value.trim().isEmpty) {
-                        return t.errorEmailRequired;
-                      }
+                      final v = value?.trim() ?? '';
+                      if (v.isEmpty) return t.errorEmailRequired;
 
                       final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
-                      if (!emailRegex.hasMatch(value.trim())) {
-                        return t.errorInvalidEmail;
-                      }
+                      if (!emailRegex.hasMatch(v)) return t.errorInvalidEmail;
 
                       return null;
                     },
@@ -124,27 +143,77 @@ class _LoginScreenState extends State<LoginScreen> {
                         ? Alignment.centerLeft
                         : Alignment.centerRight,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        // tODO: Implement reset password later
+                      },
                       child: Text(t.forgotPassword),
                     ),
                   ),
 
                   // Login button
                   ElevatedButton(
-                    onPressed: () {
-                      final ok = _formKey.currentState!.validate();
-                      if (!ok) return;
+                    onPressed: _loading
+                        ? null
+                        : () async {
+                            final ok = _formKey.currentState!.validate();
+                            if (!ok) return;
 
-                      // ✅ هنا نفذ تسجيل الدخول لاحقًا
-                    },
-                    child: Text(t.loginButton),
+                            final email = emailController.text.trim();
+                            final password = passwordController.text;
+
+                            setState(() => _loading = true);
+
+                            try {
+                              // Perform Firebase email/password login
+                              await FirebaseAuth.instance
+                                  .signInWithEmailAndPassword(
+                                    email: email,
+                                    password: password,
+                                  );
+
+                              if (!mounted) return;
+
+                              //  Go to AuthGate 
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const AuthGate(),
+                                ),
+                                (_) => false,
+                              );
+                            } on FirebaseAuthException catch (e) {
+                              if (!mounted) return;
+
+                              debugPrint(
+                                'Login error: ${e.code} - ${e.message}',
+                              );
+
+                              final msg = _mapAuthErrorToMessage(t, e);
+
+                              //  Show error to the user
+                              ScaffoldMessenger.of(
+                                context,
+                              ).showSnackBar(SnackBar(content: Text(msg)));
+                            } finally {
+                              if (mounted) setState(() => _loading = false);
+                            }
+                          },
+                    child: _loading
+                        ? const SizedBox(
+                            height: 18,
+                            width: 18,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : Text(t.loginButton),
                   ),
 
                   const SizedBox(height: 12),
 
-                  // Google login
+                  // Google login (later)
                   OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      // tODO: Implement Google sign-in later
+                    },
                     child: Text(t.googleLoginButton),
                   ),
 
@@ -160,12 +229,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     child: Text(
                       t.noAccountRegister,
-                      style: TextStyle(fontWeight: FontWeight.w700),
+                      style: const TextStyle(fontWeight: FontWeight.w700),
                     ),
                   ),
                 ],
               ),
-            )
+            ),
           ),
         ),
       ),

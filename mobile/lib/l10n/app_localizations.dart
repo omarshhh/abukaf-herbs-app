@@ -116,12 +116,6 @@ abstract class AppLocalizations {
   /// **'Welcome to AbuKaf Herbs'**
   String get welcomeTitle;
 
-  /// No description provided for @emailOrPhone.
-  ///
-  /// In en, this message translates to:
-  /// **'Phone or Email'**
-  String get emailOrPhone;
-
   /// No description provided for @email.
   ///
   /// In en, this message translates to:
@@ -253,6 +247,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No account found with this email'**
   String get errorEmailNotFound;
+
+  /// No description provided for @errorInvalidCredentials.
+  ///
+  /// In en, this message translates to:
+  /// **'البريد الإلكتروني أو كلمة المرور غير صحيحة'**
+  String get errorInvalidCredentials;
 
   /// No description provided for @errorPasswordRequired.
   ///
@@ -391,6 +391,126 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Payment failed'**
   String get errorPaymentFailed;
+
+  /// No description provided for @locationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Set Delivery Location'**
+  String get locationTitle;
+
+  /// No description provided for @locationMyLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'My location'**
+  String get locationMyLocation;
+
+  /// No description provided for @locationMoveMapHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Move the map and place the pin accurately on your home'**
+  String get locationMoveMapHint;
+
+  /// No description provided for @locationStreetLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Street name'**
+  String get locationStreetLabel;
+
+  /// No description provided for @locationBuildingLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Building number'**
+  String get locationBuildingLabel;
+
+  /// No description provided for @locationFloorLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Floor'**
+  String get locationFloorLabel;
+
+  /// No description provided for @locationNotesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Additional notes (optional)'**
+  String get locationNotesLabel;
+
+  /// No description provided for @locationNotesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Example: next to pharmacy, back entrance...'**
+  String get locationNotesHint;
+
+  /// No description provided for @locationSaveButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Save delivery location'**
+  String get locationSaveButton;
+
+  /// No description provided for @locationServiceDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Location services are disabled. Enable GPS and try again.'**
+  String get locationServiceDisabled;
+
+  /// No description provided for @locationPermissionDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Location permission is required to continue.'**
+  String get locationPermissionDenied;
+
+  /// No description provided for @locationPermissionDeniedForever.
+  ///
+  /// In en, this message translates to:
+  /// **'Permission permanently denied. Enable location permission from settings.'**
+  String get locationPermissionDeniedForever;
+
+  /// No description provided for @locationCantGetCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not get your current location.'**
+  String get locationCantGetCurrent;
+
+  /// No description provided for @locationPickOnMapError.
+  ///
+  /// In en, this message translates to:
+  /// **'Please pick your location on the map.'**
+  String get locationPickOnMapError;
+
+  /// No description provided for @locationStreetRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Street name is required.'**
+  String get locationStreetRequired;
+
+  /// No description provided for @locationBuildingRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Building number is required.'**
+  String get locationBuildingRequired;
+
+  /// No description provided for @locationFloorRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Floor is required.'**
+  String get locationFloorRequired;
+
+  /// No description provided for @locationNotLoggedIn.
+  ///
+  /// In en, this message translates to:
+  /// **'User is not logged in.'**
+  String get locationNotLoggedIn;
+
+  /// No description provided for @locationSavedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivery location saved successfully.'**
+  String get locationSavedSuccess;
+
+  /// No description provided for @locationSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to save location. Please try again.'**
+  String get locationSaveFailed;
 }
 
 class _AppLocalizationsDelegate

@@ -1,12 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/l10n/app_localizations.dart';
 import 'package:mobile/auth/auth_gate.dart';
 import 'package:mobile/loginAndRegister/register_service.dart';
-import 'package:flutter/foundation.dart';
-
-
+import 'package:flutter/services.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -30,7 +27,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   bool _isLoading = false;
 
-
   @override
   void dispose() {
     firstNameController.dispose();
@@ -48,17 +44,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   bool _looksLikeJordanPhone(String value) {
-    final v = value.trim().replaceAll(' ', '');
+    final v = value.trim();
 
-    // 7XXXXXXXX
-    final noZero = RegExp(r'^7\d{8}$');
+    // Must be digits only (extra safety)
+    if (!RegExp(r'^\d+$').hasMatch(v)) return false;
 
-    // 07XXXXXXXX
-    final withZero = RegExp(r'^07\d{8}$');
+    // 07xxxxxxxx (10 digits)
+    if (v.startsWith('07') && v.length == 10) return true;
 
-    return noZero.hasMatch(v) || withZero.hasMatch(v);
+    // 7xxxxxxxx (9 digits)
+    if (v.startsWith('7') && v.length == 9) return true;
+
+    return false;
   }
-
 
   String _normalizeJordanPhone(String value) {
     final v = value.trim().replaceAll(' ', '');
@@ -76,8 +74,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return v;
   }
 
-
-
   String _mapAuthErrorToMessage(AppLocalizations t, FirebaseAuthException e) {
     switch (e.code) {
       case 'email-already-in-use':
@@ -90,9 +86,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
         return t.errorSomethingWrong;
     }
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -146,13 +139,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                   ),
 
-
                   const SizedBox(height: 12),
 
                   // Phone
                   TextFormField(
                     controller: phoneController,
                     keyboardType: TextInputType.phone,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(10),
+                    ],
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
                       labelText: t.phoneNumber,
@@ -165,7 +161,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
-                            color: Theme.of(context).colorScheme.onSurface,
                           ),
                         ),
                       ),
@@ -180,8 +175,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       return null;
                     },
                   ),
-
-
 
                   const SizedBox(height: 12),
 
@@ -204,7 +197,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       return null;
                     },
                   ),
-
 
                   const SizedBox(height: 12),
 
@@ -237,7 +229,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       return null;
                     },
                   ),
-
 
                   const SizedBox(height: 12),
 
@@ -329,7 +320,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                               if (mounted) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  
                                   SnackBar(
                                     content: Text(
                                       isPhoneTaken
