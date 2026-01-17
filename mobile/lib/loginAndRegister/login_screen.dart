@@ -5,6 +5,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobile/auth/auth_gate.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mobile/loginAndRegister/reset_password_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,6 +17,51 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+
+
+  bool _submitted = false;
+  String? _emailErrorText;
+  String? _passwordErrorText;
+
+  String? _validateEmail(AppLocalizations t, String v) {
+    final value = v.trim();
+    if (value.isEmpty) return t.errorEmailRequired;
+
+    final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+    if (!emailRegex.hasMatch(value)) return t.errorInvalidEmail;
+
+    return null;
+  }
+
+  String? _validatePassword(AppLocalizations t, String v) {
+    if (v.isEmpty) return t.errorPasswordRequired;
+    return null;
+  }
+
+
+
+  Future<void> _callPhone(String phone) async {
+    final uri = Uri.parse('tel:$phone');
+    if (!await launchUrl(uri)) {
+      throw 'Could not call $phone';
+    }
+  }
+
+  Future<void> _openWhatsApp(String phone) async {
+    final uri = Uri.parse('https://wa.me/$phone');
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      throw 'Could not open WhatsApp';
+    }
+  }
+
+  Future<void> _openUrl(String url) async {
+    final uri = Uri.parse(url);
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      throw 'Could not launch $url';
+    }
+  }
+
   // google sign-in
   Future<void> _signInWithGoogle(AppLocalizations t) async {
     setState(() => _loading = true);
@@ -96,7 +144,6 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _obscurePassword = true;
   bool _loading = false;
 
-  final _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -142,8 +189,6 @@ class _LoginScreenState extends State<LoginScreen> {
         body: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(16),
-            child: Form(
-              key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -176,15 +221,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   TextFormField(
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(labelText: t.email),
-                    validator: (value) {
-                      final v = value?.trim() ?? '';
-                      if (v.isEmpty) return t.errorEmailRequired;
-
-                      final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
-                      if (!emailRegex.hasMatch(v)) return t.errorInvalidEmail;
-
-                      return null;
+                    decoration: InputDecoration(
+                      labelText: t.email,
+                      errorText: _submitted ? _emailErrorText : null,
+                    ),
+                    onChanged: (_) {
+                      // إذا كان الخطأ ظهر بسبب submit، اخفه فور أول كتابة
+                      if (_submitted && _emailErrorText != null) {
+                        setState(() => _emailErrorText = null);
+                      }
                     },
                   ),
 
@@ -196,26 +241,25 @@ class _LoginScreenState extends State<LoginScreen> {
                     obscureText: _obscurePassword,
                     decoration: InputDecoration(
                       labelText: t.password,
+                      errorText: _submitted ? _passwordErrorText : null,
                       suffixIcon: IconButton(
                         icon: Icon(
                           _obscurePassword
                               ? Icons.visibility_off
                               : Icons.visibility,
                         ),
-                        onPressed: () {
-                          setState(() {
-                            _obscurePassword = !_obscurePassword;
-                          });
-                        },
+                        onPressed: () => setState(
+                          () => _obscurePassword = !_obscurePassword,
+                        ),
                       ),
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return t.errorPasswordRequired;
+                    onChanged: (_) {
+                      if (_submitted && _passwordErrorText != null) {
+                        setState(() => _passwordErrorText = null);
                       }
-                      return null;
                     },
                   ),
+
 
                   // Forgot password
                   Align(
@@ -224,7 +268,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         : Alignment.centerRight,
                     child: TextButton(
                       onPressed: () {
-                        // tODO: Implement reset password later
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const ForgotPasswordScreen(),
+                          ),
+                        );
                       },
                       child: Text(t.forgotPassword),
                     ),
@@ -235,7 +284,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: _loading
                         ? null
                         : () async {
-                            final ok = _formKey.currentState!.validate();
+                            setState(() {
+                              _submitted = true;
+                              _emailErrorText = _validateEmail(
+                                t,
+                                emailController.text,
+                              );
+                              _passwordErrorText = _validatePassword(
+                                t,
+                                passwordController.text,
+                              );
+                            });
+
+                            final ok =
+                                _emailErrorText == null &&
+                                _passwordErrorText == null;
                             if (!ok) return;
 
                             final email = emailController.text.trim();
@@ -244,12 +307,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             setState(() => _loading = true);
 
                             try {
-                              // Perform Firebase email/password login
                               await FirebaseAuth.instance
                                   .signInWithEmailAndPassword(
                                     email: email,
                                     password: password,
                                   );
+
                               final uid =
                                   FirebaseAuth.instance.currentUser!.uid;
 
@@ -264,7 +327,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                               if (!mounted) return;
 
-                              //  Go to AuthGate
                               Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
@@ -278,10 +340,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               debugPrint(
                                 'Login error: ${e.code} - ${e.message}',
                               );
-
                               final msg = _mapAuthErrorToMessage(t, e);
 
-                              //  Show error to the user
                               ScaffoldMessenger.of(
                                 context,
                               ).showSnackBar(SnackBar(content: Text(msg)));
@@ -289,6 +349,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               if (mounted) setState(() => _loading = false);
                             }
                           },
+
                     child: _loading
                         ? const SizedBox(
                             height: 18,
@@ -321,12 +382,79 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: const TextStyle(fontWeight: FontWeight.w700),
                     ),
                   ),
+
+                  SizedBox(height: 55),
+
+                  Text(
+                    t.contactUs, 
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+
+                  const SizedBox(height: 8),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Facebook
+                      IconButton(
+                        icon: const FaIcon(FontAwesomeIcons.facebook),
+                        iconSize: 25,
+                        tooltip: 'Facebook',
+                        onPressed: () =>
+                            _openUrl('https://www.facebook.com/AboKafJo'),
+                      ),
+
+                      const SizedBox(width: 10),
+
+                      // Instagram
+                      IconButton(
+                        icon: const FaIcon(FontAwesomeIcons.instagram),
+                        iconSize: 25,
+                        tooltip: 'Instagram',
+                        onPressed: () => _openUrl(
+                          'https://www.instagram.com/abu_kaf_for_herbs',
+                        ),
+                      ),
+
+                      const SizedBox(width: 10),
+
+                      // Threads
+                      IconButton(
+                        icon: const FaIcon(FontAwesomeIcons.threads),
+                        iconSize: 25,
+                        tooltip: 'Threads',
+                        onPressed: () => _openUrl(
+                          'https://www.threads.net/@abu_kaf_for_herbs',
+                        ),
+                      ),
+
+                      const SizedBox(width: 10),
+
+                      // WhatsApp
+                      IconButton(
+                        icon: const FaIcon(FontAwesomeIcons.whatsapp),
+                        iconSize: 25,
+                        tooltip: 'WhatsApp',
+                        onPressed: () => _openWhatsApp('962791671117'),
+                      ),
+
+                      const SizedBox(width: 10),
+
+                      // Phone call
+                      IconButton(
+                        icon: const Icon(Icons.phone_outlined),
+                        iconSize: 25,
+                        tooltip: 'Call us',
+                        onPressed: () => _callPhone('0791671117'),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
           ),
         ),
-      ),
     );
   }
 }

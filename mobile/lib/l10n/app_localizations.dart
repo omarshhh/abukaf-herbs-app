@@ -116,6 +116,12 @@ abstract class AppLocalizations {
   /// **'Welcome to AbuKaf Herbs'**
   String get welcomeTitle;
 
+  /// No description provided for @registerWelcomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to the AbuKaf Family 🌿'**
+  String get registerWelcomeTitle;
+
   /// No description provided for @email.
   ///
   /// In en, this message translates to:
@@ -511,6 +517,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to save location. Please try again.'**
   String get locationSaveFailed;
+
+  /// No description provided for @completeProfileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete Profile'**
+  String get completeProfileTitle;
+
+  /// No description provided for @completeProfileSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your name and phone number to complete your account.'**
+  String get completeProfileSubtitle;
+
+  /// No description provided for @completeProfileSaveButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Save & Continue'**
+  String get completeProfileSaveButton;
+
+  /// No description provided for @savedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Data Saved'**
+  String get savedSuccess;
+
+  /// No description provided for @followUs.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow Us'**
+  String get followUs;
+
+  /// No description provided for @contactUs.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact us'**
+  String get contactUs;
+
+  /// No description provided for @resetPasswordSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email and we’ll send you a link to reset your password.'**
+  String get resetPasswordSubtitle;
+
+  /// No description provided for @resetPasswordSendButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Send reset link'**
+  String get resetPasswordSendButton;
+
+  /// No description provided for @resetPasswordEmailSent.
+  ///
+  /// In en, this message translates to:
+  /// **'A password reset link has been sent to your email.'**
+  String get resetPasswordEmailSent;
 }
 
 class _AppLocalizationsDelegate

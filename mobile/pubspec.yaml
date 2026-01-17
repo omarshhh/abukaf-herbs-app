@@ -30,6 +30,9 @@ dependencies:
 
 
   google_sign_in: ^6.0.0
+  
+  url_launcher: ^6.2.5
+  font_awesome_flutter: ^10.7.0
 
 dev_dependencies:
   flutter_test:
@@ -51,3 +54,4 @@ flutter:
   assets:
     - assets/images/logo.png
     - assets/images/splash.png
+    - assets/images/user_icon.png

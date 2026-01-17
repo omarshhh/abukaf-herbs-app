@@ -5,6 +5,7 @@
 
   "loginTitle": "Login",
   "welcomeTitle": "Welcome to AbuKaf Herbs",
+  "registerWelcomeTitle": "Welcome to the AbuKaf Family 🌿",
   "email": "Email",
   "password": "Password",
   "loginButton": "Sign in",
@@ -88,7 +89,27 @@
   "locationFloorRequired": "Floor is required.",
   "locationNotLoggedIn": "User is not logged in.",
   "locationSavedSuccess": "Delivery location saved successfully.",
-  "locationSaveFailed": "Failed to save location. Please try again."
+  "locationSaveFailed": "Failed to save location. Please try again.",
+
+
+
+  "completeProfileTitle": "Complete Profile",
+  "completeProfileSubtitle": "Please enter your name and phone number to complete your account.",
+  "completeProfileSaveButton": "Save & Continue",
+  "savedSuccess": "Data Saved",
+
+  "followUs": "Follow Us",
+  "contactUs": "Contact us",
+
+
+  "resetPasswordSubtitle": "Enter your email and we’ll send you a link to reset your password.",
+  "resetPasswordSendButton": "Send reset link",
+  "resetPasswordEmailSent": "A password reset link has been sent to your email."
+
+
+
+
+
 
 
 }

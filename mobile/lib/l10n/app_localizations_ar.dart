@@ -18,6 +18,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get welcomeTitle => 'أهلاً بك في AbuKaf Herbs';
 
   @override
+  String get registerWelcomeTitle => 'مرحبًا بك في عائلة أبو كف 🌿';
+
+  @override
   String get email => 'البريد الإلكتروني';
 
   @override
@@ -217,4 +220,34 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get locationSaveFailed => 'فشل حفظ الموقع. حاول مرة أخرى.';
+
+  @override
+  String get completeProfileTitle => 'إكمال الملف الشخصي';
+
+  @override
+  String get completeProfileSubtitle =>
+      'يرجى إدخال اسمك ورقم هاتفك لإكمال حسابك.';
+
+  @override
+  String get completeProfileSaveButton => 'حفظ وإكمال';
+
+  @override
+  String get savedSuccess => 'تم حفظ البيانات';
+
+  @override
+  String get followUs => 'تابعنا';
+
+  @override
+  String get contactUs => 'تواصل معنا';
+
+  @override
+  String get resetPasswordSubtitle =>
+      'أدخل بريدك الإلكتروني وسنرسل لك رابطًا لإعادة تعيين كلمة المرور.';
+
+  @override
+  String get resetPasswordSendButton => 'إرسال رابط الاستعادة';
+
+  @override
+  String get resetPasswordEmailSent =>
+      'تم إرسال رابط إعادة التعيين إلى بريدك الإلكتروني.';
 }
