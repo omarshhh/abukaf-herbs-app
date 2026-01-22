@@ -571,6 +571,186 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'A password reset link has been sent to your email.'**
   String get resetPasswordEmailSent;
+
+  /// No description provided for @appTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Abukaf Herbs'**
+  String get appTitle;
+
+  /// No description provided for @navHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get navHome;
+
+  /// No description provided for @navOrders.
+  ///
+  /// In en, this message translates to:
+  /// **'Orders'**
+  String get navOrders;
+
+  /// No description provided for @navProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get navProfile;
+
+  /// No description provided for @categoriesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get categoriesTitle;
+
+  /// No description provided for @ordersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My Orders'**
+  String get ordersTitle;
+
+  /// No description provided for @profileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profileTitle;
+
+  /// No description provided for @ordersPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Orders Page (Later)'**
+  String get ordersPlaceholder;
+
+  /// No description provided for @profilePlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Page (Later)'**
+  String get profilePlaceholder;
+
+  /// No description provided for @categoryProductsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Products'**
+  String get categoryProductsTitle;
+
+  /// No description provided for @categoryProductsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Products of {categoryName}'**
+  String categoryProductsSubtitle(String categoryName);
+
+  /// No description provided for @catHerbs.
+  ///
+  /// In en, this message translates to:
+  /// **'Herbs'**
+  String get catHerbs;
+
+  /// No description provided for @catSpices.
+  ///
+  /// In en, this message translates to:
+  /// **'Spices'**
+  String get catSpices;
+
+  /// No description provided for @catOils.
+  ///
+  /// In en, this message translates to:
+  /// **'Oils'**
+  String get catOils;
+
+  /// No description provided for @catHoney.
+  ///
+  /// In en, this message translates to:
+  /// **'Honey'**
+  String get catHoney;
+
+  /// No description provided for @catCosmetics.
+  ///
+  /// In en, this message translates to:
+  /// **'Cosmetics'**
+  String get catCosmetics;
+
+  /// No description provided for @catBestSellers.
+  ///
+  /// In en, this message translates to:
+  /// **'Best Sellers'**
+  String get catBestSellers;
+
+  /// No description provided for @catBundles.
+  ///
+  /// In en, this message translates to:
+  /// **'Bundles'**
+  String get catBundles;
+
+  /// No description provided for @searchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search herbs'**
+  String get searchHint;
+
+  /// No description provided for @helloUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello, {name}'**
+  String helloUser(Object name);
+
+  /// No description provided for @ourPicks.
+  ///
+  /// In en, this message translates to:
+  /// **'Our Picks'**
+  String get ourPicks;
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @aboutUs.
+  ///
+  /// In en, this message translates to:
+  /// **'About us'**
+  String get aboutUs;
+
+  /// No description provided for @logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logout;
+
+  /// No description provided for @guest.
+  ///
+  /// In en, this message translates to:
+  /// **'Guest'**
+  String get guest;
+
+  /// No description provided for @forYouTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'For you'**
+  String get forYouTitle;
+
+  /// No description provided for @searchResultsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Search results'**
+  String get searchResultsTitle;
+
+  /// No description provided for @noResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No results'**
+  String get noResults;
+
+  /// No description provided for @searchStartTyping.
+  ///
+  /// In en, this message translates to:
+  /// **'Start typing to search herbs'**
+  String get searchStartTyping;
+
+  /// No description provided for @searchResultPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Temporary search result'**
+  String get searchResultPlaceholder;
 }
 
 class _AppLocalizationsDelegate

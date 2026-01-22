@@ -106,9 +106,71 @@
 
   "resetPasswordSubtitle": "أدخل بريدك الإلكتروني وسنرسل لك رابطًا لإعادة تعيين كلمة المرور.",
   "resetPasswordSendButton": "إرسال رابط الاستعادة",
-  "resetPasswordEmailSent": "تم إرسال رابط إعادة التعيين إلى بريدك الإلكتروني."
+  "resetPasswordEmailSent": "تم إرسال رابط إعادة التعيين إلى بريدك الإلكتروني.",
 
 
+
+
+
+
+
+
+   
+
+  "appTitle": "أبوكاف للأعشاب",
+  "navHome": "الرئيسية",
+  "navOrders": "الطلبات",
+  "navProfile": "حسابي",
+
+  "categoriesTitle": "الفئات",
+  "ordersTitle": "طلباتي",
+  "profileTitle": "الملف الشخصي",
+
+  "ordersPlaceholder": "صفحة الطلبات (لاحقًا)",
+  "profilePlaceholder": "صفحة الحساب (لاحقًا)",
+
+  "categoryProductsTitle": "المنتجات",
+  "categoryProductsSubtitle": "منتجات فئة {categoryName}",
+  "@categoryProductsSubtitle": {
+    "placeholders": {
+      "categoryName": { "type": "String" }
+    }
+  },
+
+  "catHerbs": "أعشاب",
+  "catSpices": "بهارات",
+  "catOils": "زيوت",
+  "catHoney": "عسل",
+  "catCosmetics": "مستحضرات تجميل",
+  "catBestSellers": "الأكثر مبيعًا",
+  "catBundles": "البكجات",
+
+
+
+
+
+  "searchHint": "ابحث عن الأعشاب",
+  "helloUser": "مرحباً، {name}",
+  "@helloUser": { "placeholders": { "name": {} } },
+  "ourPicks": "اخترنالك",
+  "settings": "الإعدادات",
+  "aboutUs": "من نحن",
+  "logout": "تسجيل الخروج",
+  "guest": "زائر",
+
+
+
+
+  "searchHint": "ابحث عن الأعشاب",
+  "forYouTitle": "من أجلك",
+  "searchResultsTitle": "نتائج البحث",
+  "noResults": "لا توجد نتائج",
+
+
+
+
+  "searchStartTyping": "ابدأ بالكتابة للبحث عن الأعشاب",
+  "searchResultPlaceholder": "نتيجة بحث مؤقتة"
 
 
 

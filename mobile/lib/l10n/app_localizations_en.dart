@@ -252,4 +252,98 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get resetPasswordEmailSent =>
       'A password reset link has been sent to your email.';
+
+  @override
+  String get appTitle => 'Abukaf Herbs';
+
+  @override
+  String get navHome => 'Home';
+
+  @override
+  String get navOrders => 'Orders';
+
+  @override
+  String get navProfile => 'Profile';
+
+  @override
+  String get categoriesTitle => 'Categories';
+
+  @override
+  String get ordersTitle => 'My Orders';
+
+  @override
+  String get profileTitle => 'Profile';
+
+  @override
+  String get ordersPlaceholder => 'Orders Page (Later)';
+
+  @override
+  String get profilePlaceholder => 'Profile Page (Later)';
+
+  @override
+  String get categoryProductsTitle => 'Products';
+
+  @override
+  String categoryProductsSubtitle(String categoryName) {
+    return 'Products of $categoryName';
+  }
+
+  @override
+  String get catHerbs => 'Herbs';
+
+  @override
+  String get catSpices => 'Spices';
+
+  @override
+  String get catOils => 'Oils';
+
+  @override
+  String get catHoney => 'Honey';
+
+  @override
+  String get catCosmetics => 'Cosmetics';
+
+  @override
+  String get catBestSellers => 'Best Sellers';
+
+  @override
+  String get catBundles => 'Bundles';
+
+  @override
+  String get searchHint => 'Search herbs';
+
+  @override
+  String helloUser(Object name) {
+    return 'Hello, $name';
+  }
+
+  @override
+  String get ourPicks => 'Our Picks';
+
+  @override
+  String get settings => 'Settings';
+
+  @override
+  String get aboutUs => 'About us';
+
+  @override
+  String get logout => 'Logout';
+
+  @override
+  String get guest => 'Guest';
+
+  @override
+  String get forYouTitle => 'For you';
+
+  @override
+  String get searchResultsTitle => 'Search results';
+
+  @override
+  String get noResults => 'No results';
+
+  @override
+  String get searchStartTyping => 'Start typing to search herbs';
+
+  @override
+  String get searchResultPlaceholder => 'Temporary search result';
 }

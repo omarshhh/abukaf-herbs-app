@@ -55,3 +55,10 @@ flutter:
     - assets/images/logo.png
     - assets/images/splash.png
     - assets/images/user_icon.png
+    - assets/categories/herbs.png
+    - assets/categories/spices.png
+    - assets/categories/oils.png
+    - assets/categories/honey.png
+    - assets/categories/cosmetics.png
+    - assets/categories/bundles.png
+    - assets/categories/best_sellers.png

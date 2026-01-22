@@ -250,4 +250,98 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get resetPasswordEmailSent =>
       'تم إرسال رابط إعادة التعيين إلى بريدك الإلكتروني.';
+
+  @override
+  String get appTitle => 'أبوكاف للأعشاب';
+
+  @override
+  String get navHome => 'الرئيسية';
+
+  @override
+  String get navOrders => 'الطلبات';
+
+  @override
+  String get navProfile => 'حسابي';
+
+  @override
+  String get categoriesTitle => 'الفئات';
+
+  @override
+  String get ordersTitle => 'طلباتي';
+
+  @override
+  String get profileTitle => 'الملف الشخصي';
+
+  @override
+  String get ordersPlaceholder => 'صفحة الطلبات (لاحقًا)';
+
+  @override
+  String get profilePlaceholder => 'صفحة الحساب (لاحقًا)';
+
+  @override
+  String get categoryProductsTitle => 'المنتجات';
+
+  @override
+  String categoryProductsSubtitle(String categoryName) {
+    return 'منتجات فئة $categoryName';
+  }
+
+  @override
+  String get catHerbs => 'أعشاب';
+
+  @override
+  String get catSpices => 'بهارات';
+
+  @override
+  String get catOils => 'زيوت';
+
+  @override
+  String get catHoney => 'عسل';
+
+  @override
+  String get catCosmetics => 'مستحضرات تجميل';
+
+  @override
+  String get catBestSellers => 'الأكثر مبيعًا';
+
+  @override
+  String get catBundles => 'البكجات';
+
+  @override
+  String get searchHint => 'ابحث عن الأعشاب';
+
+  @override
+  String helloUser(Object name) {
+    return 'مرحباً، $name';
+  }
+
+  @override
+  String get ourPicks => 'اخترنالك';
+
+  @override
+  String get settings => 'الإعدادات';
+
+  @override
+  String get aboutUs => 'من نحن';
+
+  @override
+  String get logout => 'تسجيل الخروج';
+
+  @override
+  String get guest => 'زائر';
+
+  @override
+  String get forYouTitle => 'من أجلك';
+
+  @override
+  String get searchResultsTitle => 'نتائج البحث';
+
+  @override
+  String get noResults => 'لا توجد نتائج';
+
+  @override
+  String get searchStartTyping => 'ابدأ بالكتابة للبحث عن الأعشاب';
+
+  @override
+  String get searchResultPlaceholder => 'نتيجة بحث مؤقتة';
 }

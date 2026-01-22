@@ -104,11 +104,70 @@
 
   "resetPasswordSubtitle": "Enter your email and we’ll send you a link to reset your password.",
   "resetPasswordSendButton": "Send reset link",
-  "resetPasswordEmailSent": "A password reset link has been sent to your email."
+  "resetPasswordEmailSent": "A password reset link has been sent to your email.",
 
 
 
 
+
+
+
+
+
+
+
+   "appTitle": "Abukaf Herbs",
+  "navHome": "Home",
+  "navOrders": "Orders",
+  "navProfile": "Profile",
+
+  "categoriesTitle": "Categories",
+  "ordersTitle": "My Orders",
+  "profileTitle": "Profile",
+
+  "ordersPlaceholder": "Orders Page (Later)",
+  "profilePlaceholder": "Profile Page (Later)",
+
+  "categoryProductsTitle": "Products",
+  "categoryProductsSubtitle": "Products of {categoryName}",
+  "@categoryProductsSubtitle": {
+    "placeholders": {
+      "categoryName": { "type": "String" }
+    }
+  },
+
+  "catHerbs": "Herbs",
+  "catSpices": "Spices",
+  "catOils": "Oils",
+  "catHoney": "Honey",
+  "catCosmetics": "Cosmetics",
+  "catBestSellers": "Best Sellers",
+  "catBundles": "Bundles",
+
+
+
+  "searchHint": "Search herbs",
+  "helloUser": "Hello, {name}",
+  "@helloUser": { "placeholders": { "name": {} } },
+  "ourPicks": "Our Picks",
+  "settings": "Settings",
+  "aboutUs": "About us",
+  "logout": "Logout",
+  "guest": "Guest",
+
+
+
+
+
+  "searchHint": "Search herbs",
+  "forYouTitle": "For you",
+  "searchResultsTitle": "Search results",
+  "noResults": "No results",
+
+
+
+  "searchStartTyping": "Start typing to search herbs",
+  "searchResultPlaceholder": "Temporary search result"
 
 
 
