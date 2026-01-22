@@ -14,10 +14,17 @@ class ProductImagePicker extends StatelessWidget {
     required this.valueBytes,
     required this.valueFileName,
     required this.onChanged,
+
+    // ✅ NEW
+    this.valueUrl,
   });
 
   final Uint8List? valueBytes;
   final String? valueFileName;
+
+  // ✅ NEW: show existing stored image when editing
+  final String? valueUrl;
+
   final ValueChanged<PickedImage?> onChanged;
 
   Future<void> _pick(BuildContext context) async {
@@ -38,6 +45,38 @@ class ProductImagePicker extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
 
+    final hasBytes = valueBytes != null;
+    final hasUrl = (valueUrl ?? '').trim().isNotEmpty;
+
+    Widget preview;
+    if (hasBytes) {
+      preview = Image.memory(valueBytes!, fit: BoxFit.cover);
+    } else if (hasUrl) {
+      preview = Image.network(
+        valueUrl!,
+        fit: BoxFit.cover,
+        errorBuilder: (_, __, ___) => Center(
+          child: Icon(
+            Icons.broken_image_outlined,
+            size: 44,
+            color: cs.primary.withOpacity(0.6),
+          ),
+        ),
+        loadingBuilder: (context, child, progress) {
+          if (progress == null) return child;
+          return const Center(child: CircularProgressIndicator());
+        },
+      );
+    } else {
+      preview = Center(
+        child: Icon(
+          Icons.image_outlined,
+          size: 44,
+          color: cs.primary.withOpacity(0.6),
+        ),
+      );
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -50,15 +89,7 @@ class ProductImagePicker extends StatelessWidget {
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(16),
-            child: valueBytes != null
-                ? Image.memory(valueBytes!, fit: BoxFit.cover)
-                : Center(
-                    child: Icon(
-                      Icons.image_outlined,
-                      size: 44,
-                      color: cs.primary.withOpacity(0.6),
-                    ),
-                  ),
+            child: preview,
           ),
         ),
         const SizedBox(height: 10),
@@ -66,7 +97,7 @@ class ProductImagePicker extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                valueFileName == null || valueFileName!.isEmpty
+                (valueFileName == null || valueFileName!.isEmpty)
                     ? 'No image selected'
                     : valueFileName!,
                 maxLines: 1,

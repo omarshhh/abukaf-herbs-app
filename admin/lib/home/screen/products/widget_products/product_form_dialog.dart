@@ -31,6 +31,10 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
   late final TextEditingController _prepArCtrl;
   late final TextEditingController _prepEnCtrl;
 
+  // ✅ Short desc (AR/EN)
+  late final TextEditingController _shortDescArCtrl;
+  late final TextEditingController _shortDescEnCtrl;
+
   // Numbers
   late final TextEditingController _minCtrl;
   late final TextEditingController _maxCtrl;
@@ -45,15 +49,16 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
   ProductUnit _unit = ProductUnit.gram;
   bool _isActive = true;
 
+  bool _forYou = false;
+
   static const _categoryItems = <DropdownMenuItem<String>>[
-    DropdownMenuItem(value: 'herbs', child: Text('Herbs')),
-    DropdownMenuItem(value: 'spices', child: Text('Spices')),
-    DropdownMenuItem(value: 'oils', child: Text('Oils')),
-    DropdownMenuItem(value: 'honey', child: Text('Honey')),
-    DropdownMenuItem(value: 'cosmetics', child: Text('Cosmetics')),
-    DropdownMenuItem(value: 'best_sellers', child: Text('Best Sellers')),
-    DropdownMenuItem(value: 'bundles', child: Text('Bundles')),
-    DropdownMenuItem(value: 'our_picks', child: Text('Our Picks')),
+    DropdownMenuItem(value: 'herbs', child: Text('أعشاب')),
+    DropdownMenuItem(value: 'spices', child: Text('بهارات')),
+    DropdownMenuItem(value: 'oils', child: Text('زيوت')),
+    DropdownMenuItem(value: 'honey', child: Text('عسل')),
+    DropdownMenuItem(value: 'cosmetics', child: Text('مستحضرات تجميل')),
+    DropdownMenuItem(value: 'best_sellers', child: Text('الأكثر مبيعاً')),
+    DropdownMenuItem(value: 'bundles', child: Text('البكجات')),
   ];
 
   @override
@@ -63,7 +68,6 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
 
     _categoryId = p?.categoryId ?? 'herbs';
 
-    // ✅ Fallback: old docs -> use old single-language fields.
     _nameArCtrl = TextEditingController(text: p?.nameAr ?? p?.name ?? '');
     _nameEnCtrl = TextEditingController(text: p?.nameEn ?? '');
 
@@ -76,6 +80,10 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
       text: p?.preparationAr ?? p?.preparation ?? '',
     );
     _prepEnCtrl = TextEditingController(text: p?.preparationEn ?? '');
+
+    _forYou = p?.forYou ?? false;
+    _shortDescArCtrl = TextEditingController(text: p?.shortDescAr ?? '');
+    _shortDescEnCtrl = TextEditingController(text: p?.shortDescEn ?? '');
 
     _minCtrl = TextEditingController(text: (p?.minQty ?? 1).toString());
     _maxCtrl = TextEditingController(text: (p?.maxQty ?? 50).toString());
@@ -97,7 +105,8 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
     _benefitEnCtrl.dispose();
     _prepArCtrl.dispose();
     _prepEnCtrl.dispose();
-
+    _shortDescArCtrl.dispose();
+    _shortDescEnCtrl.dispose();
     _minCtrl.dispose();
     _maxCtrl.dispose();
     _stepCtrl.dispose();
@@ -105,8 +114,15 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
     super.dispose();
   }
 
-  String? _requiredText(String? v) {
-    if (v == null || v.trim().isEmpty) return 'Required';
+  String? _requiredTextAr(String? v) {
+    if (v == null || v.trim().isEmpty) return 'هذا الحقل مطلوب';
+    return null;
+  }
+
+  String? _requiredShortAr(String? v) {
+    final s = (v ?? '').trim();
+    if (s.isEmpty) return 'هذا الحقل مطلوب';
+    if (s.length < 10) return 'قصير جداً (الحد الأدنى 10 أحرف)';
     return null;
   }
 
@@ -116,7 +132,6 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
   }
 
   void _submit() {
-    // ✅ Will NOT pass unless all required validators are satisfied
     if (!(_formKey.currentState?.validate() ?? false)) return;
 
     final now = DateTime.now();
@@ -130,22 +145,27 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
     final prepAr = _prepArCtrl.text.trim();
     final prepEn = _prepEnCtrl.text.trim();
 
+    final shortAr = _shortDescArCtrl.text.trim();
+    final shortEn = _shortDescEnCtrl.text.trim();
+
     final product = HerbProduct(
       id: widget.initial?.id ?? 'temp',
       categoryId: _categoryId,
 
-      // ✅ backward fields filled from AR
       name: nameAr,
       benefit: benefitAr,
       preparation: prepAr,
 
-      // ✅ bilingual fields
       nameAr: nameAr,
       nameEn: nameEn,
       benefitAr: benefitAr,
       benefitEn: benefitEn,
       preparationAr: prepAr,
       preparationEn: prepEn,
+
+      forYou: _forYou,
+      shortDescAr: shortAr,
+      shortDescEn: shortEn,
 
       unit: _unit,
       minQty: _toDouble(_minCtrl.text, fallback: 0),
@@ -157,7 +177,6 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
 
       imageUrl: widget.initial?.imageUrl,
       imageFileName: _imageFileName,
-
       imageBytes: _imageBytes,
     );
 
@@ -169,7 +188,7 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
     final isEdit = widget.initial != null;
 
     return AlertDialog(
-      title: Text(isEdit ? 'Edit Product' : 'Add Product'),
+      title: Text(isEdit ? 'تعديل منتج' : 'إضافة منتج'),
       content: SizedBox(
         width: 760,
         child: Form(
@@ -180,6 +199,7 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
                 ProductImagePicker(
                   valueBytes: _imageBytes,
                   valueFileName: _imageFileName,
+                  valueUrl: widget.initial?.imageUrl,
                   onChanged: (picked) {
                     setState(() {
                       _imageBytes = picked?.bytes;
@@ -189,19 +209,16 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
                 ),
                 const SizedBox(height: 14),
 
-                // Category + Name AR
+                // الفئة + اسم عربي
                 Row(
                   children: [
                     Expanded(
                       child: DropdownButtonFormField<String>(
                         value: _categoryId,
                         items: _categoryItems,
-                        onChanged: (v) => setState(() {
-                          _categoryId = v ?? 'herbs';
-                        }),
-                        decoration: const InputDecoration(
-                          labelText: 'Category',
-                        ),
+                        onChanged: (v) =>
+                            setState(() => _categoryId = v ?? 'herbs'),
+                        decoration: const InputDecoration(labelText: 'الفئة'),
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -209,9 +226,9 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
                       child: TextFormField(
                         controller: _nameArCtrl,
                         decoration: const InputDecoration(
-                          labelText: 'Herb name (AR)',
+                          labelText: 'اسم المنتج (عربي)',
                         ),
-                        validator: _requiredText,
+                        validator: _requiredTextAr,
                       ),
                     ),
                   ],
@@ -219,18 +236,19 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
 
                 const SizedBox(height: 12),
 
-                // ✅ Name EN (REQUIRED)
+                // اسم إنجليزي (مطلوب)
                 TextFormField(
                   controller: _nameEnCtrl,
                   decoration: const InputDecoration(
-                    labelText: 'Herb name (EN)',
+                    labelText: 'اسم المنتج (إنجليزي)',
                   ),
-                  validator: _requiredText,
+                  validator: _requiredTextAr,
+                  textDirection: TextDirection.ltr,
                 ),
 
                 const SizedBox(height: 12),
 
-                // Unit + Active
+                // الوحدة + حالة الظهور
                 Row(
                   children: [
                     Expanded(
@@ -239,28 +257,28 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
                         items: const [
                           DropdownMenuItem(
                             value: ProductUnit.gram,
-                            child: Text('Gram (g)'),
+                            child: Text('غرام (g)'),
                           ),
                           DropdownMenuItem(
                             value: ProductUnit.kilogram,
-                            child: Text('Kilogram (kg)'),
+                            child: Text('كيلوغرام (kg)'),
                           ),
                           DropdownMenuItem(
                             value: ProductUnit.ml,
-                            child: Text('Milliliter (ml)'),
+                            child: Text('مل (ml)'),
                           ),
                           DropdownMenuItem(
                             value: ProductUnit.liter,
-                            child: Text('Liter (L)'),
+                            child: Text('لتر (L)'),
                           ),
                           DropdownMenuItem(
                             value: ProductUnit.piece,
-                            child: Text('Piece'),
+                            child: Text('قطعة'),
                           ),
                         ],
                         onChanged: (v) =>
                             setState(() => _unit = v ?? ProductUnit.gram),
-                        decoration: const InputDecoration(labelText: 'Unit'),
+                        decoration: const InputDecoration(labelText: 'الوحدة'),
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -268,8 +286,48 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
                       child: SwitchListTile.adaptive(
                         value: _isActive,
                         onChanged: (v) => setState(() => _isActive = v),
-                        title: const Text('Active (Visible in mobile)'),
+                        title: const Text('مرئي في تطبيق الموبايل'),
                         contentPadding: EdgeInsets.zero,
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 6),
+
+                // اخترنالك
+                SwitchListTile.adaptive(
+                  value: _forYou,
+                  onChanged: (v) => setState(() => _forYou = v),
+                  title: const Text('عرض ضمن "اخترنالك"'),
+                  contentPadding: EdgeInsets.zero,
+                ),
+
+                const SizedBox(height: 12),
+
+                // وصف قصير عربي/إنجليزي (مطلوب)
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: _shortDescArCtrl,
+                        maxLines: 2,
+                        decoration: const InputDecoration(
+                          labelText: 'وصف قصير (عربي)',
+                        ),
+                        validator: _requiredShortAr,
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: TextFormField(
+                        controller: _shortDescEnCtrl,
+                        maxLines: 2,
+                        decoration: const InputDecoration(
+                          labelText: 'وصف قصير (إنجليزي)',
+                        ),
+                        validator: _requiredShortAr,
+                        textDirection: TextDirection.ltr,
                       ),
                     ),
                   ],
@@ -277,7 +335,7 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
 
                 const SizedBox(height: 12),
 
-                // Qty fields
+                // الكميات
                 Row(
                   children: [
                     Expanded(
@@ -287,11 +345,13 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
                           decimal: true,
                         ),
                         inputFormatters: [_decimalInput],
-                        decoration: const InputDecoration(labelText: 'Min qty'),
+                        decoration: const InputDecoration(
+                          labelText: 'الحد الأدنى للكمية',
+                        ),
                         validator: (v) {
                           final x = double.tryParse((v ?? '').trim());
-                          if (x == null) return 'Invalid number';
-                          if (x < 0) return 'Must be >= 0';
+                          if (x == null) return 'رقم غير صالح';
+                          if (x < 0) return 'يجب أن يكون >= 0';
                           return null;
                         },
                       ),
@@ -304,11 +364,13 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
                           decimal: true,
                         ),
                         inputFormatters: [_decimalInput],
-                        decoration: const InputDecoration(labelText: 'Max qty'),
+                        decoration: const InputDecoration(
+                          labelText: 'الحد الأعلى للكمية',
+                        ),
                         validator: (v) {
                           final x = double.tryParse((v ?? '').trim());
-                          if (x == null) return 'Invalid number';
-                          if (x < 0) return 'Must be >= 0';
+                          if (x == null) return 'رقم غير صالح';
+                          if (x < 0) return 'يجب أن يكون >= 0';
                           return null;
                         },
                       ),
@@ -322,12 +384,12 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
                         ),
                         inputFormatters: [_decimalInput],
                         decoration: const InputDecoration(
-                          labelText: 'Step qty',
+                          labelText: 'قيمة الزيادة',
                         ),
                         validator: (v) {
                           final x = double.tryParse((v ?? '').trim());
-                          if (x == null) return 'Invalid number';
-                          if (x <= 0) return 'Must be > 0';
+                          if (x == null) return 'رقم غير صالح';
+                          if (x <= 0) return 'يجب أن يكون > 0';
                           return null;
                         },
                       ),
@@ -337,7 +399,7 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
 
                 const SizedBox(height: 12),
 
-                // Price (required already)
+                // السعر
                 TextFormField(
                   controller: _priceCtrl,
                   keyboardType: const TextInputType.numberWithOptions(
@@ -345,21 +407,21 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
                   ),
                   inputFormatters: [_decimalInput],
                   decoration: const InputDecoration(
-                    labelText: 'Unit price (JD)',
+                    labelText: 'سعر الوحدة (دينار)',
                   ),
                   validator: (v) {
                     final s = (v ?? '').trim();
-                    if (s.isEmpty) return 'Required';
+                    if (s.isEmpty) return 'هذا الحقل مطلوب';
                     final x = double.tryParse(s);
-                    if (x == null) return 'Invalid number';
-                    if (x < 0) return 'Must be >= 0';
+                    if (x == null) return 'رقم غير صالح';
+                    if (x < 0) return 'يجب أن يكون >= 0';
                     return null;
                   },
                 ),
 
                 const SizedBox(height: 12),
 
-                // ✅ Benefit AR/EN (BOTH REQUIRED)
+                // الفوائد
                 Row(
                   children: [
                     Expanded(
@@ -367,9 +429,9 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
                         controller: _benefitArCtrl,
                         maxLines: 3,
                         decoration: const InputDecoration(
-                          labelText: 'Benefit (AR)',
+                          labelText: 'الفوائد (عربي)',
                         ),
-                        validator: _requiredText,
+                        validator: _requiredTextAr,
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -378,9 +440,10 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
                         controller: _benefitEnCtrl,
                         maxLines: 3,
                         decoration: const InputDecoration(
-                          labelText: 'Benefit (EN)',
+                          labelText: 'الفوائد (إنجليزي)',
                         ),
-                        validator: _requiredText,
+                        validator: _requiredTextAr,
+                        textDirection: TextDirection.ltr,
                       ),
                     ),
                   ],
@@ -388,7 +451,7 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
 
                 const SizedBox(height: 12),
 
-                // ✅ Preparation AR/EN (BOTH REQUIRED)
+                // طريقة الاستخدام
                 Row(
                   children: [
                     Expanded(
@@ -396,9 +459,9 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
                         controller: _prepArCtrl,
                         maxLines: 3,
                         decoration: const InputDecoration(
-                          labelText: 'Preparation (AR)',
+                          labelText: 'طريقة الاستخدام (عربي)',
                         ),
-                        validator: _requiredText,
+                        validator: _requiredTextAr,
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -407,9 +470,10 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
                         controller: _prepEnCtrl,
                         maxLines: 3,
                         decoration: const InputDecoration(
-                          labelText: 'Preparation (EN)',
+                          labelText: 'طريقة الاستخدام (إنجليزي)',
                         ),
-                        validator: _requiredText,
+                        validator: _requiredTextAr,
+                        textDirection: TextDirection.ltr,
                       ),
                     ),
                   ],
@@ -422,11 +486,11 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
       actions: [
         OutlinedButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel'),
+          child: const Text('إلغاء'),
         ),
         ElevatedButton(
           onPressed: _submit,
-          child: Text(isEdit ? 'Save' : 'Add'),
+          child: Text(isEdit ? 'حفظ' : 'إضافة'),
         ),
       ],
     );

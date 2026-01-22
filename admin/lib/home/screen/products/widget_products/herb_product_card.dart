@@ -18,16 +18,43 @@ class HerbProductCard extends StatelessWidget {
   String _unitLabel(ProductUnit u) {
     switch (u) {
       case ProductUnit.gram:
-        return 'g';
+        return 'غ';
       case ProductUnit.kilogram:
-        return 'kg';
+        return 'كغ';
       case ProductUnit.ml:
-        return 'ml';
+        return 'مل';
       case ProductUnit.liter:
-        return 'L';
+        return 'لتر';
       case ProductUnit.piece:
-        return 'piece';
+        return 'قطعة';
     }
+  }
+
+  String _categoryLabelAr(String id) {
+    switch (id) {
+      case 'herbs':
+        return 'أعشاب';
+      case 'spices':
+        return 'بهارات';
+      case 'oils':
+        return 'زيوت';
+      case 'honey':
+        return 'عسل';
+      case 'cosmetics':
+        return 'مستحضرات تجميل';
+      case 'best_sellers':
+        return 'الأكثر مبيعاً';
+      case 'bundles':
+        return 'البكجات';
+      default:
+        return id;
+    }
+  }
+
+  String _fmtQty(double v) {
+    final asInt = v.toInt().toDouble() == v;
+    if (asInt) return v.toInt().toString();
+    return v.toStringAsFixed(3).replaceFirst(RegExp(r'\.?0+$'), '');
   }
 
   Widget _buildImage(BuildContext context) {
@@ -36,22 +63,16 @@ class HerbProductCard extends StatelessWidget {
     final url = (product.imageUrl ?? '').trim();
     if (url.isNotEmpty) {
       return Image.network(
-        product.imageUrl!,
+        url,
         fit: BoxFit.cover,
-        width: 80,
-        height: 80,
-        loadingBuilder: (context, child, loadingProgress) {
-          if (loadingProgress == null) return child;
+        width: 86,
+        height: 86,
+        loadingBuilder: (context, child, progress) {
+          if (progress == null) return child;
           return const Center(child: CircularProgressIndicator(strokeWidth: 2));
         },
-        errorBuilder: (context, error, stackTrace) {
-          debugPrint('Image load error: $error');
-          return const Icon(
-            Icons.image_not_supported,
-            size: 40,
-            color: Colors.red,
-          );
-        },
+        errorBuilder: (_, __, ___) =>
+            Icon(Icons.image_not_supported, size: 40, color: cs.error),
       );
     }
 
@@ -61,8 +82,8 @@ class HerbProductCard extends StatelessWidget {
 
     return Icon(
       Icons.image_outlined,
-      color: cs.primary.withOpacity(0.6),
-      size: 30,
+      color: cs.primary.withOpacity(0.65),
+      size: 32,
     );
   }
 
@@ -70,116 +91,205 @@ class HerbProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
 
-    final statusText = product.isActive ? 'Active (Visible)' : 'Hidden';
-    final statusColor = product.isActive ? cs.primary : cs.error;
-
-    final titleAr = (product.nameAr).trim().isNotEmpty
+    final titleAr = product.nameAr.trim().isNotEmpty
         ? product.nameAr.trim()
         : product.name.trim();
 
-    final titleEn = product.nameEn.trim();
+    final shortAr = product.shortDescAr.trim();
+    final catAr = _categoryLabelAr(product.categoryId);
 
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Row(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(14),
-              child: Container(
-                width: 86,
-                height: 86,
-                color: cs.primary.withOpacity(0.08),
-                child: _buildImage(context),
+    final statusText = product.isActive ? 'مُفعّل' : 'مُخفى';
+    final statusColor = product.isActive ? cs.primary : cs.error;
+
+    final unitText = _unitLabel(product.unit);
+
+    final priceText = '${product.unitPrice.toStringAsFixed(3)} د.أ / $unitText';
+
+    final minTxt = _fmtQty(product.minQty);
+    final maxTxt = _fmtQty(product.maxQty);
+    final stepTxt = _fmtQty(product.stepQty);
+
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Card(
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(18),
+          side: BorderSide(color: cs.outlineVariant.withOpacity(0.6)),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Container(
+                  width: 90,
+                  height: 90,
+                  color: cs.primary.withOpacity(0.06),
+                  child: _buildImage(context),
+                ),
               ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // ✅ Title AR (fallback to old name)
-                  Text(
-                    titleAr,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w900,
+              const SizedBox(width: 12),
+
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            titleAr,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.titleMedium
+                                ?.copyWith(fontWeight: FontWeight.w900),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        _pill(
+                          context,
+                          text: statusText,
+                          icon: product.isActive
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: statusColor,
+                        ),
+                        if (product.forYou) ...[
+                          const SizedBox(width: 8),
+                          _pill(
+                            context,
+                            text: 'اخترنالك',
+                            icon: Icons.star_rounded,
+                            color: cs.tertiary,
+                          ),
+                        ],
+                      ],
                     ),
-                  ),
 
-                  // ✅ Subtitle EN if exists
-                  if (titleEn.isNotEmpty) ...[
-                    const SizedBox(height: 2),
-                    Text(
-                      titleEn,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: cs.onSurface.withOpacity(0.60),
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-
-                  const SizedBox(height: 6),
-
-                  // ✅ Price with 3 decimals + JD
-                  Text(
-                    'Category: ${product.categoryId}  •  '
-                    '${product.unitPrice.toStringAsFixed(3)} JD / ${_unitLabel(product.unit)}',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: cs.onSurface.withOpacity(0.7),
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-
-                  const SizedBox(height: 8),
-
-                  Wrap(
-                    spacing: 8,
-                    children: [
-                      _chip(context, text: statusText, color: statusColor),
-                    ],
-                  ),
-
-                  const Spacer(),
-
-                  Row(
-                    children: [
-                      OutlinedButton(
-                        onPressed: onDetails,
-                        child: const Text('Details'),
-                      ),
-                      const SizedBox(width: 8),
-                      ElevatedButton(
-                        onPressed: onEdit,
-                        child: const Text('Edit'),
-                      ),
-                      const SizedBox(width: 8),
-                      IconButton(
-                        tooltip: product.isActive ? 'Hide' : 'Activate',
-                        onPressed: onToggleActive,
-                        icon: Icon(
-                          product.isActive
-                              ? Icons.visibility_off
-                              : Icons.visibility,
+                    if (shortAr.isNotEmpty) ...[
+                      const SizedBox(height: 4),
+                      Text(
+                        shortAr,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: cs.onSurface.withOpacity(0.68),
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                     ],
-                  ),
-                ],
+
+                    const SizedBox(height: 8),
+
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            'الفئة: $catAr',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.bodyMedium
+                                ?.copyWith(
+                                  fontWeight: FontWeight.w800,
+                                  color: cs.onSurface.withOpacity(0.78),
+                                ),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 6,
+                          ),
+                          decoration: BoxDecoration(
+                            color: cs.primary.withOpacity(0.08),
+                            borderRadius: BorderRadius.circular(999),
+                            border: Border.all(
+                              color: cs.primary.withOpacity(0.18),
+                            ),
+                          ),
+                          child: Text(
+                            priceText,
+                            style: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(
+                                  fontWeight: FontWeight.w900,
+                                  color: cs.onSurface.withOpacity(0.9),
+                                ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        _metricChip(
+                          context,
+                          label: 'أقل كمية',
+                          value: '$minTxt $unitText',
+                          icon: Icons.arrow_downward_rounded,
+                        ),
+                        _metricChip(
+                          context,
+                          label: 'أكثر كمية',
+                          value: '$maxTxt $unitText',
+                          icon: Icons.arrow_upward_rounded,
+                        ),
+                        _metricChip(
+                          context,
+                          label: 'قيمة الزيادة',
+                          value: '$stepTxt $unitText',
+                          icon: Icons.exposure_plus_1_rounded,
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 12),
+
+                    Row(
+                      children: [
+                        OutlinedButton.icon(
+                          onPressed: onDetails,
+                          icon: const Icon(Icons.info_outline),
+                          label: const Text('تفاصيل'),
+                        ),
+                        const SizedBox(width: 8),
+                        ElevatedButton.icon(
+                          onPressed: onEdit,
+                          icon: const Icon(Icons.edit),
+                          label: const Text('تعديل'),
+                        ),
+                        const Spacer(),
+                        IconButton(
+                          tooltip: product.isActive ? 'إخفاء' : 'إظهار',
+                          onPressed: onToggleActive,
+                          icon: Icon(
+                            product.isActive
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _chip(
+  Widget _pill(
     BuildContext context, {
     required String text,
+    required IconData icon,
     required Color color,
   }) {
     return Container(
@@ -187,13 +297,67 @@ class HerbProductCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: color.withOpacity(0.10),
         borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: color.withOpacity(0.25)),
+        border: Border.all(color: color.withOpacity(0.22)),
       ),
-      child: Text(
-        text,
-        style: Theme.of(
-          context,
-        ).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w800),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 16, color: color.withOpacity(0.95)),
+          const SizedBox(width: 6),
+          Text(
+            text,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              fontWeight: FontWeight.w900,
+              color: color.withOpacity(0.95),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _metricChip(
+    BuildContext context, {
+    required String label,
+    required String value,
+    required IconData icon,
+  }) {
+    final cs = Theme.of(context).colorScheme;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+      decoration: BoxDecoration(
+        color: cs.surfaceContainerHighest.withOpacity(0.55),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: cs.outlineVariant.withOpacity(0.6)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 18, color: cs.onSurface.withOpacity(0.75)),
+          const SizedBox(width: 8),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                label,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: cs.onSurface.withOpacity(0.65),
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                value,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.w900,
+                  color: cs.onSurface.withOpacity(0.92),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

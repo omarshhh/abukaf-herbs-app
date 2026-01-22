@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:admin/home/screen/products/widget_products/products_repo.dart';
 import 'package:flutter/material.dart';
 
 import 'widget_products/herb_product_card.dart';
 import 'widget_products/herb_product_model.dart';
 import 'widget_products/product_form_dialog.dart';
+import 'widget_products/products_repository.dart';
 import 'widget_products/products_top_bar.dart';
 
 class ProductsManagementPage extends StatefulWidget {
@@ -16,7 +16,7 @@ class ProductsManagementPage extends StatefulWidget {
 }
 
 class _ProductsManagementPageState extends State<ProductsManagementPage> {
-  final _repo = ProductsRepo();
+  final _repo = ProductsRepository();
   final TextEditingController _searchCtrl = TextEditingController();
 
   Timer? _debounce;
@@ -53,7 +53,7 @@ class _ProductsManagementPageState extends State<ProductsManagementPage> {
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text('Failed to add product: $e')));
+      ).showSnackBar(SnackBar(content: Text('فشل إضافة المنتج: $e')));
     }
   }
 
@@ -66,7 +66,6 @@ class _ProductsManagementPageState extends State<ProductsManagementPage> {
 
     if (result == null) return;
 
-    // important: keep same id
     final updated = result.copyWith(id: editing.id);
 
     try {
@@ -75,94 +74,81 @@ class _ProductsManagementPageState extends State<ProductsManagementPage> {
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text('Failed to update product: $e')));
+      ).showSnackBar(SnackBar(content: Text('فشل تحديث المنتج: $e')));
     }
   }
 
   void _openDetails(HerbProduct p) {
-    final titleAr = p.nameAr.trim().isNotEmpty
-        ? p.nameAr.trim()
-        : p.name.trim();
+    final title = p.nameAr.trim().isNotEmpty ? p.nameAr.trim() : p.name.trim();
 
     showDialog<void>(
       context: context,
       builder: (_) => AlertDialog(
-        title: Text(titleAr),
+        title: Text(title),
         content: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _kv(context, 'Category', p.categoryId),
-              _kv(context, 'Visible in Mobile', p.isActive ? 'Yes' : 'No'),
+              _kv('الفئة', p.categoryId),
+              _kv('مرئي في الموبايل', p.isActive ? 'نعم' : 'لا'),
+              _kv('ضمن اخترنالك', p.forYou ? 'نعم' : 'لا'),
               const Divider(),
 
-              // ✅ Names
-              _kv(
-                context,
-                'Name (AR)',
-                p.nameAr.trim().isEmpty ? '-' : p.nameAr,
-              ),
-              _kv(
-                context,
-                'Name (EN)',
-                p.nameEn.trim().isEmpty ? '-' : p.nameEn,
-              ),
-
+              _kv('الاسم (عربي)', p.nameAr.trim().isEmpty ? '-' : p.nameAr),
+              _kv('الاسم (إنجليزي)', p.nameEn.trim().isEmpty ? '-' : p.nameEn),
               const Divider(),
 
-              // ✅ Benefit
               _kv(
-                context,
-                'Benefit (AR)',
+                'وصف قصير (عربي)',
+                p.shortDescAr.trim().isEmpty ? '-' : p.shortDescAr,
+              ),
+              const SizedBox(height: 8),
+              _kv(
+                'وصف قصير (إنجليزي)',
+                p.shortDescEn.trim().isEmpty ? '-' : p.shortDescEn,
+              ),
+              const Divider(),
+
+              _kv(
+                'الفوائد (عربي)',
                 p.benefitAr.trim().isEmpty ? '-' : p.benefitAr,
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 8),
               _kv(
-                context,
-                'Benefit (EN)',
+                'الفوائد (إنجليزي)',
                 p.benefitEn.trim().isEmpty ? '-' : p.benefitEn,
               ),
-
               const Divider(),
 
-              // ✅ Preparation
               _kv(
-                context,
-                'Preparation (AR)',
+                'طريقة الاستخدام (عربي)',
                 p.preparationAr.trim().isEmpty ? '-' : p.preparationAr,
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 8),
               _kv(
-                context,
-                'Preparation (EN)',
+                'طريقة الاستخدام (إنجليزي)',
                 p.preparationEn.trim().isEmpty ? '-' : p.preparationEn,
               ),
-
               const Divider(),
 
-              // Qty + Price
-              _kv(context, 'Min Qty', p.minQty.toString()),
-              _kv(context, 'Max Qty', p.maxQty.toString()),
-              _kv(context, 'Step Qty', p.stepQty.toString()),
-              _kv(
-                context,
-                'Unit Price',
-                '${p.unitPrice.toStringAsFixed(3)} JD',
-              ),
+              _kv('الحد الأدنى', p.minQty.toString()),
+              _kv('الحد الأعلى', p.maxQty.toString()),
+              _kv('قيمة الزيادة', p.stepQty.toString()),
+              _kv('سعر الوحدة', '${p.unitPrice.toStringAsFixed(3)} دينار'),
             ],
           ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Close'),
+            child: const Text('إغلاق'),
           ),
         ],
       ),
     );
   }
 
-  Widget _kv(BuildContext context, String k, String v) {
+  Widget _kv(String k, String v) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: RichText(
@@ -199,10 +185,10 @@ class _ProductsManagementPageState extends State<ProductsManagementPage> {
             const SizedBox(height: 16),
             Expanded(
               child: StreamBuilder<List<HerbProduct>>(
-                stream: _repo.watchProductsSearch(query: _query, limit: 50),
+                stream: _repo.streamProductsSearch(query: _query, limit: 50),
                 builder: (context, snap) {
                   if (snap.hasError) {
-                    return Center(child: Text('Error: ${snap.error}'));
+                    return Center(child: Text('خطأ: ${snap.error}'));
                   }
                   if (!snap.hasData) {
                     return const Center(child: CircularProgressIndicator());
@@ -212,7 +198,7 @@ class _ProductsManagementPageState extends State<ProductsManagementPage> {
                   if (list.isEmpty) {
                     return Center(
                       child: Text(
-                        'No products found.',
+                        'لا توجد منتجات.',
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                     );
@@ -245,11 +231,11 @@ class _ProductsManagementPageState extends State<ProductsManagementPage> {
                             onToggleActive: () async {
                               final next = !p.isActive;
                               try {
-                                await _repo.toggleActive(p.id, next);
+                                await _repo.setActive(p.id, next);
                               } catch (e) {
                                 if (!mounted) return;
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Failed: $e')),
+                                  SnackBar(content: Text('فشل التنفيذ: $e')),
                                 );
                               }
                             },

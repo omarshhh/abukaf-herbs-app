@@ -15,16 +15,16 @@ class DesignHome extends StatefulWidget {
 }
 
 class _DesignHomeState extends State<DesignHome> {
-  AdminSection _current = AdminSection.analytics; 
+  AdminSection _current = AdminSection.analytics;
 
   String _title(AdminSection s) {
     switch (s) {
       case AdminSection.analytics:
-        return 'Analytics';
+        return 'لوحة الإحصائيات';
       case AdminSection.orders:
-        return 'Orders Management';
+        return 'إدارة الطلبات';
       case AdminSection.products:
-        return 'Products Management';
+        return 'إدارة المنتجات';
     }
   }
 
@@ -50,7 +50,7 @@ class _DesignHomeState extends State<DesignHome> {
     return TextButton(
       onPressed: () => setState(() => _current = section),
       style: TextButton.styleFrom(
-        foregroundColor: selected ? cs.primary : cs.onSurface.withOpacity(0.7),
+        foregroundColor: selected ? cs.primary : cs.onSurface.withOpacity(0.75),
         textStyle: TextStyle(
           fontWeight: selected ? FontWeight.w900 : FontWeight.w800,
         ),
@@ -61,23 +61,26 @@ class _DesignHomeState extends State<DesignHome> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(_title(_current)),
-        actions: [
-          _navItem('Analytics', AdminSection.analytics),
-          _navItem('Orders', AdminSection.orders),
-          _navItem('Products', AdminSection.products),
-          const SizedBox(width: 12),
-          IconButton(
-            tooltip: 'Logout',
-            onPressed: _logout,
-            icon: const Icon(Icons.logout),
-          ),
-          const SizedBox(width: 8),
-        ],
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(_title(_current)),
+          actions: [
+            _navItem('الإحصائيات', AdminSection.analytics),
+            _navItem('الطلبات', AdminSection.orders),
+            _navItem('المنتجات', AdminSection.products),
+            const SizedBox(width: 12),
+            IconButton(
+              tooltip: 'تسجيل الخروج',
+              onPressed: _logout,
+              icon: const Icon(Icons.logout),
+            ),
+            const SizedBox(width: 8),
+          ],
+        ),
+        body: _page(_current),
       ),
-      body: _page(_current),
     );
   }
 }

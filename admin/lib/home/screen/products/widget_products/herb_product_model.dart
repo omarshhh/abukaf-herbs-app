@@ -13,18 +13,21 @@ class HerbProduct {
     required this.id,
     required this.categoryId,
 
-    // ✅ Backward compatible fields (kept)
     required this.name,
     required this.benefit,
     required this.preparation,
 
-    // ✅ New bilingual fields
     required this.nameAr,
     required this.nameEn,
     required this.benefitAr,
     required this.benefitEn,
     required this.preparationAr,
     required this.preparationEn,
+
+    // ✅ NEW (required)
+    required this.forYou,
+    required this.shortDescAr,
+    required this.shortDescEn,
 
     required this.unit,
     required this.minQty,
@@ -62,6 +65,11 @@ class HerbProduct {
   String preparationAr;
   String preparationEn;
 
+  /// ✅ NEW
+  bool forYou;
+  String shortDescAr;
+  String shortDescEn;
+
   ProductUnit unit;
   double minQty;
   double maxQty;
@@ -88,13 +96,18 @@ class HerbProduct {
     String? benefit,
     String? preparation,
 
-    // new
+    // new bilingual
     String? nameAr,
     String? nameEn,
     String? benefitAr,
     String? benefitEn,
     String? preparationAr,
     String? preparationEn,
+
+    // ✅ NEW
+    bool? forYou,
+    String? shortDescAr,
+    String? shortDescEn,
 
     ProductUnit? unit,
     double? minQty,
@@ -129,6 +142,11 @@ class HerbProduct {
       preparationAr: nextPrepAr,
       preparationEn: preparationEn ?? this.preparationEn,
 
+      // ✅ NEW
+      forYou: forYou ?? this.forYou,
+      shortDescAr: shortDescAr ?? this.shortDescAr,
+      shortDescEn: shortDescEn ?? this.shortDescEn,
+
       unit: unit ?? this.unit,
       minQty: minQty ?? this.minQty,
       maxQty: maxQty ?? this.maxQty,
@@ -148,6 +166,9 @@ class HerbProduct {
   /// We write bilingual fields + keep old fields for backward compatibility.
   Map<String, dynamic> toMap() {
     final arName = nameAr.trim();
+    final arShort = shortDescAr.trim();
+    final enShort = shortDescEn.trim();
+
     return {
       'categoryId': categoryId,
 
@@ -166,6 +187,10 @@ class HerbProduct {
       'benefitEn': benefitEn,
       'preparationAr': preparationAr,
       'preparationEn': preparationEn,
+
+      // ✅ NEW
+      'forYou': forYou,
+      'shortDesc': {'ar': arShort, 'en': enShort},
 
       'unit': unit.name,
       'minQty': minQty,
@@ -210,6 +235,15 @@ class HerbProduct {
         .toString();
     final prepEn = (map['preparationEn'] ?? '').toString();
 
+    // ✅ NEW: shortDesc map fallback
+    final sd = map['shortDesc'];
+    String shortAr = '';
+    String shortEn = '';
+    if (sd is Map) {
+      shortAr = (sd['ar'] ?? '').toString();
+      shortEn = (sd['en'] ?? '').toString();
+    }
+
     return HerbProduct(
       id: docId,
       categoryId: (map['categoryId'] ?? 'herbs').toString(),
@@ -226,6 +260,11 @@ class HerbProduct {
       benefitEn: benefitEn,
       preparationAr: prepAr,
       preparationEn: prepEn,
+
+      // ✅ NEW (fallback-safe)
+      forYou: (map['forYou'] ?? false) == true,
+      shortDescAr: shortAr,
+      shortDescEn: shortEn,
 
       unit: parsedUnit,
       minQty: toDouble(map['minQty'], fallback: 0),

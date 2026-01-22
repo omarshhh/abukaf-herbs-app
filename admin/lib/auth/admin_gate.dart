@@ -1,4 +1,5 @@
-import 'package:admin/home/design_home.dart';
+
+import 'package:admin/auth/device_gate.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -12,18 +13,18 @@ class AdminGate extends StatelessWidget {
     return email == _adminEmail;
   }
 
-
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
 
-  
     if (user == null) {
-      return const Scaffold(body: Center(child: Text('Not signed in')));
+      return const Scaffold(body: Center(child: Text('غير مسجل الدخول')));
     }
 
     if (_isAdmin(user)) {
-      return const DesignHome();
+      // ✅ بدل ما نروح مباشرة على DesignHome
+      // نمرّ على DeviceGate (منع الموبايل/الشاشات الضيقة)
+      return const DeviceGate();
     }
 
     return const _SignOutAndWait();
@@ -56,4 +57,3 @@ class _SignOutAndWaitState extends State<_SignOutAndWait> {
     return const Scaffold(body: Center(child: CircularProgressIndicator()));
   }
 }
-
