@@ -211,7 +211,31 @@
   "navCart": "Cart",
   "cartEmptyTitle": "Your cart is empty",
   "cartEmptySubtitle": "Add some products to start your order",
-  "startShopping": "Start shopping"
+  "startShopping": "Start shopping",
+
+
+
+
+  
+  "cartEmptyTitle": "Your cart is empty",
+  "cartEmptySubtitle": "Add items to your cart to see them here.",
+  "actionViewCart": "View Cart",
+  "orderSummaryTitle": "Order Summary",
+  "labelSubtotal": "Subtotal",
+  "labelDeliveryFee": "Delivery fee",
+  "labelGrandTotal": "Total",
+  "paymentMethodTitle": "Payment Method",
+  "paymentCODOnly": "Cash on delivery (only option for now)",
+  "actionCheckout": "Checkout",
+  "checkoutComingSoon": "Coming soon: checkout and location flow.",
+  "labelQty": "Qty",
+  "actionRemove": "Remove",
+
+
+  "actionShowMore": "Show more",
+  "actionShowLess": "Show less"
+
+
 
 
 

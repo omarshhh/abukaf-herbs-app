@@ -911,7 +911,7 @@ abstract class AppLocalizations {
   /// No description provided for @cartEmptySubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Add some products to start your order'**
+  /// **'Add items to your cart to see them here.'**
   String get cartEmptySubtitle;
 
   /// No description provided for @startShopping.
@@ -919,6 +919,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start shopping'**
   String get startShopping;
+
+  /// No description provided for @actionViewCart.
+  ///
+  /// In en, this message translates to:
+  /// **'View Cart'**
+  String get actionViewCart;
+
+  /// No description provided for @orderSummaryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Summary'**
+  String get orderSummaryTitle;
+
+  /// No description provided for @labelSubtotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Subtotal'**
+  String get labelSubtotal;
+
+  /// No description provided for @labelDeliveryFee.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivery fee'**
+  String get labelDeliveryFee;
+
+  /// No description provided for @labelGrandTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get labelGrandTotal;
+
+  /// No description provided for @paymentMethodTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Method'**
+  String get paymentMethodTitle;
+
+  /// No description provided for @paymentCODOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash on delivery (only option for now)'**
+  String get paymentCODOnly;
+
+  /// No description provided for @actionCheckout.
+  ///
+  /// In en, this message translates to:
+  /// **'Checkout'**
+  String get actionCheckout;
+
+  /// No description provided for @checkoutComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming soon: checkout and location flow.'**
+  String get checkoutComingSoon;
+
+  /// No description provided for @labelQty.
+  ///
+  /// In en, this message translates to:
+  /// **'Qty'**
+  String get labelQty;
+
+  /// No description provided for @actionRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get actionRemove;
+
+  /// No description provided for @actionShowMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Show more'**
+  String get actionShowMore;
+
+  /// No description provided for @actionShowLess.
+  ///
+  /// In en, this message translates to:
+  /// **'Show less'**
+  String get actionShowLess;
 }
 
 class _AppLocalizationsDelegate

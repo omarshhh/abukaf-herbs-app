@@ -6,6 +6,10 @@ import '../models/herb_product.dart';
 import '../products/herb_category_product_card.dart';
 import '../products/product_details_page.dart';
 
+import 'package:mobile/cart/cart_screen.dart';
+import 'package:mobile/cart/cart_controller.dart';
+import 'package:mobile/cart/cart_badge.dart';
+
 class CategoryProductsPage extends StatelessWidget {
   const CategoryProductsPage({
     super.key,
@@ -22,7 +26,21 @@ class CategoryProductsPage extends StatelessWidget {
     final repo = MobileProductsRepo();
 
     return Scaffold(
-      appBar: AppBar(title: Text(title), centerTitle: true),
+      appBar: AppBar(
+        title: Text(title),
+        centerTitle: true,
+        actions: [
+          CartIconButton(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const CartScreen()),
+              );
+            },
+          ),
+          const SizedBox(width: 6),
+        ],
+      ),
       body: StreamBuilder<List<HerbProduct>>(
         stream: repo.watchByCategory(categoryId: categoryId),
         builder: (context, snap) {
@@ -43,7 +61,7 @@ class CategoryProductsPage extends StatelessWidget {
             );
           }
 
-         return ListView.separated(
+          return ListView.separated(
             padding: const EdgeInsets.all(12),
             itemCount: list.length,
             separatorBuilder: (_, __) => const SizedBox(height: 10),
@@ -57,7 +75,9 @@ class CategoryProductsPage extends StatelessWidget {
                     MaterialPageRoute(
                       builder: (_) => ProductDetailsPage(
                         product: p,
-                        onAddToCart: (product, qty) async {},
+                        onAddToCart: (product, qty) async {
+                          CartController.I.addOrMerge(product, qty);
+                        },
                       ),
                     ),
                   );

@@ -1,12 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'widget_products/herb_product_card.dart';
 import 'widget_products/herb_product_model.dart';
 import 'widget_products/product_form_dialog.dart';
 import 'widget_products/products_repository.dart';
 import 'widget_products/products_top_bar.dart';
+
+import 'widget_products/checkout_settings_repository.dart';
+import 'widget_products/checkout_settings_dialog.dart';
 
 class ProductsManagementPage extends StatefulWidget {
   const ProductsManagementPage({super.key});
@@ -19,14 +23,23 @@ class _ProductsManagementPageState extends State<ProductsManagementPage> {
   final _repo = ProductsRepository();
   final TextEditingController _searchCtrl = TextEditingController();
 
+  late final CheckoutSettingsRepository _checkoutRepo;
+
   Timer? _debounce;
   String _liveQuery = '';
 
   String get _query => _liveQuery;
 
+  @override
+  void initState() {
+    super.initState();
+    _checkoutRepo = CheckoutSettingsRepository(FirebaseFirestore.instance);
+  }
+
   void _onSearchChanged(String v) {
     _debounce?.cancel();
     _debounce = Timer(const Duration(milliseconds: 300), () {
+      if (!mounted) return;
       setState(() => _liveQuery = v.trim().toLowerCase());
     });
   }
@@ -166,6 +179,36 @@ class _ProductsManagementPageState extends State<ProductsManagementPage> {
     );
   }
 
+  Future<void> _openShippingTaxDialog() async {
+    try {
+      final current = await _checkoutRepo.getSettings();
+      if (!mounted) return;
+
+      final saved = await showDialog<bool>(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => CheckoutSettingsDialog(
+          initial: current,
+          onSave: (updated) => _checkoutRepo.saveSettings(updated),
+        ),
+      );
+
+      if (!mounted) return;
+      if (saved == true) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('تم حفظ إعدادات التوصيل والضريبة بنجاح'),
+          ),
+        );
+      }
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('فشل فتح/حفظ إعدادات التوصيل والضريبة: $e')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -176,6 +219,7 @@ class _ProductsManagementPageState extends State<ProductsManagementPage> {
             ProductsTopBar(
               searchController: _searchCtrl,
               onSearchChanged: _onSearchChanged,
+              onShippingTaxPressed: _openShippingTaxDialog,
               onClear: () {
                 _searchCtrl.clear();
                 _onSearchChanged('');

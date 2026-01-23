@@ -210,7 +210,28 @@
   "navCart": "السلة",
   "cartEmptyTitle": "السلة فارغة",
   "cartEmptySubtitle": "أضف بعض المنتجات لبدء الطلب",
-  "startShopping": "ابدأ التسوق"
+  "startShopping": "ابدأ التسوق",
+
+
+
+
+  "cartEmptyTitle": "سلتك فارغة",
+  "cartEmptySubtitle": "أضف منتجات إلى السلة لتظهر هنا.",
+  "actionViewCart": "عرض السلة",
+  "orderSummaryTitle": "ملخص الطلب",
+  "labelSubtotal": "المجموع الفرعي",
+  "labelDeliveryFee": "رسوم التوصيل",
+  "labelGrandTotal": "الإجمالي",
+  "paymentMethodTitle": "طريقة الدفع",
+  "paymentCODOnly": "الدفع عند الاستلام (الخيار الوحيد حالياً)",
+  "actionCheckout": "إتمام الطلب",
+  "checkoutComingSoon": "قريباً: إتمام الطلب وربط الموقع.",
+  "labelQty": "الكمية",
+  "actionRemove": "حذف",
+
+
+  "actionShowMore": "إظهار المزيد",
+  "actionShowLess": "إخفاء"
 
 
 

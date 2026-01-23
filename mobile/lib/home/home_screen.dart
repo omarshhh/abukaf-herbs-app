@@ -7,6 +7,8 @@ import 'widget/home_header_sliver.dart';
 import 'widget/home_categories_grid_sliver.dart';
 import 'widget/home_search_sheet.dart';
 import 'package:mobile/cart/cart_screen.dart';
+import 'package:mobile/cart/cart_nav_icon.dart';
+
 
 
 class HomeScreen extends StatefulWidget {
@@ -48,8 +50,8 @@ class _HomeScreenState extends State<HomeScreen> {
             label: t.navOrders,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.shopping_cart_outlined),
-            selectedIcon: const Icon(Icons.shopping_cart),
+            icon: const CartNavIcon(icon: Icons.shopping_cart_outlined),
+            selectedIcon: const CartNavIcon(icon: Icons.shopping_cart),
             label: t.navCart,
           ),
         ],

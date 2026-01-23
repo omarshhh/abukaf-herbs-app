@@ -426,8 +426,47 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cartEmptyTitle => 'Your cart is empty';
 
   @override
-  String get cartEmptySubtitle => 'Add some products to start your order';
+  String get cartEmptySubtitle => 'Add items to your cart to see them here.';
 
   @override
   String get startShopping => 'Start shopping';
+
+  @override
+  String get actionViewCart => 'View Cart';
+
+  @override
+  String get orderSummaryTitle => 'Order Summary';
+
+  @override
+  String get labelSubtotal => 'Subtotal';
+
+  @override
+  String get labelDeliveryFee => 'Delivery fee';
+
+  @override
+  String get labelGrandTotal => 'Total';
+
+  @override
+  String get paymentMethodTitle => 'Payment Method';
+
+  @override
+  String get paymentCODOnly => 'Cash on delivery (only option for now)';
+
+  @override
+  String get actionCheckout => 'Checkout';
+
+  @override
+  String get checkoutComingSoon => 'Coming soon: checkout and location flow.';
+
+  @override
+  String get labelQty => 'Qty';
+
+  @override
+  String get actionRemove => 'Remove';
+
+  @override
+  String get actionShowMore => 'Show more';
+
+  @override
+  String get actionShowLess => 'Show less';
 }

@@ -421,11 +421,50 @@ class AppLocalizationsAr extends AppLocalizations {
   String get navCart => 'السلة';
 
   @override
-  String get cartEmptyTitle => 'السلة فارغة';
+  String get cartEmptyTitle => 'سلتك فارغة';
 
   @override
-  String get cartEmptySubtitle => 'أضف بعض المنتجات لبدء الطلب';
+  String get cartEmptySubtitle => 'أضف منتجات إلى السلة لتظهر هنا.';
 
   @override
   String get startShopping => 'ابدأ التسوق';
+
+  @override
+  String get actionViewCart => 'عرض السلة';
+
+  @override
+  String get orderSummaryTitle => 'ملخص الطلب';
+
+  @override
+  String get labelSubtotal => 'المجموع الفرعي';
+
+  @override
+  String get labelDeliveryFee => 'رسوم التوصيل';
+
+  @override
+  String get labelGrandTotal => 'الإجمالي';
+
+  @override
+  String get paymentMethodTitle => 'طريقة الدفع';
+
+  @override
+  String get paymentCODOnly => 'الدفع عند الاستلام (الخيار الوحيد حالياً)';
+
+  @override
+  String get actionCheckout => 'إتمام الطلب';
+
+  @override
+  String get checkoutComingSoon => 'قريباً: إتمام الطلب وربط الموقع.';
+
+  @override
+  String get labelQty => 'الكمية';
+
+  @override
+  String get actionRemove => 'حذف';
+
+  @override
+  String get actionShowMore => 'إظهار المزيد';
+
+  @override
+  String get actionShowLess => 'إخفاء';
 }

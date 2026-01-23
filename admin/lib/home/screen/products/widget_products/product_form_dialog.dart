@@ -19,10 +19,9 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
     RegExp(r'^\d*\.?\d{0,6}$'),
   );
 
-  // ========= منطقي لمتجر: اسم قصير، وصف متوسط، محتوى طويل =========
   static const int _maxName = 60;
   static const int _maxShort = 60;
-  static const int _maxLong = 700; // benefits + preparation
+  static const int _maxLong = 700; 
 
   final _formKey = GlobalKey<FormState>();
 
@@ -119,7 +118,6 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
     super.dispose();
   }
 
-  // ============ Validator موحد: required + min + max ============
   String? _requiredTextWithMax(String? v, int max, {int? min}) {
     final s = (v ?? '').trim();
     if (s.isEmpty) return 'هذا الحقل مطلوب';
@@ -215,7 +213,6 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
                 ),
                 const SizedBox(height: 14),
 
-                // الفئة + اسم عربي
                 Row(
                   children: [
                     Expanded(
@@ -248,7 +245,6 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
 
                 const SizedBox(height: 12),
 
-                // اسم إنجليزي (مطلوب)
                 TextFormField(
                   controller: _nameEnCtrl,
                   decoration: const InputDecoration(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/cart/cart_controller.dart';
+import 'package:mobile/cart/cart_screen.dart';
 import 'package:mobile/l10n/app_localizations.dart';
 
 import '../models/herb_product.dart';
@@ -11,6 +13,7 @@ class ProductDetailsPage extends StatefulWidget {
   });
 
   final HerbProduct product;
+
   final Future<void> Function(HerbProduct product, double qty) onAddToCart;
 
   @override
@@ -19,7 +22,7 @@ class ProductDetailsPage extends StatefulWidget {
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
   late double _qty;
-  String? _qtyHint; // يظهر فقط عند الوصول للحدود
+  String? _qtyHint;
 
   @override
   void initState() {
@@ -51,7 +54,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   double _toStepRounded(double v) {
     final p = widget.product;
     final step = p.stepQty <= 0 ? 1.0 : p.stepQty;
-    // تقريب بسيط لتفادي أرقام مثل 0.3000000004
     final k = (v / step).roundToDouble();
     return k * step;
   }
@@ -124,7 +126,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
     final prep = isRtl ? p.preparationAr.trim() : p.preparationEn.trim();
 
     final unit = _unitLabel(t, p.unit);
-    final total = p.unitPrice * _qty;
 
     final minQty = (p.minQty <= 0) ? 1.0 : p.minQty;
     final minPackPrice = p.unitPrice * minQty;
@@ -139,6 +140,17 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             expandedHeight: 310,
             title: Text(title, maxLines: 1, overflow: TextOverflow.ellipsis),
             actions: [
+              // سلة مع عداد
+              _CartAppBarButton(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const CartScreen()),
+                  );
+                },
+              ),
+
+              // شارة "For You"
               if (p.forYou)
                 Padding(
                   padding: const EdgeInsetsDirectional.only(end: 10),
@@ -228,91 +240,106 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
 
                   const SizedBox(height: 16),
 
-                  // ===== Quantity Selector (no explicit min/max text) =====
-                  _GlassCard(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
+                  // ===== Quantity Selector (يظهر فقط إذا المنتج ليس داخل السلة) =====
+                  AnimatedBuilder(
+                    animation: CartController.I,
+                    builder: (context, _) {
+                      final inCart = CartController.I.contains(p.id);
+                      if (inCart) return const SizedBox.shrink();
+
+                      final total = p.unitPrice * _qty;
+
+                      return _GlassCard(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            _QtyButton(
-                              icon: Icons.remove_rounded,
-                              onTap: () => _dec(t),
-                            ),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 12,
-                                  vertical: 12,
+                            Row(
+                              children: [
+                                _QtyButton(
+                                  icon: Icons.remove_rounded,
+                                  onTap: () => _dec(t),
                                 ),
-                                decoration: BoxDecoration(
-                                  color: cs.surface,
-                                  borderRadius: BorderRadius.circular(14),
-                                  border: Border.all(
-                                    color: cs.outlineVariant.withOpacity(0.6),
-                                  ),
-                                ),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        '${_fmt(_qty)} $unit',
-                                        textAlign: isRtl
-                                            ? TextAlign.right
-                                            : TextAlign.left,
-                                        style: theme.textTheme.titleMedium
-                                            ?.copyWith(
-                                              fontWeight: FontWeight.w900,
-                                            ),
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 12,
+                                      vertical: 12,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: cs.surface,
+                                      borderRadius: BorderRadius.circular(14),
+                                      border: Border.all(
+                                        color: cs.outlineVariant.withOpacity(
+                                          0.6,
+                                        ),
                                       ),
                                     ),
-                                    Text(
-                                      '${t.labelTotal}: ${total.toStringAsFixed(3)} ${t.currencyJOD}',
-                                      style: theme.textTheme.bodyMedium
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            '${_fmt(_qty)} $unit',
+                                            textAlign: isRtl
+                                                ? TextAlign.right
+                                                : TextAlign.left,
+                                            style: theme.textTheme.titleMedium
+                                                ?.copyWith(
+                                                  fontWeight: FontWeight.w900,
+                                                ),
+                                          ),
+                                        ),
+                                        Text(
+                                          '${t.labelTotal}: ${total.toStringAsFixed(3)} ${t.currencyJOD}',
+                                          style: theme.textTheme.bodyMedium
+                                              ?.copyWith(
+                                                fontWeight: FontWeight.w900,
+                                                color: cs.onSurface.withOpacity(
+                                                  0.75,
+                                                ),
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                _QtyButton(
+                                  icon: Icons.add_rounded,
+                                  onTap: () => _inc(t),
+                                ),
+                              ],
+                            ),
+
+                            if (_qtyHint != null) ...[
+                              const SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.info_outline_rounded,
+                                    size: 18,
+                                    color: cs.onSurface.withOpacity(0.65),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Expanded(
+                                    child: Text(
+                                      _qtyHint!,
+                                      style: theme.textTheme.bodySmall
                                           ?.copyWith(
-                                            fontWeight: FontWeight.w900,
+                                            fontWeight: FontWeight.w800,
                                             color: cs.onSurface.withOpacity(
-                                              0.75,
+                                              0.70,
                                             ),
                                           ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            _QtyButton(
-                              icon: Icons.add_rounded,
-                              onTap: () => _inc(t),
-                            ),
-                          ],
-                        ),
-
-                        if (_qtyHint != null) ...[
-                          const SizedBox(height: 10),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.info_outline_rounded,
-                                size: 18,
-                                color: cs.onSurface.withOpacity(0.65),
-                              ),
-                              const SizedBox(width: 8),
-                              Expanded(
-                                child: Text(
-                                  _qtyHint!,
-                                  style: theme.textTheme.bodySmall?.copyWith(
-                                    fontWeight: FontWeight.w800,
-                                    color: cs.onSurface.withOpacity(0.70),
                                   ),
-                                ),
+                                ],
                               ),
                             ],
-                          ),
-                        ],
-                      ],
-                    ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
 
                   const SizedBox(height: 14),
@@ -339,37 +366,163 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         ],
       ),
 
-      // ===== Bottom Add To Cart =====
+      // ===== Bottom Area: زر إضافة يتحول لStepper داخل السلة =====
       bottomNavigationBar: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
-          decoration: BoxDecoration(
-            color: cs.surface,
-            border: Border(
-              top: BorderSide(color: cs.outlineVariant.withOpacity(0.6)),
+        child: AnimatedBuilder(
+          animation: CartController.I,
+          builder: (context, _) {
+            final inCartNow = CartController.I.contains(p.id);
+            final qtyNow = CartController.I.getQty(p.id);
+
+            final step = (p.stepQty <= 0) ? 1.0 : p.stepQty;
+
+            final lineTotal = p.unitPrice * (inCartNow ? qtyNow : _qty);
+
+            return Container(
+              padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
+              decoration: BoxDecoration(
+                color: cs.surface,
+                border: Border(
+                  top: BorderSide(color: cs.outlineVariant.withOpacity(0.6)),
+                ),
+              ),
+              child: Row(
+                children: [
+                  if (inCartNow) ...[
+                    _QtyButton(
+                      icon: Icons.remove_rounded,
+                      onTap: () {
+                        // ينقص بمقدار step، وإذا صار أقل من min => CartController يحذف المنتج
+                        CartController.I.setQtySafe(p.id, qtyNow - step);
+                      },
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 12,
+                        ),
+                        decoration: BoxDecoration(
+                          color: cs.surfaceContainerHighest.withOpacity(0.55),
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(
+                            color: cs.outlineVariant.withOpacity(0.6),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                '${t.labelQty}: ${_fmt(qtyNow)} $unit',
+                                textAlign: isRtl
+                                    ? TextAlign.right
+                                    : TextAlign.left,
+                                style: theme.textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              '${lineTotal.toStringAsFixed(3)} ${t.currencyJOD}',
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.w900,
+                                color: cs.tertiary,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    _QtyButton(
+                      icon: Icons.add_rounded,
+                      onTap: () {
+                        // يزيد بمقدار step (والـ clamp/max يتم داخل CartController)
+                        CartController.I.setQtySafe(p.id, qtyNow + step);
+                      },
+                    ),
+                    const SizedBox(width: 10),
+                    OutlinedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => const CartScreen()),
+                        );
+                      },
+                      child: Text(t.actionViewCart),
+                    ),
+                  ] else ...[
+                    Expanded(
+                      child: FilledButton.icon(
+                        onPressed: () async {
+                          // مهم: هذا يستدعي منطقك (المفترض داخله يضيف للسلة)
+                          await widget.onAddToCart(p, _qty);
+                          // بعد الإضافة، AnimatedBuilder سيحوّل الواجهة تلقائياً للStepper
+                        },
+                        icon: const Icon(Icons.add_shopping_cart_rounded),
+                        label: Text(
+                          '${t.actionAddToCart} • ${lineTotal.toStringAsFixed(3)} ${t.currencyJOD}',
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _CartAppBarButton extends StatelessWidget {
+  const _CartAppBarButton({required this.onTap});
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+
+    return AnimatedBuilder(
+      animation: CartController.I,
+      builder: (context, _) {
+        final count = CartController.I.linesCount;
+
+        return Stack(
+          clipBehavior: Clip.none,
+          children: [
+            IconButton(
+              onPressed: onTap,
+              icon: const Icon(Icons.shopping_cart_outlined),
             ),
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: FilledButton.icon(
-                  onPressed: () async {
-                    await widget.onAddToCart(p, _qty);
-                    if (!mounted) return;
-                    ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(SnackBar(content: Text(t.toastAddedToCart)));
-                  },
-                  icon: const Icon(Icons.add_shopping_cart_rounded),
-                  label: Text(
-                    '${t.actionAddToCart} • ${total.toStringAsFixed(3)} ${t.currencyJOD}',
+            if (count > 0)
+              PositionedDirectional(
+                top: 6,
+                end: 6,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 2,
+                  ),
+                  decoration: BoxDecoration(
+                    color: cs.error,
+                    borderRadius: BorderRadius.circular(999),
+                    border: Border.all(color: cs.surface, width: 2),
+                  ),
+                  child: Text(
+                    '$count',
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      color: cs.onError,
+                      fontWeight: FontWeight.w900,
+                    ),
                   ),
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
+          ],
+        );
+      },
     );
   }
 }
