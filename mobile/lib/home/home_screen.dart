@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/l10n/app_localizations.dart';
 
-import 'categories/herbs.dart';
-import 'categories/spices.dart';
-import 'categories/oils.dart';
-import 'categories/honey.dart';
-import 'categories/cosmetics.dart';
-import 'categories/best_sellers.dart';
-import 'categories/bundles.dart';
-
 import 'widget/home_drawer.dart';
 import 'widget/home_sliver_app_bar.dart';
 import 'widget/home_header_sliver.dart';
 import 'widget/home_categories_grid_sliver.dart';
 import 'widget/home_search_sheet.dart';
+import 'package:mobile/cart/cart_screen.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -34,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final pages = [
       _CategoriesTab(firstName: firstName),
       const _OrdersTab(),
-      const _ProfileTab(),
+      const CartScreen(),
     ];
 
     return Scaffold(
@@ -54,9 +48,9 @@ class _HomeScreenState extends State<HomeScreen> {
             label: t.navOrders,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.person_outline),
-            selectedIcon: const Icon(Icons.person),
-            label: t.navProfile,
+            icon: const Icon(Icons.shopping_cart_outlined),
+            selectedIcon: const Icon(Icons.shopping_cart),
+            label: t.navCart,
           ),
         ],
       ),
@@ -86,26 +80,50 @@ class _CategoriesTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
 
-    final categories = [
-      (t.catHerbs, 'assets/categories/herbs.png', const Herbs()),
-      (t.catSpices, 'assets/categories/spices.png', const Spices()),
-      (t.catOils, 'assets/categories/oils.png', const Oils()),
-      (t.catHoney, 'assets/categories/honey.png', const Honey()),
-      (t.catCosmetics,'assets/categories/cosmetics.png', const Cosmetics()),
-      (t.catBestSellers, 'assets/categories/best_sellers.png',const BestSellers(),),
-      (t.catBundles, 'assets/categories/bundles.png', const Bundles()),
+    final categories = <CategoryItem>[
+      CategoryItem(
+        id: 'herbs',
+        title: t.catHerbs,
+        image: 'assets/categories/herbs.png',
+      ),
+      CategoryItem(
+        id: 'spices',
+        title: t.catSpices,
+        image: 'assets/categories/spices.png',
+      ),
+      CategoryItem(
+        id: 'oils',
+        title: t.catOils,
+        image: 'assets/categories/oils.png',
+      ),
+      CategoryItem(
+        id: 'honey',
+        title: t.catHoney,
+        image: 'assets/categories/honey.png',
+      ),
+      CategoryItem(
+        id: 'cosmetics',
+        title: t.catCosmetics,
+        image: 'assets/categories/cosmetics.png',
+      ),
+      CategoryItem(
+        id: 'best_sellers',
+        title: t.catBestSellers,
+        image: 'assets/categories/best_sellers.png',
+      ),
+      CategoryItem(
+        id: 'bundles',
+        title: t.catBundles,
+        image: 'assets/categories/bundles.png',
+      ),
     ];
 
     return Scaffold(
       drawer: HomeDrawer(
         firstName: firstName,
         email: null,
-        onOpenSettings: () {
-          Navigator.pop(context);
-        },
-        onOpenAbout: () {
-          Navigator.pop(context);
-        },
+        onOpenSettings: () => Navigator.pop(context),
+        onOpenAbout: () => Navigator.pop(context),
       ),
       body: GestureDetector(
         behavior: HitTestBehavior.translucent,
@@ -120,7 +138,7 @@ class _CategoriesTab extends StatelessWidget {
               ],
             ),
 
-            // ✅ This paints ONLY the system status bar area (Wi-Fi/Time)
+            // paints ONLY system status bar area
             Positioned(
               top: 0,
               left: 0,
@@ -136,7 +154,6 @@ class _CategoriesTab extends StatelessWidget {
         ),
       ),
     );
-
   }
 }
 
@@ -158,20 +175,4 @@ class _OrdersTab extends StatelessWidget {
   }
 }
 
-class _ProfileTab extends StatelessWidget {
-  const _ProfileTab();
 
-  @override
-  Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context)!;
-    return Scaffold(
-      appBar: AppBar(title: Text(t.profileTitle), centerTitle: true),
-      body: Center(
-        child: Text(
-          t.profilePlaceholder,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
-        ),
-      ),
-    );
-  }
-}

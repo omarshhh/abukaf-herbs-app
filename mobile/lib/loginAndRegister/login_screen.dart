@@ -66,11 +66,11 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> _signInWithGoogle(AppLocalizations t) async {
     setState(() => _loading = true);
 
-    try {
-      // 1) Start Google sign-in flow
-      final googleUser = await GoogleSignIn().signIn();
+    final googleSignIn = GoogleSignIn();
 
-      // User canceled
+    try {
+      await googleSignIn.signOut();
+      final googleUser = await googleSignIn.signIn();
       if (googleUser == null) {
         if (!mounted) return;
         ScaffoldMessenger.of(
@@ -79,52 +79,24 @@ class _LoginScreenState extends State<LoginScreen> {
         return;
       }
 
-      // 2) Get tokens
       final googleAuth = await googleUser.authentication;
 
-      // 3) Build Firebase credential
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
-      // 4) Sign in to Firebase
       final userCred = await FirebaseAuth.instance.signInWithCredential(
         credential,
       );
-
       final user = userCred.user;
       if (user == null) throw Exception('Google user is null');
 
-      // 5) Create/Update Firestore user doc (minimal profile)
-      final uid = user.uid;
-      final ref = FirebaseFirestore.instance.collection('users').doc(uid);
+      debugPrint('SIGNED IN: uid=${user.uid}, email=${user.email}');
 
-      // Read once
-      final snap = await ref.get();
-
-      if (!snap.exists) {
-        // New user doc
-        await ref.set({
-          'uid': uid,
-          'email': user.email,
-          'provider': 'google',
-          'createdAt': FieldValue.serverTimestamp(),
-          'lastLoginAt': FieldValue.serverTimestamp(),
-          'profileCompleted': false,
-        });
-      } else {
-        // Existing user: safe merge (won't overwrite profile fields)
-        await ref.set({
-          'lastLoginAt': FieldValue.serverTimestamp(),
-          'provider': 'google',
-          'email': user.email,
-        }, SetOptions(merge: true));
-      }
+      // ... Firestore set/merge مثل ما عندك
 
       if (!mounted) return;
-
-      // 6) Go to AuthGate (then ProfileGate decides)
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (_) => const AuthGate()),

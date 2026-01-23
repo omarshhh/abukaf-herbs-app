@@ -344,4 +344,88 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get searchResultPlaceholder => 'نتيجة بحث مؤقتة';
+
+  @override
+  String get actionViewDetails => 'عرض التفاصيل';
+
+  @override
+  String get actionAddToCart => 'إضافة إلى السلة';
+
+  @override
+  String get toastAddedToCart => 'تمت الإضافة إلى السلة';
+
+  @override
+  String get labelForYou => 'اخترنالك';
+
+  @override
+  String get sectionBenefits => 'الفوائد';
+
+  @override
+  String get sectionHowToUse => 'طريقة الاستعمال';
+
+  @override
+  String get sectionQuantity => 'الكمية';
+
+  @override
+  String get labelTotal => 'الإجمالي';
+
+  @override
+  String get labelMin => 'الحد الأدنى';
+
+  @override
+  String get labelMax => 'الحد الأعلى';
+
+  @override
+  String get labelStep => 'الزيادة';
+
+  @override
+  String get labelAvailable => 'متاح';
+
+  @override
+  String get labelHidden => 'مخفي';
+
+  @override
+  String get currencyJOD => 'د.أ';
+
+  @override
+  String get placeholderDash => '—';
+
+  @override
+  String get unitGram => 'غ';
+
+  @override
+  String get unitKilogram => 'كغ';
+
+  @override
+  String get unitMilliliter => 'مل';
+
+  @override
+  String get unitLiter => 'لتر';
+
+  @override
+  String get unitPiece => 'قطعة';
+
+  @override
+  String get errorGeneric => 'حدث خطأ';
+
+  @override
+  String get noProductsFound => 'لا توجد منتجات';
+
+  @override
+  String get noInternetTitle => 'لا يوجد اتصال بالإنترنت';
+
+  @override
+  String get noInternetBody => 'تحقق من الاتصال ثم حاول مرة أخرى.';
+
+  @override
+  String get navCart => 'السلة';
+
+  @override
+  String get cartEmptyTitle => 'السلة فارغة';
+
+  @override
+  String get cartEmptySubtitle => 'أضف بعض المنتجات لبدء الطلب';
+
+  @override
+  String get startShopping => 'ابدأ التسوق';
 }

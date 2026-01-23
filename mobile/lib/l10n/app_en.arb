@@ -167,7 +167,51 @@
 
 
   "searchStartTyping": "Start typing to search herbs",
-  "searchResultPlaceholder": "Temporary search result"
+  "searchResultPlaceholder": "Temporary search result",
+
+
+
+
+
+
+  "actionViewDetails": "View details",
+  "actionAddToCart": "Add to cart",
+  "toastAddedToCart": "Added to cart",
+  "labelForYou": "Our picks",
+  "sectionBenefits": "Benefits",
+  "sectionHowToUse": "How to use",
+  "sectionQuantity": "Quantity",
+  "labelTotal": "Total",
+  "labelMin": "Min",
+  "labelMax": "Max",
+  "labelStep": "Step",
+  "labelAvailable": "Available",
+  "labelHidden": "Hidden",
+  "currencyJOD": "JOD",
+  "placeholderDash": "—",
+  "unitGram": "g",
+  "unitKilogram": "kg",
+  "unitMilliliter": "ml",
+  "unitLiter": "L",
+  "unitPiece": "piece",
+
+
+
+
+  "errorGeneric": "An error occurred",
+  "noProductsFound": "No products found",
+
+
+
+
+  "noInternetTitle": "No internet connection",
+  "noInternetBody": "Please check your connection and try again.",
+
+
+  "navCart": "Cart",
+  "cartEmptyTitle": "Your cart is empty",
+  "cartEmptySubtitle": "Add some products to start your order",
+  "startShopping": "Start shopping"
 
 
 

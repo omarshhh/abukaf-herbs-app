@@ -751,6 +751,174 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Temporary search result'**
   String get searchResultPlaceholder;
+
+  /// No description provided for @actionViewDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'View details'**
+  String get actionViewDetails;
+
+  /// No description provided for @actionAddToCart.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to cart'**
+  String get actionAddToCart;
+
+  /// No description provided for @toastAddedToCart.
+  ///
+  /// In en, this message translates to:
+  /// **'Added to cart'**
+  String get toastAddedToCart;
+
+  /// No description provided for @labelForYou.
+  ///
+  /// In en, this message translates to:
+  /// **'Our picks'**
+  String get labelForYou;
+
+  /// No description provided for @sectionBenefits.
+  ///
+  /// In en, this message translates to:
+  /// **'Benefits'**
+  String get sectionBenefits;
+
+  /// No description provided for @sectionHowToUse.
+  ///
+  /// In en, this message translates to:
+  /// **'How to use'**
+  String get sectionHowToUse;
+
+  /// No description provided for @sectionQuantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity'**
+  String get sectionQuantity;
+
+  /// No description provided for @labelTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get labelTotal;
+
+  /// No description provided for @labelMin.
+  ///
+  /// In en, this message translates to:
+  /// **'Min'**
+  String get labelMin;
+
+  /// No description provided for @labelMax.
+  ///
+  /// In en, this message translates to:
+  /// **'Max'**
+  String get labelMax;
+
+  /// No description provided for @labelStep.
+  ///
+  /// In en, this message translates to:
+  /// **'Step'**
+  String get labelStep;
+
+  /// No description provided for @labelAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Available'**
+  String get labelAvailable;
+
+  /// No description provided for @labelHidden.
+  ///
+  /// In en, this message translates to:
+  /// **'Hidden'**
+  String get labelHidden;
+
+  /// No description provided for @currencyJOD.
+  ///
+  /// In en, this message translates to:
+  /// **'JOD'**
+  String get currencyJOD;
+
+  /// No description provided for @placeholderDash.
+  ///
+  /// In en, this message translates to:
+  /// **'—'**
+  String get placeholderDash;
+
+  /// No description provided for @unitGram.
+  ///
+  /// In en, this message translates to:
+  /// **'g'**
+  String get unitGram;
+
+  /// No description provided for @unitKilogram.
+  ///
+  /// In en, this message translates to:
+  /// **'kg'**
+  String get unitKilogram;
+
+  /// No description provided for @unitMilliliter.
+  ///
+  /// In en, this message translates to:
+  /// **'ml'**
+  String get unitMilliliter;
+
+  /// No description provided for @unitLiter.
+  ///
+  /// In en, this message translates to:
+  /// **'L'**
+  String get unitLiter;
+
+  /// No description provided for @unitPiece.
+  ///
+  /// In en, this message translates to:
+  /// **'piece'**
+  String get unitPiece;
+
+  /// No description provided for @errorGeneric.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred'**
+  String get errorGeneric;
+
+  /// No description provided for @noProductsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No products found'**
+  String get noProductsFound;
+
+  /// No description provided for @noInternetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No internet connection'**
+  String get noInternetTitle;
+
+  /// No description provided for @noInternetBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Please check your connection and try again.'**
+  String get noInternetBody;
+
+  /// No description provided for @navCart.
+  ///
+  /// In en, this message translates to:
+  /// **'Cart'**
+  String get navCart;
+
+  /// No description provided for @cartEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your cart is empty'**
+  String get cartEmptyTitle;
+
+  /// No description provided for @cartEmptySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add some products to start your order'**
+  String get cartEmptySubtitle;
+
+  /// No description provided for @startShopping.
+  ///
+  /// In en, this message translates to:
+  /// **'Start shopping'**
+  String get startShopping;
 }
 
 class _AppLocalizationsDelegate

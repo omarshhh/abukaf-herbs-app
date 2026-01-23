@@ -346,4 +346,88 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get searchResultPlaceholder => 'Temporary search result';
+
+  @override
+  String get actionViewDetails => 'View details';
+
+  @override
+  String get actionAddToCart => 'Add to cart';
+
+  @override
+  String get toastAddedToCart => 'Added to cart';
+
+  @override
+  String get labelForYou => 'Our picks';
+
+  @override
+  String get sectionBenefits => 'Benefits';
+
+  @override
+  String get sectionHowToUse => 'How to use';
+
+  @override
+  String get sectionQuantity => 'Quantity';
+
+  @override
+  String get labelTotal => 'Total';
+
+  @override
+  String get labelMin => 'Min';
+
+  @override
+  String get labelMax => 'Max';
+
+  @override
+  String get labelStep => 'Step';
+
+  @override
+  String get labelAvailable => 'Available';
+
+  @override
+  String get labelHidden => 'Hidden';
+
+  @override
+  String get currencyJOD => 'JOD';
+
+  @override
+  String get placeholderDash => '—';
+
+  @override
+  String get unitGram => 'g';
+
+  @override
+  String get unitKilogram => 'kg';
+
+  @override
+  String get unitMilliliter => 'ml';
+
+  @override
+  String get unitLiter => 'L';
+
+  @override
+  String get unitPiece => 'piece';
+
+  @override
+  String get errorGeneric => 'An error occurred';
+
+  @override
+  String get noProductsFound => 'No products found';
+
+  @override
+  String get noInternetTitle => 'No internet connection';
+
+  @override
+  String get noInternetBody => 'Please check your connection and try again.';
+
+  @override
+  String get navCart => 'Cart';
+
+  @override
+  String get cartEmptyTitle => 'Your cart is empty';
+
+  @override
+  String get cartEmptySubtitle => 'Add some products to start your order';
+
+  @override
+  String get startShopping => 'Start shopping';
 }

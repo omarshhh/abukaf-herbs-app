@@ -170,7 +170,47 @@
 
 
   "searchStartTyping": "ابدأ بالكتابة للبحث عن الأعشاب",
-  "searchResultPlaceholder": "نتيجة بحث مؤقتة"
+  "searchResultPlaceholder": "نتيجة بحث مؤقتة",
+
+
+
+
+
+  "actionViewDetails": "عرض التفاصيل",
+  "actionAddToCart": "إضافة إلى السلة",
+  "toastAddedToCart": "تمت الإضافة إلى السلة",
+  "labelForYou": "اخترنالك",
+  "sectionBenefits": "الفوائد",
+  "sectionHowToUse": "طريقة الاستعمال",
+  "sectionQuantity": "الكمية",
+  "labelTotal": "الإجمالي",
+  "labelMin": "الحد الأدنى",
+  "labelMax": "الحد الأعلى",
+  "labelStep": "الزيادة",
+  "labelAvailable": "متاح",
+  "labelHidden": "مخفي",
+  "currencyJOD": "د.أ",
+  "placeholderDash": "—",
+  "unitGram": "غ",
+  "unitKilogram": "كغ",
+  "unitMilliliter": "مل",
+  "unitLiter": "لتر",
+  "unitPiece": "قطعة",
+
+
+  "errorGeneric": "حدث خطأ",
+  "noProductsFound": "لا توجد منتجات",
+
+
+
+  "noInternetTitle": "لا يوجد اتصال بالإنترنت",
+  "noInternetBody": "تحقق من الاتصال ثم حاول مرة أخرى.",
+
+
+  "navCart": "السلة",
+  "cartEmptyTitle": "السلة فارغة",
+  "cartEmptySubtitle": "أضف بعض المنتجات لبدء الطلب",
+  "startShopping": "ابدأ التسوق"
 
 
 

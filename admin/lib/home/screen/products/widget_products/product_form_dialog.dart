@@ -19,6 +19,11 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
     RegExp(r'^\d*\.?\d{0,6}$'),
   );
 
+  // ========= منطقي لمتجر: اسم قصير، وصف متوسط، محتوى طويل =========
+  static const int _maxName = 60;
+  static const int _maxShort = 60;
+  static const int _maxLong = 700; // benefits + preparation
+
   final _formKey = GlobalKey<FormState>();
 
   // ✅ Bilingual controllers
@@ -114,15 +119,16 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
     super.dispose();
   }
 
-  String? _requiredTextAr(String? v) {
-    if (v == null || v.trim().isEmpty) return 'هذا الحقل مطلوب';
-    return null;
-  }
-
-  String? _requiredShortAr(String? v) {
+  // ============ Validator موحد: required + min + max ============
+  String? _requiredTextWithMax(String? v, int max, {int? min}) {
     final s = (v ?? '').trim();
     if (s.isEmpty) return 'هذا الحقل مطلوب';
-    if (s.length < 10) return 'قصير جداً (الحد الأدنى 10 أحرف)';
+    if (min != null && s.length < min) {
+      return 'قصير جداً (الحد الأدنى $min حرف)';
+    }
+    if (s.length > max) {
+      return 'تجاوز الحد الأقصى ($max حرف)';
+    }
     return null;
   }
 
@@ -228,7 +234,13 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
                         decoration: const InputDecoration(
                           labelText: 'اسم المنتج (عربي)',
                         ),
-                        validator: _requiredTextAr,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(_maxName),
+                          FilteringTextInputFormatter.singleLineFormatter,
+                        ],
+                        maxLength: _maxName,
+                        validator: (v) =>
+                            _requiredTextWithMax(v, _maxName, min: 2),
                       ),
                     ),
                   ],
@@ -242,7 +254,12 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
                   decoration: const InputDecoration(
                     labelText: 'اسم المنتج (إنجليزي)',
                   ),
-                  validator: _requiredTextAr,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(_maxName),
+                    FilteringTextInputFormatter.singleLineFormatter,
+                  ],
+                  maxLength: _maxName,
+                  validator: (v) => _requiredTextWithMax(v, _maxName, min: 2),
                   textDirection: TextDirection.ltr,
                 ),
 
@@ -315,7 +332,12 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
                         decoration: const InputDecoration(
                           labelText: 'وصف قصير (عربي)',
                         ),
-                        validator: _requiredShortAr,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(_maxShort),
+                        ],
+                        maxLength: _maxShort,
+                        validator: (v) =>
+                            _requiredTextWithMax(v, _maxShort, min: 10),
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -326,7 +348,12 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
                         decoration: const InputDecoration(
                           labelText: 'وصف قصير (إنجليزي)',
                         ),
-                        validator: _requiredShortAr,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(_maxShort),
+                        ],
+                        maxLength: _maxShort,
+                        validator: (v) =>
+                            _requiredTextWithMax(v, _maxShort, min: 10),
                         textDirection: TextDirection.ltr,
                       ),
                     ),
@@ -431,7 +458,12 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
                         decoration: const InputDecoration(
                           labelText: 'الفوائد (عربي)',
                         ),
-                        validator: _requiredTextAr,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(_maxLong),
+                        ],
+                        maxLength: _maxLong,
+                        validator: (v) =>
+                            _requiredTextWithMax(v, _maxLong, min: 20),
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -442,7 +474,12 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
                         decoration: const InputDecoration(
                           labelText: 'الفوائد (إنجليزي)',
                         ),
-                        validator: _requiredTextAr,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(_maxLong),
+                        ],
+                        maxLength: _maxLong,
+                        validator: (v) =>
+                            _requiredTextWithMax(v, _maxLong, min: 20),
                         textDirection: TextDirection.ltr,
                       ),
                     ),
@@ -461,7 +498,12 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
                         decoration: const InputDecoration(
                           labelText: 'طريقة الاستخدام (عربي)',
                         ),
-                        validator: _requiredTextAr,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(_maxLong),
+                        ],
+                        maxLength: _maxLong,
+                        validator: (v) =>
+                            _requiredTextWithMax(v, _maxLong, min: 20),
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -469,10 +511,15 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
                       child: TextFormField(
                         controller: _prepEnCtrl,
                         maxLines: 3,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           labelText: 'طريقة الاستخدام (إنجليزي)',
                         ),
-                        validator: _requiredTextAr,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(_maxLong),
+                        ],
+                        maxLength: _maxLong,
+                        validator: (v) =>
+                            _requiredTextWithMax(v, _maxLong, min: 20),
                         textDirection: TextDirection.ltr,
                       ),
                     ),

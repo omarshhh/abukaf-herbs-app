@@ -6,6 +6,7 @@ import 'package:mobile/l10n/app_localizations.dart';
 import 'firebase_options.dart';
 import 'theam.dart';
 import 'auth/auth_gate.dart';
+import 'no_internet/internet_gate.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,6 +40,10 @@ class MyApp extends StatelessWidget {
     Locale('ar'),
     Locale('en'),
   ],
+
+  builder: (context, child) {
+        return InternetGate(child: child ?? const SizedBox.shrink());
+      },
       // Start screen
       home: AuthGate(),
     );
