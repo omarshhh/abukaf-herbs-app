@@ -193,11 +193,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get locationPermissionDenied =>
-      'Location permission is required to continue.';
+      'Location permission is denied. You can still pick manually on the map.';
 
   @override
   String get locationPermissionDeniedForever =>
-      'Permission permanently denied. Enable location permission from settings.';
+      'Location permission is permanently denied. Enable it from Settings, or pick manually on the map.';
 
   @override
   String get locationCantGetCurrent => 'Could not get your current location.';
@@ -221,7 +221,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get locationSavedSuccess => 'Delivery location saved successfully.';
 
   @override
-  String get locationSaveFailed => 'Failed to save location. Please try again.';
+  String locationSaveFailed(Object error) {
+    return 'Failed to save location: $error';
+  }
 
   @override
   String get completeProfileTitle => 'Complete Profile';
@@ -469,4 +471,116 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get actionShowLess => 'Show less';
+
+  @override
+  String get locationGateTitle => 'Location';
+
+  @override
+  String get locationSetupTitle => 'Set your location';
+
+  @override
+  String get locationEditTitle => 'Edit location';
+
+  @override
+  String get locationEnterAddress => 'Enter address details';
+
+  @override
+  String get locationGovLabel => 'Governorate';
+
+  @override
+  String get locationAreaLabel => 'Area (e.g., Jubaiha)';
+
+  @override
+  String get locationApartmentLabel => 'Apartment number';
+
+  @override
+  String get locationNextToMap => 'Next: Pick on map';
+
+  @override
+  String get locationPickOnMapTitle => 'Pick location on map';
+
+  @override
+  String get locationSave => 'Save location';
+
+  @override
+  String get locationPickFirst => 'Please pick your location on the map first.';
+
+  @override
+  String get locationDetecting => 'Detecting your location...';
+
+  @override
+  String get locationFieldRequired => 'This field is required';
+
+  @override
+  String get locationChooseGov => 'Please choose a governorate';
+
+  @override
+  String get govAmman => 'Amman';
+
+  @override
+  String get govIrbid => 'Irbid';
+
+  @override
+  String get govZarqa => 'Zarqa';
+
+  @override
+  String get govBalqa => 'Balqa';
+
+  @override
+  String get govMafraq => 'Mafraq';
+
+  @override
+  String get govJerash => 'Jerash';
+
+  @override
+  String get govAjloun => 'Ajloun';
+
+  @override
+  String get govMadaba => 'Madaba';
+
+  @override
+  String get govKarak => 'Karak';
+
+  @override
+  String get govTafilah => 'Tafilah';
+
+  @override
+  String get govMaan => 'Ma\'an';
+
+  @override
+  String get govAqaba => 'Aqaba';
+
+  @override
+  String get locationPermissionTitle => 'Location Permission Required';
+
+  @override
+  String get locationPermissionRequiredMessage =>
+      'The app cannot work without location permission. Please allow location access to continue.';
+
+  @override
+  String get locationPermissionDeniedForeverMessage =>
+      'Location permission is permanently denied. Please open settings and grant permission to continue.';
+
+  @override
+  String get locationServiceDisabledMessage =>
+      'Location services (GPS) are disabled. Please enable them to continue.';
+
+  @override
+  String get locationRequestAgain => 'Request permission again';
+
+  @override
+  String get actionOpenSettings => 'Open settings';
+
+  @override
+  String get locationWaitingPermission => 'Waiting for location permission...';
+
+  @override
+  String get actionRetry => 'Retry';
+
+  @override
+  String get actionBack => 'Back';
+
+  @override
+  String get locationMissingInProfile =>
+      'لا يمكن حساب التوصيل لأن بيانات الموقع غير مكتملة. يرجى تحديد موقعك أولاً.';
 }

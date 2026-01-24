@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/cart/cart_screen.dart';
+import 'package:mobile/cart/controller/cart_controller.dart';
+import 'package:mobile/cart/widgets/cart_nav_icon.dart';
+import 'package:mobile/home/data/products_repo.dart';
 import 'package:mobile/l10n/app_localizations.dart';
 
-import 'widget/home_drawer.dart';
-import 'widget/home_sliver_app_bar.dart';
-import 'widget/home_header_sliver.dart';
 import 'widget/home_categories_grid_sliver.dart';
+import 'widget/home_drawer.dart';
+import 'widget/home_header_sliver.dart';
 import 'widget/home_search_sheet.dart';
-import 'package:mobile/cart/cart_screen.dart';
-import 'package:mobile/cart/cart_nav_icon.dart';
-
-
+import 'widget/home_sliver_app_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,6 +21,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _index = 0;
 
+  // ✅ أنشئهم مرة واحدة (أفضل من إنشائهم داخل build)
+  final MobileProductsRepo _productsRepo = MobileProductsRepo();
+  final CartController _cart = CartController.I;
+
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
@@ -28,7 +32,11 @@ class _HomeScreenState extends State<HomeScreen> {
     const firstName = 'زائر';
 
     final pages = [
-      _CategoriesTab(firstName: firstName),
+      _CategoriesTab(
+        firstName: firstName,
+        productsRepo: _productsRepo,
+        cart: _cart,
+      ),
       const _OrdersTab(),
       const CartScreen(),
     ];
@@ -61,9 +69,15 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class _CategoriesTab extends StatelessWidget {
-  const _CategoriesTab({required this.firstName});
+  const _CategoriesTab({
+    required this.firstName,
+    required this.productsRepo,
+    required this.cart,
+  });
 
   final String firstName;
+  final MobileProductsRepo productsRepo;
+  final CartController cart;
 
   void _openSearch(BuildContext context) {
     showModalBottomSheet(
@@ -135,7 +149,14 @@ class _CategoriesTab extends StatelessWidget {
             CustomScrollView(
               slivers: [
                 HomeSliverAppBar(onSearchPressed: () => _openSearch(context)),
-                HomeHeaderSliver(firstName: firstName),
+
+                // ✅ تم تمرير المطلوب (productsRepo + cart)
+                HomeHeaderSliver(
+                  firstName: firstName,
+                  productsRepo: productsRepo,
+                  cart: cart,
+                ),
+
                 HomeCategoriesGridSliver(categories: categories),
               ],
             ),
@@ -176,5 +197,3 @@ class _OrdersTab extends StatelessWidget {
     );
   }
 }
-
-

@@ -461,13 +461,13 @@ abstract class AppLocalizations {
   /// No description provided for @locationPermissionDenied.
   ///
   /// In en, this message translates to:
-  /// **'Location permission is required to continue.'**
+  /// **'Location permission is denied. You can still pick manually on the map.'**
   String get locationPermissionDenied;
 
   /// No description provided for @locationPermissionDeniedForever.
   ///
   /// In en, this message translates to:
-  /// **'Permission permanently denied. Enable location permission from settings.'**
+  /// **'Location permission is permanently denied. Enable it from Settings, or pick manually on the map.'**
   String get locationPermissionDeniedForever;
 
   /// No description provided for @locationCantGetCurrent.
@@ -515,8 +515,8 @@ abstract class AppLocalizations {
   /// No description provided for @locationSaveFailed.
   ///
   /// In en, this message translates to:
-  /// **'Failed to save location. Please try again.'**
-  String get locationSaveFailed;
+  /// **'Failed to save location: {error}'**
+  String locationSaveFailed(Object error);
 
   /// No description provided for @completeProfileTitle.
   ///
@@ -997,6 +997,222 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Show less'**
   String get actionShowLess;
+
+  /// No description provided for @locationGateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get locationGateTitle;
+
+  /// No description provided for @locationSetupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Set your location'**
+  String get locationSetupTitle;
+
+  /// No description provided for @locationEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit location'**
+  String get locationEditTitle;
+
+  /// No description provided for @locationEnterAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter address details'**
+  String get locationEnterAddress;
+
+  /// No description provided for @locationGovLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Governorate'**
+  String get locationGovLabel;
+
+  /// No description provided for @locationAreaLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Area (e.g., Jubaiha)'**
+  String get locationAreaLabel;
+
+  /// No description provided for @locationApartmentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Apartment number'**
+  String get locationApartmentLabel;
+
+  /// No description provided for @locationNextToMap.
+  ///
+  /// In en, this message translates to:
+  /// **'Next: Pick on map'**
+  String get locationNextToMap;
+
+  /// No description provided for @locationPickOnMapTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick location on map'**
+  String get locationPickOnMapTitle;
+
+  /// No description provided for @locationSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save location'**
+  String get locationSave;
+
+  /// No description provided for @locationPickFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Please pick your location on the map first.'**
+  String get locationPickFirst;
+
+  /// No description provided for @locationDetecting.
+  ///
+  /// In en, this message translates to:
+  /// **'Detecting your location...'**
+  String get locationDetecting;
+
+  /// No description provided for @locationFieldRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required'**
+  String get locationFieldRequired;
+
+  /// No description provided for @locationChooseGov.
+  ///
+  /// In en, this message translates to:
+  /// **'Please choose a governorate'**
+  String get locationChooseGov;
+
+  /// No description provided for @govAmman.
+  ///
+  /// In en, this message translates to:
+  /// **'Amman'**
+  String get govAmman;
+
+  /// No description provided for @govIrbid.
+  ///
+  /// In en, this message translates to:
+  /// **'Irbid'**
+  String get govIrbid;
+
+  /// No description provided for @govZarqa.
+  ///
+  /// In en, this message translates to:
+  /// **'Zarqa'**
+  String get govZarqa;
+
+  /// No description provided for @govBalqa.
+  ///
+  /// In en, this message translates to:
+  /// **'Balqa'**
+  String get govBalqa;
+
+  /// No description provided for @govMafraq.
+  ///
+  /// In en, this message translates to:
+  /// **'Mafraq'**
+  String get govMafraq;
+
+  /// No description provided for @govJerash.
+  ///
+  /// In en, this message translates to:
+  /// **'Jerash'**
+  String get govJerash;
+
+  /// No description provided for @govAjloun.
+  ///
+  /// In en, this message translates to:
+  /// **'Ajloun'**
+  String get govAjloun;
+
+  /// No description provided for @govMadaba.
+  ///
+  /// In en, this message translates to:
+  /// **'Madaba'**
+  String get govMadaba;
+
+  /// No description provided for @govKarak.
+  ///
+  /// In en, this message translates to:
+  /// **'Karak'**
+  String get govKarak;
+
+  /// No description provided for @govTafilah.
+  ///
+  /// In en, this message translates to:
+  /// **'Tafilah'**
+  String get govTafilah;
+
+  /// No description provided for @govMaan.
+  ///
+  /// In en, this message translates to:
+  /// **'Ma\'an'**
+  String get govMaan;
+
+  /// No description provided for @govAqaba.
+  ///
+  /// In en, this message translates to:
+  /// **'Aqaba'**
+  String get govAqaba;
+
+  /// No description provided for @locationPermissionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Location Permission Required'**
+  String get locationPermissionTitle;
+
+  /// No description provided for @locationPermissionRequiredMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The app cannot work without location permission. Please allow location access to continue.'**
+  String get locationPermissionRequiredMessage;
+
+  /// No description provided for @locationPermissionDeniedForeverMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Location permission is permanently denied. Please open settings and grant permission to continue.'**
+  String get locationPermissionDeniedForeverMessage;
+
+  /// No description provided for @locationServiceDisabledMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Location services (GPS) are disabled. Please enable them to continue.'**
+  String get locationServiceDisabledMessage;
+
+  /// No description provided for @locationRequestAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Request permission again'**
+  String get locationRequestAgain;
+
+  /// No description provided for @actionOpenSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Open settings'**
+  String get actionOpenSettings;
+
+  /// No description provided for @locationWaitingPermission.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for location permission...'**
+  String get locationWaitingPermission;
+
+  /// No description provided for @actionRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get actionRetry;
+
+  /// No description provided for @actionBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get actionBack;
+
+  /// No description provided for @locationMissingInProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'لا يمكن حساب التوصيل لأن بيانات الموقع غير مكتملة. يرجى تحديد موقعك أولاً.'**
+  String get locationMissingInProfile;
 }
 
 class _AppLocalizationsDelegate

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/cart/controller/cart_controller.dart';
+import 'package:mobile/cart/widgets/cart_icon_button.dart';
 import 'package:mobile/l10n/app_localizations.dart';
 
 import '../data/products_repo.dart';
@@ -7,8 +9,7 @@ import '../products/herb_category_product_card.dart';
 import '../products/product_details_page.dart';
 
 import 'package:mobile/cart/cart_screen.dart';
-import 'package:mobile/cart/cart_controller.dart';
-import 'package:mobile/cart/cart_badge.dart';
+
 
 class CategoryProductsPage extends StatelessWidget {
   const CategoryProductsPage({
@@ -76,7 +77,7 @@ class CategoryProductsPage extends StatelessWidget {
                       builder: (_) => ProductDetailsPage(
                         product: p,
                         onAddToCart: (product, qty) async {
-                          CartController.I.addOrMerge(product, qty);
+                          CartController.I.addOrMerge(product, qty: qty);
                         },
                       ),
                     ),

@@ -231,7 +231,70 @@
 
 
   "actionShowMore": "إظهار المزيد",
-  "actionShowLess": "إخفاء"
+  "actionShowLess": "إخفاء",
+
+
+
+
+
+  "locationGateTitle": "الموقع",
+  "locationSetupTitle": "تحديد موقعك",
+  "locationEditTitle": "تعديل الموقع",
+  "locationEnterAddress": "أدخل بيانات العنوان",
+  "locationGovLabel": "المحافظة",
+  "locationAreaLabel": "المنطقة (مثال: الجبيهة)",
+  "locationStreetLabel": "اسم الشارع",
+  "locationBuildingLabel": "رقم البناية",
+  "locationApartmentLabel": "رقم الشقة",
+  "locationNextToMap": "التالي: تحديد الموقع على الخريطة",
+  "locationPickOnMapTitle": "حدد موقعك على الخريطة",
+  "locationSave": "حفظ الموقع",
+  "locationPickFirst": "حدد موقعك أولاً",
+  "locationSaveFailed": "فشل حفظ الموقع: {error}",
+  "locationPermissionDenied": "تم رفض إذن الموقع. يمكنك اختيار الموقع يدويًا من الخريطة.",
+  "locationPermissionDeniedForever": "تم رفض إذن الموقع نهائيًا. فعِّله من الإعدادات، أو اختر الموقع يدويًا من الخريطة.",
+  "locationDetecting": "جارٍ تحديد موقعك الحالي...",
+  "locationFieldRequired": "هذا الحقل مطلوب",
+  "locationChooseGov": "اختر المحافظة",
+
+  "govAmman": "عمان",
+  "govIrbid": "إربد",
+  "govZarqa": "الزرقاء",
+  "govBalqa": "البلقاء",
+  "govMafraq": "المفرق",
+  "govJerash": "جرش",
+  "govAjloun": "عجلون",
+  "govMadaba": "مادبا",
+  "govKarak": "الكرك",
+  "govTafilah": "الطفيلة",
+  "govMaan": "معان",
+  "govAqaba": "العقبة",
+
+
+
+
+  "locationPermissionTitle": "Location Permission Required",
+  "locationPermissionRequiredMessage": "The app cannot work without location permission. Please allow location access to continue.",
+  "locationPermissionDeniedForeverMessage": "Location permission is permanently denied. Please open settings and grant permission to continue.",
+  "locationServiceDisabledMessage": "Location services (GPS) are disabled. Please enable them to continue.",
+  "locationRequestAgain": "Request permission again",
+  "actionOpenSettings": "Open settings",
+  "locationPickOnMapTitle": "Pick location on map",
+  "locationDetecting": "Detecting your location...",
+  "locationWaitingPermission": "Waiting for location permission...",
+  "locationPickFirst": "Please pick your location on the map first.",
+  "locationSave": "Save location",
+  "actionRetry": "Retry",
+  "actionBack": "Back",
+  "locationSaveFailed": "Failed to save location: {error}",
+  "@locationSaveFailed": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+
+
+  "locationMissingInProfile": "Cannot calculate delivery fee because your location data is incomplete. Please set your location first."
 
 
 

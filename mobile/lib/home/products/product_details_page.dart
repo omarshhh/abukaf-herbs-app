@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/cart/cart_controller.dart';
 import 'package:mobile/cart/cart_screen.dart';
+import 'package:mobile/cart/controller/cart_controller.dart';
 import 'package:mobile/l10n/app_localizations.dart';
 
 import '../models/herb_product.dart';

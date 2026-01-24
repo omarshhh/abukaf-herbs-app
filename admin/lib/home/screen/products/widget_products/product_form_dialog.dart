@@ -20,7 +20,7 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
   );
 
   static const int _maxName = 60;
-  static const int _maxShort = 60;
+  static const int _maxShort = 100;
   static const int _maxLong = 700; 
 
   final _formKey = GlobalKey<FormState>();
@@ -245,6 +245,7 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
 
                 const SizedBox(height: 12),
 
+                // اسم إنجليزي (مطلوب)
                 TextFormField(
                   controller: _nameEnCtrl,
                   decoration: const InputDecoration(

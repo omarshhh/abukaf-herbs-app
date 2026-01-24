@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/l10n/app_localizations.dart';
 
+import '../data/products_repo.dart';
+import '../products/product_details_page.dart';
+import '../../cart/controller/cart_controller.dart'; 
 import 'for_you_strip.dart';
 
 class HomeHeaderSliver extends StatelessWidget {
-  const HomeHeaderSliver({super.key, required this.firstName});
+  const HomeHeaderSliver({
+    super.key,
+    required this.firstName,
+    required this.productsRepo,
+    required this.cart,
+  });
 
   final String firstName;
+  final MobileProductsRepo productsRepo;
+  final CartController cart;
 
   @override
   Widget build(BuildContext context) {
@@ -18,36 +28,31 @@ class HomeHeaderSliver extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            AnimatedSwitcher(
-              duration: const Duration(milliseconds: 300),
-              transitionBuilder: (child, anim) {
-                final offset = Tween<Offset>(
-                  begin: const Offset(0, 0.20),
-                  end: Offset.zero,
-                ).animate(anim);
-
-                return FadeTransition(
-                  opacity: anim,
-                  child: SlideTransition(position: offset, child: child),
-                );
-              },
-              child: Align(
-                key: ValueKey(firstName),
-                alignment: AlignmentDirectional.centerStart,
-                child: Text(
-                  t.helloUser(firstName),
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-              ),
+            Text(
+              t.helloUser(firstName),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w900),
             ),
             const SizedBox(height: 12),
+
             ForYouStrip(
-              onTap: () {
-                // لاحقاً: فتح صفحة المنتج
+              repo: productsRepo,
+              onProductTap: (p) {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => ProductDetailsPage(
+                      product: p,
+                      onAddToCart: (product, qty) async {
+                        CartController.I.addOrMerge(product, qty: qty);
+                      },
+                    ),
+                  ),
+                );
               },
             ),
+
+
             const SizedBox(height: 14),
           ],
         ),

@@ -233,7 +233,66 @@
 
 
   "actionShowMore": "Show more",
-  "actionShowLess": "Show less"
+  "actionShowLess": "Show less",
+
+
+
+  "locationGateTitle": "Location",
+  "locationSetupTitle": "Set your location",
+  "locationEditTitle": "Edit location",
+  "locationEnterAddress": "Enter address details",
+  "locationGovLabel": "Governorate",
+  "locationAreaLabel": "Area (e.g., Jubaiha)",
+  "locationStreetLabel": "Street name",
+  "locationBuildingLabel": "Building number",
+  "locationApartmentLabel": "Apartment number",
+  "locationNextToMap": "Next: Pick on map",
+  "locationPickOnMapTitle": "Pick your location on the map",
+  "locationSave": "Save location",
+  "locationPickFirst": "Please pick your location first",
+  "locationSaveFailed": "Failed to save location: {error}",
+  "locationPermissionDenied": "Location permission is denied. You can still pick manually on the map.",
+  "locationPermissionDeniedForever": "Location permission is permanently denied. Enable it from Settings, or pick manually on the map.",
+  "locationDetecting": "Detecting current location...",
+  "locationFieldRequired": "This field is required",
+  "locationChooseGov": "Please choose a governorate",
+
+  "govAmman": "Amman",
+  "govIrbid": "Irbid",
+  "govZarqa": "Zarqa",
+  "govBalqa": "Balqa",
+  "govMafraq": "Mafraq",
+  "govJerash": "Jerash",
+  "govAjloun": "Ajloun",
+  "govMadaba": "Madaba",
+  "govKarak": "Karak",
+  "govTafilah": "Tafilah",
+  "govMaan": "Ma'an",
+  "govAqaba": "Aqaba",
+
+
+  "locationPermissionTitle": "Location Permission Required",
+  "locationPermissionRequiredMessage": "The app cannot work without location permission. Please allow location access to continue.",
+  "locationPermissionDeniedForeverMessage": "Location permission is permanently denied. Please open settings and grant permission to continue.",
+  "locationServiceDisabledMessage": "Location services (GPS) are disabled. Please enable them to continue.",
+  "locationRequestAgain": "Request permission again",
+  "actionOpenSettings": "Open settings",
+  "locationPickOnMapTitle": "Pick location on map",
+  "locationDetecting": "Detecting your location...",
+  "locationWaitingPermission": "Waiting for location permission...",
+  "locationPickFirst": "Please pick your location on the map first.",
+  "locationSave": "Save location",
+  "actionRetry": "Retry",
+  "actionBack": "Back",
+  "locationSaveFailed": "Failed to save location: {error}",
+  "@locationSaveFailed": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+
+
+   "locationMissingInProfile": "لا يمكن حساب التوصيل لأن بيانات الموقع غير مكتملة. يرجى تحديد موقعك أولاً."
 
 
 

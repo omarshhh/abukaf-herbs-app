@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/cart/cart_controller.dart';
+import 'package:mobile/cart/controller/cart_controller.dart';
 
-class CartNavIcon extends StatelessWidget {
-  const CartNavIcon({super.key, required this.icon});
+class CartIconButton extends StatelessWidget {
+  const CartIconButton({
+    super.key,
+    required this.onTap,
+    this.icon,
+    this.tooltip,
+  });
 
-  final IconData icon;
+  final VoidCallback onTap;
+  final IconData? icon;
+  final String? tooltip;
 
   @override
   Widget build(BuildContext context) {
@@ -12,17 +19,21 @@ class CartNavIcon extends StatelessWidget {
 
     return AnimatedBuilder(
       animation: CartController.I,
-      builder: (_, __) {
+      builder: (context, _) {
         final count = CartController.I.linesCount;
 
         return Stack(
           clipBehavior: Clip.none,
           children: [
-            Icon(icon),
+            IconButton(
+              onPressed: onTap,
+              icon: Icon(icon ?? Icons.shopping_cart_outlined),
+              tooltip: tooltip ?? 'Cart',
+            ),
             if (count > 0)
               PositionedDirectional(
-                top: -6,
-                end: -8,
+                top: -2,
+                end: -2,
                 child: Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 6,

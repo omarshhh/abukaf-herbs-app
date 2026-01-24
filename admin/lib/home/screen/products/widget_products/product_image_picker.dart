@@ -15,14 +15,12 @@ class ProductImagePicker extends StatelessWidget {
     required this.valueFileName,
     required this.onChanged,
 
-    // ✅ NEW
     this.valueUrl,
   });
 
   final Uint8List? valueBytes;
   final String? valueFileName;
 
-  // ✅ NEW: show existing stored image when editing
   final String? valueUrl;
 
   final ValueChanged<PickedImage?> onChanged;

@@ -33,4 +33,20 @@ class MobileProductsRepo {
               .toList();
         });
   }
+
+  // ✅ جديد: من أجلك
+  Stream<List<HerbProduct>> watchForYouProducts({int limit = 12}) {
+    return _db
+        .collection('products')
+        .where('isActive', isEqualTo: true)
+        .where('forYou', isEqualTo: true)
+        .orderBy('createdAt', descending: true)
+        .limit(limit)
+        .snapshots()
+        .map((snap) {
+          return snap.docs
+              .map((d) => HerbProduct.fromMap(d.id, d.data()))
+              .toList();
+        });
+  }
 }
