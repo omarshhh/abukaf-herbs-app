@@ -7,8 +7,8 @@ class AppTheme {
   // =========================
   // Brand & Core Colors
   // =========================
-  static const Color primary = Color(0xFFF39C12); // AbuKaf main brand color
-  static const Color primaryAccent = Color(0xFFB45309); // Darker accent
+  static const Color primary = Color(0xFFF39C12); 
+  static const Color primaryAccent = Color(0xFFB45309); 
 
   // =========================
   // Backgrounds

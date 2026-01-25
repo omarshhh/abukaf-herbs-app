@@ -72,7 +72,6 @@ class HerbCategoryProductCard extends StatelessWidget {
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
 
-    // ✅ أقوى من Directionality: اعتمد على لغة التطبيق
     final lang = Localizations.localeOf(context).languageCode.toLowerCase();
     final isRtl = lang == 'ar';
     final dir = isRtl ? TextDirection.rtl : TextDirection.ltr;
@@ -102,7 +101,7 @@ class HerbCategoryProductCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(14),
       child: SizedBox(
         width: 86,
-        height: 86, // 1*1
+        height: 86, 
         child: DecoratedBox(
           decoration: BoxDecoration(color: cs.primary.withOpacity(0.06)),
           child: url.isEmpty
@@ -110,12 +109,10 @@ class HerbCategoryProductCard extends StatelessWidget {
               : Image.network(
                   url,
                   fit: BoxFit.cover,
-                  // ✅ Placeholder أثناء التحميل
                   loadingBuilder: (context, child, loadingProgress) {
                     if (loadingProgress == null) return child;
                     return _imagePlaceholder(context, loading: true);
                   },
-                  // ✅ في حال فشل التحميل
                   errorBuilder: (_, __, ___) => Container(
                     color: cs.error.withOpacity(0.07),
                     alignment: Alignment.center,

@@ -1,10 +1,9 @@
 class CheckoutSettings {
-  final double taxPercent; // e.g. 16 means 16%
-  final Map<String, double> shippingByGov; // governorateKey -> fee
+  final double taxPercent; 
+  final Map<String, double> shippingByGov; 
 
   CheckoutSettings({required this.taxPercent, required this.shippingByGov});
 
-  /// مفاتيح إنجليزية ثابتة للتخزين في Firestore
   static const List<String> govKeys = [
     'amman',
     'irbid',
@@ -20,7 +19,6 @@ class CheckoutSettings {
     'aqaba',
   ];
 
-  /// أسماء عربية للعرض في الفورم فقط
   static const Map<String, String> govLabelsAr = {
     'amman': 'عمان',
     'irbid': 'إربد',

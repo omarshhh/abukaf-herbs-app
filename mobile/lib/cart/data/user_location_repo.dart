@@ -5,7 +5,6 @@ class UserLocationRepo {
 
   final FirebaseFirestore _db;
 
-  /// Stream يرجع govKey أو null إذا غير موجود
   Stream<String?> watchGovKey(String uid) {
     return _db.collection('users').doc(uid).snapshots().map((snap) {
       final data = snap.data();

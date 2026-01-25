@@ -19,7 +19,6 @@ class ForYouStrip extends StatefulWidget {
   final void Function(HerbProduct product) onProductTap;
   final int limit;
 
-  /// يتحرك خطوة واحدة كل مدة (بدون حركة مستمرة)
   final Duration autoStepEvery;
 
   @override
@@ -62,7 +61,6 @@ class _ForYouStripState extends State<ForYouStrip> {
       final step = _cardWidth + _gap;
       final target = current + step;
 
-      // وصلنا للنهاية => رجوع للبداية بهدوء
       if (target >= max) {
         _ctrl.animateTo(
           0,
@@ -112,7 +110,6 @@ class _ForYouStripState extends State<ForYouStrip> {
     return StreamBuilder<List<HerbProduct>>(
       stream: widget.repo.watchForYouProducts(limit: widget.limit),
       builder: (context, snap) {
-        // ✅ لا تخفي المشاكل بصمت
         if (snap.hasError) {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
@@ -132,7 +129,6 @@ class _ForYouStripState extends State<ForYouStrip> {
 
         if (!loading && items.isEmpty) return const SizedBox.shrink();
 
-        // ✅ يبدأ التحريك خطوة كل فترة بعد أول رسم
         if (!loading && items.length >= 2) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             if (!mounted) return;
@@ -151,13 +147,11 @@ class _ForYouStripState extends State<ForYouStrip> {
             ),
             const SizedBox(height: 10),
 
-            // ✅ ارتفاع مضبوط لمنع overflow
             SizedBox(
               height: 185,
               child: loading
                   ? const Center(child: CircularProgressIndicator())
                   : NotificationListener<UserScrollNotification>(
-                      // ✅ المستخدم سحب => وقف مؤقت
                       onNotification: (n) {
                         _pauseThenResume();
                         return false;
@@ -172,7 +166,6 @@ class _ForYouStripState extends State<ForYouStrip> {
                         itemBuilder: (context, i) {
                           final p = items[i];
 
-                          // ✅ السعر المعروض = سعر أقل كمية (unitPrice * minQty)
                           final minQty = (p.minQty <= 0) ? 1.0 : p.minQty;
                           final minPackPrice = p.unitPrice * minQty;
 
@@ -184,7 +177,6 @@ class _ForYouStripState extends State<ForYouStrip> {
                           return _ForYouCard(
                             product: p,
                             onTap: () => widget.onProductTap(p),
-                            // مثال: "7.50 / 250 g" (سعر أقل كمية)
                             priceLabel:
                                 '${minPackPrice.toStringAsFixed(2)} ${t.currencyJOD} / $qtyLabel ${_unitLabel(p.unit)}',
                           );
@@ -242,7 +234,6 @@ class _ForYouCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // ✅ صورة ثابتة الارتفاع لتجنب overflow
             SizedBox(
               height: 105,
               child: Stack(
@@ -288,7 +279,6 @@ class _ForYouCard extends StatelessWidget {
               ),
             ),
 
-            // ✅ نص مضبوط
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),

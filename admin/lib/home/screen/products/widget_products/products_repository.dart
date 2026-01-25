@@ -13,7 +13,6 @@ class ProductsRepository {
   CollectionReference<Map<String, dynamic>> get _col =>
       _db.collection('products');
 
-  /// All products (latest first)
   Stream<List<HerbProduct>> streamAllProducts({int? limit}) {
     Query<Map<String, dynamic>> q = _col.orderBy('createdAt', descending: true);
     if (limit != null) q = q.limit(limit);
@@ -24,7 +23,6 @@ class ProductsRepository {
     );
   }
 
-  /// ✅ Search by Arabic nameLower prefix (same behavior you had in ProductsRepo)
   Stream<List<HerbProduct>> streamProductsSearch({
     required String query,
     int limit = 50,
@@ -56,7 +54,6 @@ class ProductsRepository {
         );
   }
 
-  /// ✅ For You only
   Stream<List<HerbProduct>> streamForYou({int limit = 50}) {
     return _col
         .where('forYou', isEqualTo: true)
@@ -70,23 +67,19 @@ class ProductsRepository {
         );
   }
 
-  /// ✅ يرجّع المنتج بعد ما يثبت ID الحقيقي
   Future<HerbProduct> addProduct(HerbProduct p) async {
-    final ref = _col.doc(); // Firestore ID
+    final ref = _col.doc(); 
     final productWithId = p.copyWith(id: ref.id);
 
     final saved = await _prepareImage(productWithId);
 
-    // set كامل لأن هذا إنشاء
     await ref.set(saved.toMap());
     return saved;
   }
 
-  /// ✅ Update with merge (safer: won't accidentally drop unknown fields)
   Future<void> updateProduct(HerbProduct p) async {
     final saved = await _prepareImage(p);
 
-    // Merge true أفضل على المدى البعيد (لو أضفت حقول إضافية لاحقًا)
     await _col.doc(p.id).set(saved.toMap(), SetOptions(merge: true));
   }
 

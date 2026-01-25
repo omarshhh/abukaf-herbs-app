@@ -44,7 +44,6 @@ class MyApp extends StatelessWidget {
   builder: (context, child) {
         return InternetGate(child: child ?? const SizedBox.shrink());
       },
-      // Start screen
       home: AuthGate(),
     );
   }

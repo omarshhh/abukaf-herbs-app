@@ -85,36 +85,30 @@ class HerbProduct {
         final m = v.map((k, val) => MapEntry(k.toString(), val));
         final byLang = m[lang];
         if (byLang != null) return byLang.toString();
-        // fallback: common keys
         final fallback = m['ar'] ?? m['en'];
         return fallback?.toString() ?? '';
       }
       return v.toString();
     }
 
-    /// يقرأ من (keyAr/keyEn) أو من (baseKey كـ Map)
     String _readLocalized({
       required String baseKey,
       required String arKey,
       required String enKey,
       required String lang,
     }) {
-      // 1) keys المباشرة
       final direct = map[lang == 'ar' ? arKey : enKey];
       final directStr = _pickLang(direct, lang).trim();
       if (directStr.isNotEmpty) return directStr;
 
-      // 2) baseKey كـ Map {ar,en}
       final base = map[baseKey];
       final baseStr = _pickLang(base, lang).trim();
       if (baseStr.isNotEmpty) return baseStr;
 
-      // 3) fallback عكسي
       final other = map[lang == 'ar' ? enKey : arKey];
       return _pickLang(other, lang).trim();
     }
 
-    // اللغة هنا ليست من context، لذلك نخزن الاثنين بشكل صحيح:
     final nameAr = _pickLang(map['nameAr'] ?? map['name'], 'ar');
     final nameEn = _pickLang(map['nameEn'] ?? map['name'], 'en');
 
@@ -150,6 +144,5 @@ class HerbProduct {
   }
 
 
-  /// للبحث (AR/EN) بشكل موحد
   String searchBlob() => '${nameAr.toLowerCase()} ${nameEn.toLowerCase()}';
 }

@@ -27,7 +27,7 @@ class LocationMapPage extends StatefulWidget {
 class _LocationMapPageState extends State<LocationMapPage> {
   GoogleMapController? _map;
 
-  LatLng? _picked; // مركز الكاميرا (الدبوس)
+  LatLng? _picked; 
   bool _saving = false;
 
   bool _checking = true;
@@ -51,14 +51,12 @@ class _LocationMapPageState extends State<LocationMapPage> {
     if (!mounted) return;
 
     if (!ok) {
-      // المستخدم اختار "رجوع"
       return;
     }
 
-    // الآن permission Granted
     setState(() {
       _permissionGranted = true;
-      _checking = true; // ما زلنا نجلب الموقع
+      _checking = true; 
     });
 
     await _centerOnCurrentLocation();
@@ -67,9 +65,6 @@ class _LocationMapPageState extends State<LocationMapPage> {
     setState(() => _checking = false);
   }
 
-  /// Blocking loop:
-  /// - لا يترك المستخدم يكمل إلا إذا صار Granted
-  /// - أو يرجع للخلف إذا اختار Back
   Future<bool> _requireLocationPermissionBlocking() async {
     final t = AppLocalizations.of(context)!;
 
@@ -85,12 +80,10 @@ class _LocationMapPageState extends State<LocationMapPage> {
         );
 
         if (go != true) {
-          // رجوع
           if (mounted) Navigator.pop(context);
           return false;
         }
 
-        // retry -> يعيد الحلقة (بعد ما المستخدم يشغل GPS)
         continue;
       }
 
@@ -105,7 +98,6 @@ class _LocationMapPageState extends State<LocationMapPage> {
         return true;
       }
 
-      // deniedForever أو denied مرة ثانية
       final isForever = perm == LocationPermission.deniedForever;
 
       final go = await _showBlockingDialog(
@@ -129,7 +121,6 @@ class _LocationMapPageState extends State<LocationMapPage> {
         await Geolocator.requestPermission();
       }
 
-      // ثم نعيد الحلقة للتحقق مرة أخرى
     }
 
     return false;
@@ -178,7 +169,6 @@ class _LocationMapPageState extends State<LocationMapPage> {
 
       _map?.animateCamera(CameraUpdate.newLatLngZoom(here, 16));
     } catch (_) {
-      // لو فشل الجلب لأي سبب، نستخدم initial/fallback لكن الإذن ما زال مطلوب (ومتحقق)
       if (!mounted) return;
       final start = widget.initialLatLng ?? _fallback;
       setState(() => _picked = start);
@@ -258,13 +248,11 @@ class _LocationMapPageState extends State<LocationMapPage> {
               }
             },
             onCameraMove: (pos) {
-              // لا تسمح بتغيير الدبوس إذا الإذن غير مفعّل (Blocking)
               if (!_permissionGranted) return;
               setState(() => _picked = pos.target);
             },
           ),
 
-          // دبوس ثابت بالمنتصف
           IgnorePointer(
             child: Center(
               child: Padding(
@@ -274,7 +262,6 @@ class _LocationMapPageState extends State<LocationMapPage> {
             ),
           ),
 
-          // Overlay يمنع التفاعل طالما الإذن غير Granted أو أثناء الفحص
           if (!_permissionGranted || _checking)
             Positioned.fill(
               child: ColoredBox(

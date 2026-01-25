@@ -34,7 +34,6 @@ class MobileProductsRepo {
         });
   }
 
-  // ✅ جديد: من أجلك
   Stream<List<HerbProduct>> watchForYouProducts({int limit = 12}) {
     return _db
         .collection('products')

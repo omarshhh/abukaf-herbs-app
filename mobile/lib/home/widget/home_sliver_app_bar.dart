@@ -17,7 +17,6 @@ class HomeSliverAppBar extends StatelessWidget {
       snap: true,
       pinned: false,
 
-      // ✅ Slimmer bar height
       toolbarHeight: 48,
 
       elevation: 0,
@@ -25,10 +24,8 @@ class HomeSliverAppBar extends StatelessWidget {
       backgroundColor: cs.surface,
       surfaceTintColor: Colors.transparent,
 
-      // ✅ remove extra spacing
       titleSpacing: 12,
 
-      // ✅ make icons tighter (kills the “1mm” feel)
       iconTheme: IconThemeData(color: cs.onSurface),
       actionsIconTheme: IconThemeData(color: cs.onSurface),
 
@@ -38,7 +35,7 @@ class HomeSliverAppBar extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
         style: theme.textTheme.titleMedium?.copyWith(
           fontWeight: FontWeight.w900,
-          height: 1.0, // ✅ removes extra text line height
+          height: 1.0, 
         ),
       ),
 
@@ -49,7 +46,6 @@ class HomeSliverAppBar extends StatelessWidget {
             onPressed: onSearchPressed,
             tooltip: t.searchHint,
 
-            // ✅ critical: remove default padding + shrink tap target slightly
             padding: EdgeInsets.zero,
             visualDensity: VisualDensity.compact,
             constraints: const BoxConstraints.tightFor(width: 40, height: 40),

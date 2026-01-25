@@ -3,7 +3,6 @@ import "package:flutter/material.dart";
 class AppTheme {
   AppTheme._();
 
-  // Brand colors (AbuKaf)
   static const Color primary = Color(0xFFF39C12);
   static const Color primaryDark = Color(0xFFD68910);
   static const Color surface = Color(0xFFFFFFFF);
@@ -32,11 +31,9 @@ class AppTheme {
 
       scaffoldBackgroundColor: background,
 
-      // Typography
       fontFamily: "Cairo", 
       textTheme: _textTheme(Brightness.light),
 
-      // AppBar
       appBarTheme: AppBarTheme(
         centerTitle: true,
         backgroundColor: surface,
@@ -50,7 +47,6 @@ class AppTheme {
         ),
       ),
 
-      // Buttons
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: primary,
@@ -87,7 +83,6 @@ class AppTheme {
         ),
       ),
 
-      // Inputs
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: surface,
@@ -116,7 +111,6 @@ class AppTheme {
         ),
       ),
 
-      // Cards
       cardTheme: CardThemeData(
         color: surface,
         elevation: 0,
@@ -128,21 +122,18 @@ class AppTheme {
         margin: EdgeInsets.zero,
       ),
 
-      // Chips
       chipTheme: ChipThemeData(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(999)),
         side: const BorderSide(color: border),
         labelStyle: const TextStyle(fontWeight: FontWeight.w700),
       ),
 
-      // Dividers
       dividerTheme: const DividerThemeData(
         color: border,
         thickness: 1,
         space: 24,
       ),
 
-      // Bottom nav
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: surface,
         selectedItemColor: primary,

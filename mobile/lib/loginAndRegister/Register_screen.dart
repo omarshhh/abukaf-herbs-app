@@ -52,13 +52,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _looksLikeJordanPhone(String value) {
     final v = value.trim();
 
-    // Must be digits only (extra safety)
     if (!RegExp(r'^\d+$').hasMatch(v)) return false;
 
-    // 07xxxxxxxx (10 digits)
     if (v.startsWith('07') && v.length == 10) return true;
 
-    // 7xxxxxxxx (9 digits)
     if (v.startsWith('7') && v.length == 9) return true;
 
     return false;
@@ -67,12 +64,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String _normalizeJordanPhone(String value) {
     final v = value.trim().replaceAll(' ', '');
 
-    // 7XXXXXXXX → +9627XXXXXXXX
     if (RegExp(r'^7\d{8}$').hasMatch(v)) {
       return '+962$v';
     }
 
-    // 07XXXXXXXX → +9627XXXXXXXX
     if (RegExp(r'^07\d{8}$').hasMatch(v)) {
       return '+962${v.substring(1)}';
     }

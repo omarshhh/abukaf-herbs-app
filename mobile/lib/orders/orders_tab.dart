@@ -38,8 +38,6 @@ class OrdersTab extends StatelessWidget {
   }
 
   bool _canCancel(String status) {
-    // حسب طلبك: لا يظهر زر الإلغاء إذا كانت "قيد التوصيل"
-    // أنا أعتبر delivering/delivered لا يمكن إلغاؤه
     if (status == 'delivering' || status == 'delivered') return false;
     if (status == 'cancelled') return false;
     return true;
@@ -55,7 +53,7 @@ class OrdersTab extends StatelessWidget {
 
       if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(t.orderCancelledSuccess)), // أضفها في l10n
+        SnackBar(content: Text(t.orderCancelledSuccess)), 
       );
     } catch (e) {
       if (!context.mounted) return;
@@ -123,7 +121,6 @@ class OrdersTab extends StatelessWidget {
 
               final itemCount = o.items.length;
 
-              // اسماء الأعشاب بخط صغير (أول 3 ثم +x)
               final names = o.items
                   .map((it) {
                     final isRtl =
@@ -137,7 +134,7 @@ class OrdersTab extends StatelessWidget {
                   .toList();
 
               final shortNames = () {
-                if (names.isEmpty) return t.orderItemsUnknown; // أضفها في l10n
+                if (names.isEmpty) return t.orderItemsUnknown; 
                 final take = names.take(3).toList();
                 final rest = names.length - take.length;
                 return rest > 0
@@ -159,7 +156,6 @@ class OrdersTab extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Header: Status + Total
                       Row(
                         children: [
                           Expanded(
@@ -180,8 +176,6 @@ class OrdersTab extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 10),
-
-                      // Info row with icons: date, items count, subtotal(optional)
                       Wrap(
                         spacing: 10,
                         runSpacing: 8,
@@ -204,7 +198,6 @@ class OrdersTab extends StatelessWidget {
 
                       const SizedBox(height: 10),
 
-                      // Small herb names
                       Text(
                         shortNames,
                         style: theme.textTheme.bodySmall?.copyWith(
@@ -217,14 +210,13 @@ class OrdersTab extends StatelessWidget {
 
                       const SizedBox(height: 12),
 
-                      // Actions: Details + Cancel
                       Row(
                         children: [
                           Expanded(
                             child: OutlinedButton.icon(
                               onPressed: () => _openDetails(context, o),
                               icon: const Icon(Icons.visibility_outlined),
-                              label: Text(t.actionViewDetails), // أضفها في l10n
+                              label: Text(t.actionViewDetails), 
                             ),
                           ),
                           const SizedBox(width: 10),
@@ -234,7 +226,7 @@ class OrdersTab extends StatelessWidget {
                                   ? () => _cancelOrder(context, o.id)
                                   : null,
                               icon: const Icon(Icons.cancel_outlined),
-                              label: Text(t.actionCancelOrder), // أضفها في l10n
+                              label: Text(t.actionCancelOrder), 
                             ),
                           ),
                         ],

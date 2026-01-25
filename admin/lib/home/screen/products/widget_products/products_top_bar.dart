@@ -7,14 +7,14 @@ class ProductsTopBar extends StatelessWidget {
     required this.onSearchChanged,
     required this.onClear,
     required this.onAddPressed,
-    required this.onShippingTaxPressed, // NEW
+    required this.onShippingTaxPressed, 
   });
 
   final TextEditingController searchController;
   final ValueChanged<String> onSearchChanged;
   final VoidCallback onClear;
   final VoidCallback onAddPressed;
-  final VoidCallback onShippingTaxPressed; // NEW
+  final VoidCallback onShippingTaxPressed; 
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,6 @@ class ProductsTopBar extends StatelessWidget {
           ),
           const SizedBox(width: 12),
 
-          // NEW button
           OutlinedButton.icon(
             onPressed: onShippingTaxPressed,
             icon: const Icon(Icons.local_shipping_outlined),

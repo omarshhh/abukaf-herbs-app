@@ -94,7 +94,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
       debugPrint('SIGNED IN: uid=${user.uid}, email=${user.email}');
 
-      // ... Firestore set/merge مثل ما عندك
 
       if (!mounted) return;
       Navigator.pushAndRemoveUntil(
@@ -119,7 +118,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  // Map FirebaseAuth errors to localized messages
   String _mapAuthErrorToMessage(AppLocalizations t, FirebaseAuthException e) {
     switch (e.code) {
       case 'user-not-found':
@@ -198,7 +196,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       errorText: _submitted ? _emailErrorText : null,
                     ),
                     onChanged: (_) {
-                      // إذا كان الخطأ ظهر بسبب submit، اخفه فور أول كتابة
                       if (_submitted && _emailErrorText != null) {
                         setState(() => _emailErrorText = null);
                       }
@@ -333,7 +330,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   const SizedBox(height: 12),
 
-                  // Google login (later)
+                  // Google login 
                   OutlinedButton(
                     onPressed: _loading ? null : () => _signInWithGoogle(t),
                     child: Text(t.googleLoginButton),

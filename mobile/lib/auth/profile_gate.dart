@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/auth/location_gate.dart';
-import 'package:mobile/home/home_screen.dart';
 import 'package:mobile/loginAndRegister/complete_profile_screen.dart';
 
 class ProfileGate extends StatefulWidget {

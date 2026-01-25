@@ -25,7 +25,6 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
 
   final _formKey = GlobalKey<FormState>();
 
-  // ✅ Bilingual controllers
   late final TextEditingController _nameArCtrl;
   late final TextEditingController _nameEnCtrl;
 
@@ -35,11 +34,9 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
   late final TextEditingController _prepArCtrl;
   late final TextEditingController _prepEnCtrl;
 
-  // ✅ Short desc (AR/EN)
   late final TextEditingController _shortDescArCtrl;
   late final TextEditingController _shortDescEnCtrl;
 
-  // Numbers
   late final TextEditingController _minCtrl;
   late final TextEditingController _maxCtrl;
   late final TextEditingController _stepCtrl;
@@ -245,7 +242,6 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
 
                 const SizedBox(height: 12),
 
-                // اسم إنجليزي (مطلوب)
                 TextFormField(
                   controller: _nameEnCtrl,
                   decoration: const InputDecoration(
@@ -262,7 +258,6 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
 
                 const SizedBox(height: 12),
 
-                // الوحدة + حالة الظهور
                 Row(
                   children: [
                     Expanded(
@@ -309,7 +304,6 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
 
                 const SizedBox(height: 6),
 
-                // اخترنالك
                 SwitchListTile.adaptive(
                   value: _forYou,
                   onChanged: (v) => setState(() => _forYou = v),
@@ -319,7 +313,6 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
 
                 const SizedBox(height: 12),
 
-                // وصف قصير عربي/إنجليزي (مطلوب)
                 Row(
                   children: [
                     Expanded(
@@ -359,7 +352,6 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
 
                 const SizedBox(height: 12),
 
-                // الكميات
                 Row(
                   children: [
                     Expanded(
@@ -423,7 +415,6 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
 
                 const SizedBox(height: 12),
 
-                // السعر
                 TextFormField(
                   controller: _priceCtrl,
                   keyboardType: const TextInputType.numberWithOptions(
@@ -445,7 +436,6 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
 
                 const SizedBox(height: 12),
 
-                // الفوائد
                 Row(
                   children: [
                     Expanded(
@@ -485,7 +475,6 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
 
                 const SizedBox(height: 12),
 
-                // طريقة الاستخدام
                 Row(
                   children: [
                     Expanded(

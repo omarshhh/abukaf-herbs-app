@@ -31,18 +31,15 @@ class CompleteProfileService {
           ? null
           : _normalizeJordanPhone(oldPhone);
 
-      // If user is changing phone, free old index
       final isChangingPhone =
           oldPhoneNorm != null &&
           oldPhoneNorm.isNotEmpty &&
           oldPhoneNorm != phone;
 
-      // Check new phone index
       final phoneSnap = await tx.get(phoneRef);
       if (phoneSnap.exists) {
         final existingUid =
             (phoneSnap.data() as Map<String, dynamic>)['uid'] as String?;
-        // If the phone is already reserved by another uid => reject
         if (existingUid != null && existingUid != uid) {
           throw FirebaseException(
             plugin: 'cloud_firestore',
@@ -52,13 +49,11 @@ class CompleteProfileService {
         }
       }
 
-      // Reserve (or re-reserve) phone index for this uid
       tx.set(phoneRef, {
         'uid': uid,
         'createdAt': FieldValue.serverTimestamp(),
       }, SetOptions(merge: true));
 
-      // Remove old phone index if needed
       if (isChangingPhone) {
         final oldPhoneRef = FirebaseFirestore.instance
             .collection('phone_index')
@@ -66,7 +61,6 @@ class CompleteProfileService {
         tx.delete(oldPhoneRef);
       }
 
-      // Update user profile (merge-safe)
       tx.set(userRef, {
         'uid': uid,
         'firstName': firstName.trim(),
@@ -84,17 +78,14 @@ class CompleteProfileService {
   static String _normalizeJordanPhone(String value) {
     final v = value.trim().replaceAll(' ', '');
 
-    // 7XXXXXXXX → +9627XXXXXXXX
     if (RegExp(r'^7\d{8}$').hasMatch(v)) {
       return '+962$v';
     }
 
-    // 07XXXXXXXX → +9627XXXXXXXX
     if (RegExp(r'^07\d{8}$').hasMatch(v)) {
       return '+962${v.substring(1)}';
     }
 
-    // Already +9627XXXXXXXX
     if (RegExp(r'^\+9627\d{8}$').hasMatch(v)) {
       return v;
     }

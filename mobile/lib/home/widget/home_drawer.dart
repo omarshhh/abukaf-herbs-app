@@ -49,7 +49,6 @@ class HomeDrawer extends StatelessWidget {
 
             const Spacer(),
 
-            // لاحقاً: Logout / Language / Theme
             const SizedBox(height: 10),
           ],
         ),

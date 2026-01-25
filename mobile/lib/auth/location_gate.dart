@@ -47,14 +47,11 @@ class _LocationGateState extends State<LocationGate> {
     return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
       stream: ref.snapshots(),
       builder: (context, snap) {
-        // ✅ لا تعرض أي AppBar خلال مرحلة البداية/التحميل
-        // حتى لو جاء snapshot بسرعة، ننتظر الحد الأدنى ثم نقرر
         if (!_readyToDecide ||
             snap.connectionState == ConnectionState.waiting) {
           return const _GateLoading();
         }
 
-        // لو في خطأ، نعرض رسالة بسيطة بدون AppBar (حتى لا يرجع الوميض)
         if (snap.hasError) {
           return Scaffold(
             body: Center(

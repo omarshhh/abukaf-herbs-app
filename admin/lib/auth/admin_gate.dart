@@ -22,8 +22,6 @@ class AdminGate extends StatelessWidget {
     }
 
     if (_isAdmin(user)) {
-      // ✅ بدل ما نروح مباشرة على DesignHome
-      // نمرّ على DeviceGate (منع الموبايل/الشاشات الضيقة)
       return const DeviceGate();
     }
 

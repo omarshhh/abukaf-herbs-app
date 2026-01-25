@@ -140,7 +140,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             expandedHeight: 310,
             title: Text(title, maxLines: 1, overflow: TextOverflow.ellipsis),
             actions: [
-              // سلة مع عداد
               _CartAppBarButton(
                 onTap: () {
                   Navigator.push(
@@ -150,7 +149,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 },
               ),
 
-              // شارة "For You"
               if (p.forYou)
                 Padding(
                   padding: const EdgeInsetsDirectional.only(end: 10),
@@ -189,7 +187,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // ===== Title + Min Pack Price =====
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -240,7 +237,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
 
                   const SizedBox(height: 16),
 
-                  // ===== Quantity Selector (يظهر فقط إذا المنتج ليس داخل السلة) =====
                   AnimatedBuilder(
                     animation: CartController.I,
                     builder: (context, _) {
@@ -344,7 +340,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
 
                   const SizedBox(height: 14),
 
-                  // ===== Benefits =====
                   _InfoSection(
                     title: t.sectionBenefits,
                     icon: Icons.local_florist_rounded,
@@ -353,7 +348,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
 
                   const SizedBox(height: 12),
 
-                  // ===== How to use =====
                   _InfoSection(
                     title: t.sectionHowToUse,
                     icon: Icons.menu_book_rounded,
@@ -366,7 +360,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         ],
       ),
 
-      // ===== Bottom Area: زر إضافة يتحول لStepper داخل السلة =====
       bottomNavigationBar: SafeArea(
         child: AnimatedBuilder(
           animation: CartController.I,
@@ -392,7 +385,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     _QtyButton(
                       icon: Icons.remove_rounded,
                       onTap: () {
-                        // ينقص بمقدار step، وإذا صار أقل من min => CartController يحذف المنتج
                         CartController.I.setQtySafe(p.id, qtyNow - step);
                       },
                     ),
@@ -438,7 +430,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     _QtyButton(
                       icon: Icons.add_rounded,
                       onTap: () {
-                        // يزيد بمقدار step (والـ clamp/max يتم داخل CartController)
                         CartController.I.setQtySafe(p.id, qtyNow + step);
                       },
                     ),
@@ -456,9 +447,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     Expanded(
                       child: FilledButton.icon(
                         onPressed: () async {
-                          // مهم: هذا يستدعي منطقك (المفترض داخله يضيف للسلة)
                           await widget.onAddToCart(p, _qty);
-                          // بعد الإضافة، AnimatedBuilder سيحوّل الواجهة تلقائياً للStepper
                         },
                         icon: const Icon(Icons.add_shopping_cart_rounded),
                         label: Text(

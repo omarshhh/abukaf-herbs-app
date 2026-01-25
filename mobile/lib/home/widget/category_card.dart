@@ -17,7 +17,7 @@ class CategoryCard extends StatelessWidget {
     final cs = Theme.of(context).colorScheme;
 
     return AspectRatio(
-      aspectRatio: 1, // ✅ 1:1
+      aspectRatio: 1, 
       child: Material(
         color: Colors.transparent,
         child: InkWell(
@@ -28,7 +28,6 @@ class CategoryCard extends StatelessWidget {
             child: Stack(
               fit: StackFit.expand,
               children: [
-                // ✅ Image only
                 Image.asset(
                   imagePath,
                   fit: BoxFit.cover,
@@ -43,7 +42,6 @@ class CategoryCard extends StatelessWidget {
                   ),
                 ),
 
-                // ✅ Bottom gradient for readability
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
@@ -61,7 +59,6 @@ class CategoryCard extends StatelessWidget {
                   ),
                 ),
 
-                // ✅ Title inside image (bottom)
                 Positioned(
                   left: 10,
                   right: 10,
@@ -85,7 +82,6 @@ class CategoryCard extends StatelessWidget {
                   ),
                 ),
 
-                // ✅ Subtle border (optional but looks premium)
                 Positioned.fill(
                   child: IgnorePointer(
                     child: DecoratedBox(

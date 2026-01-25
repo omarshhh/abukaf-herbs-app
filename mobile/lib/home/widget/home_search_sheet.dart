@@ -37,7 +37,6 @@ class _HomeSearchSheetState extends State<HomeSearchSheet> {
         padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
         child: Column(
           children: [
-            // Header
             Row(
               children: [
                 Expanded(
@@ -56,7 +55,6 @@ class _HomeSearchSheetState extends State<HomeSearchSheet> {
             ),
             const SizedBox(height: 10),
 
-            // Search input
             TextField(
               controller: _ctrl,
               autofocus: true,
@@ -79,12 +77,11 @@ class _HomeSearchSheetState extends State<HomeSearchSheet> {
 
             const SizedBox(height: 14),
 
-            // Placeholder results (سنبدلها بمنتجات + limit لاحقاً)
             Expanded(
               child: _q.isEmpty
                   ? Center(
                       child: Text(
-                        t.searchStartTyping, // سنضيفها بالترجمة
+                        t.searchStartTyping, 
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           fontWeight: FontWeight.w700,
                           color: Theme.of(
@@ -94,7 +91,7 @@ class _HomeSearchSheetState extends State<HomeSearchSheet> {
                       ),
                     )
                   : ListView.separated(
-                      itemCount: 8, // placeholder
+                      itemCount: 8, 
                       separatorBuilder: (_, __) => const Divider(height: 1),
                       itemBuilder: (_, i) {
                         return ListTile(
@@ -102,9 +99,8 @@ class _HomeSearchSheetState extends State<HomeSearchSheet> {
                             child: Icon(Icons.local_florist),
                           ),
                           title: Text('Result ${i + 1} — $_q'),
-                          subtitle: Text(t.searchResultPlaceholder), // سنضيفها
+                          subtitle: Text(t.searchResultPlaceholder), 
                           onTap: () {
-                            // لاحقاً: فتح صفحة المنتج
                           },
                         );
                       },

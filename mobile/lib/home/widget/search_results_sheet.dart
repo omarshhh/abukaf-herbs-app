@@ -31,7 +31,7 @@ class SearchResultsSheet extends StatelessWidget {
             Align(
               alignment: AlignmentDirectional.centerStart,
               child: Text(
-                t.searchResultsTitle, // أضفها في arb
+                t.searchResultsTitle, 
                 style: Theme.of(
                   context,
                 ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w900),
@@ -39,7 +39,6 @@ class SearchResultsSheet extends StatelessWidget {
             ),
             const SizedBox(height: 10),
 
-            // Stream: active products
             Flexible(
               child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                 stream: FirebaseFirestore.instance
@@ -109,7 +108,6 @@ class SearchResultsSheet extends StatelessWidget {
                                     overflow: TextOverflow.ellipsis,
                                   ),
                             onTap: () {
-                              // لاحقاً: نفتح صفحة تفاصيل + زر إضافة للسلة
                               Navigator.pop(context);
                             },
                           );

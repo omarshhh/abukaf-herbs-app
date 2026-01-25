@@ -9,7 +9,6 @@ class RegisterService {
     required String email,
     required String password,
   }) async {
-    // 1) Create Auth user (email uniqueness handled by Firebase)
     final cred = await FirebaseAuth.instance.createUserWithEmailAndPassword(
       email: email,
       password: password,
@@ -23,7 +22,6 @@ class RegisterService {
 
     final userRef = FirebaseFirestore.instance.collection('users').doc(uid);
 
-    // 2) Firestore Transaction (atomic)
     try {
       await FirebaseFirestore.instance.runTransaction((tx) async {
         final phoneSnap = await tx.get(phoneRef);
@@ -49,10 +47,8 @@ class RegisterService {
           'email': email.trim().toLowerCase(),
           'role': 'user',
 
-          // ✅ This flow collects all profile data now
           'profileCompleted': true,
 
-          // Meta
           'provider': 'password',
           'createdAt': FieldValue.serverTimestamp(),
           'lastLoginAt': FieldValue.serverTimestamp(),
@@ -60,7 +56,6 @@ class RegisterService {
 
       });
     } catch (e) {
-      // Rollback Auth if Firestore fails
       try {
         await cred.user?.delete();
       } catch (_) {}

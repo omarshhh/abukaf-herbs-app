@@ -122,7 +122,7 @@ class _CheckoutSettingsDialogState extends State<CheckoutSettingsDialog> {
                           decimal: true,
                         ),
                         decoration: InputDecoration(
-                          labelText: label, // عرض عربي
+                          labelText: label, 
                           prefixIcon: const Icon(Icons.location_on_outlined),
                         ),
                         validator: _validateNonNegative,

@@ -29,11 +29,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     try {
       final email = _emailController.text.trim();
 
-      print('🔄 Attempting to send reset email to: $email'); // ✅ Debug
+      print('🔄 Attempting to send reset email to: $email'); 
 
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
 
-      print('✅ Reset email sent successfully!'); // ✅ Debug
+      print('✅ Reset email sent successfully!'); 
 
       if (!mounted) return;
 
@@ -43,7 +43,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
-      print('❌ FirebaseAuthException: ${e.code} - ${e.message}'); // ✅ Debug
+      print('❌ FirebaseAuthException: ${e.code} - ${e.message}'); 
 
       if (!mounted) return;
       ScaffoldMessenger.of(
@@ -51,7 +51,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       ).showSnackBar(SnackBar(content: Text(t.resetPasswordEmailSent)));
       Navigator.pop(context);
     } catch (e) {
-      print('❌ Unknown error: $e'); // ✅ Debug
+      print('❌ Unknown error: $e'); 
     } finally {
       if (mounted) setState(() => _loading = false);
     }

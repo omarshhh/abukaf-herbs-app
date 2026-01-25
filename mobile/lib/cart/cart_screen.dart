@@ -15,7 +15,6 @@ import 'package:mobile/cart/widgets/payment_method_card.dart';
 import 'package:mobile/cart/widgets/cart_bottom_bar.dart';
 
 import 'package:mobile/orders/data/orders_repo.dart';
-import 'package:mobile/orders/orders_screen.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key, this.onGoOrders});
@@ -35,7 +34,6 @@ class _CartScreenState extends State<CartScreen> {
   late final _pricingRepo = CheckoutPricingRepo(_db);
   late final _ordersRepo = OrdersRepo(_db);
 
-  // اقرأ user doc كاملة (لأننا نحتاج location كاملة للطلب)
   Future<Map<String, dynamic>?> _readUserDoc(String uid) async {
     final snap = await _db.collection('users').doc(uid).get();
     return snap.data();
@@ -233,7 +231,6 @@ class _CartScreenState extends State<CartScreen> {
 
                       const PaymentMethodCard(),
 
-                      // مساحة بسيطة حتى لا يلتصق آخر شيء بالزر السفلي
                       const SizedBox(height: 6),
                       Text(
                         t.paymentCODOnly,

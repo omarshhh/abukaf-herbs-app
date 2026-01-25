@@ -1,10 +1,10 @@
 import 'dart:typed_data';
 
 enum ProductUnit {
-  gram, // g
-  kilogram, // kg
-  ml, // ml
-  liter, // L
+  gram, 
+  kilogram,
+  ml, 
+  liter, 
   piece,
 }
 
@@ -24,7 +24,6 @@ class HerbProduct {
     required this.preparationAr,
     required this.preparationEn,
 
-    // ✅ NEW (required)
     required this.forYou,
     required this.shortDescAr,
     required this.shortDescEn,
@@ -37,25 +36,19 @@ class HerbProduct {
     required this.isActive,
     required this.createdAt,
 
-    // Storage fields (saved in Firestore)
     this.imageUrl,
     this.imageFileName,
 
-    // UI-only (NOT saved in Firestore)
     this.imageBytes,
   });
 
   String id;
   String categoryId;
 
-  /// ✅ Backward-compatible (old) fields
-  /// We keep them so old UI / mobile code doesn't break.
-  /// We will store them as Arabic values (AR).
   String name;
   String benefit;
   String preparation;
 
-  /// ✅ New bilingual fields
   String nameAr;
   String nameEn;
 
@@ -65,7 +58,6 @@ class HerbProduct {
   String preparationAr;
   String preparationEn;
 
-  /// ✅ NEW
   bool forYou;
   String shortDescAr;
   String shortDescEn;
@@ -80,23 +72,19 @@ class HerbProduct {
 
   DateTime createdAt;
 
-  // Stored in Firestore
   String? imageUrl;
   String? imageFileName;
 
-  // UI-only
   Uint8List? imageBytes;
 
   HerbProduct copyWith({
     String? id,
     String? categoryId,
 
-    // old
     String? name,
     String? benefit,
     String? preparation,
 
-    // new bilingual
     String? nameAr,
     String? nameEn,
     String? benefitAr,
@@ -104,7 +92,6 @@ class HerbProduct {
     String? preparationAr,
     String? preparationEn,
 
-    // ✅ NEW
     bool? forYou,
     String? shortDescAr,
     String? shortDescEn,
@@ -120,7 +107,6 @@ class HerbProduct {
     String? imageFileName,
     Uint8List? imageBytes,
   }) {
-    // Prefer AR fields to keep old fields consistent
     final nextNameAr = nameAr ?? this.nameAr;
     final nextBenefitAr = benefitAr ?? this.benefitAr;
     final nextPrepAr = preparationAr ?? this.preparationAr;
@@ -129,12 +115,10 @@ class HerbProduct {
       id: id ?? this.id,
       categoryId: categoryId ?? this.categoryId,
 
-      // old fields should track Arabic
       name: name ?? nextNameAr,
       benefit: benefit ?? nextBenefitAr,
       preparation: preparation ?? nextPrepAr,
 
-      // new fields
       nameAr: nextNameAr,
       nameEn: nameEn ?? this.nameEn,
       benefitAr: nextBenefitAr,
@@ -142,7 +126,6 @@ class HerbProduct {
       preparationAr: nextPrepAr,
       preparationEn: preparationEn ?? this.preparationEn,
 
-      // ✅ NEW
       forYou: forYou ?? this.forYou,
       shortDescAr: shortDescAr ?? this.shortDescAr,
       shortDescEn: shortDescEn ?? this.shortDescEn,
@@ -157,13 +140,10 @@ class HerbProduct {
       imageUrl: imageUrl ?? this.imageUrl,
       imageFileName: imageFileName ?? this.imageFileName,
 
-      // UI-only (do not push to Firestore)
       imageBytes: imageBytes ?? this.imageBytes,
     );
   }
 
-  /// ✅ Firestore map (NO bytes here)
-  /// We write bilingual fields + keep old fields for backward compatibility.
   Map<String, dynamic> toMap() {
     final arName = nameAr.trim();
     final arShort = shortDescAr.trim();
@@ -172,15 +152,12 @@ class HerbProduct {
     return {
       'categoryId': categoryId,
 
-      // ✅ Backward compatible fields (store AR)
       'name': arName,
       'benefit': benefitAr,
       'preparation': preparationAr,
 
-      // ✅ For search (prefix)
       'nameLower': arName.toLowerCase(),
 
-      // ✅ New bilingual fields
       'nameAr': arName,
       'nameEn': nameEn.trim(),
       'benefitAr': benefitAr,
@@ -188,7 +165,6 @@ class HerbProduct {
       'preparationAr': preparationAr,
       'preparationEn': preparationEn,
 
-      // ✅ NEW
       'forYou': forYou,
       'shortDesc': {'ar': arShort, 'en': enShort},
 
@@ -204,7 +180,6 @@ class HerbProduct {
     };
   }
 
-  /// ✅ Read from Firestore (with fallback for old documents)
   static HerbProduct fromMap(Map<String, dynamic> map, String docId) {
     final unitStr = (map['unit'] ?? 'gram').toString();
     final parsedUnit = ProductUnit.values.firstWhere(
@@ -224,7 +199,6 @@ class HerbProduct {
       return int.tryParse(v.toString()) ?? fallback;
     }
 
-    // ✅ fallback strategy
     final nameAr = (map['nameAr'] ?? map['name'] ?? '').toString();
     final nameEn = (map['nameEn'] ?? '').toString();
 
@@ -235,7 +209,6 @@ class HerbProduct {
         .toString();
     final prepEn = (map['preparationEn'] ?? '').toString();
 
-    // ✅ NEW: shortDesc map fallback
     final sd = map['shortDesc'];
     String shortAr = '';
     String shortEn = '';
@@ -248,12 +221,10 @@ class HerbProduct {
       id: docId,
       categoryId: (map['categoryId'] ?? 'herbs').toString(),
 
-      // old fields kept = AR
       name: nameAr,
       benefit: benefitAr,
       preparation: prepAr,
 
-      // new bilingual fields
       nameAr: nameAr,
       nameEn: nameEn,
       benefitAr: benefitAr,
@@ -261,7 +232,6 @@ class HerbProduct {
       preparationAr: prepAr,
       preparationEn: prepEn,
 
-      // ✅ NEW (fallback-safe)
       forYou: (map['forYou'] ?? false) == true,
       shortDescAr: shortAr,
       shortDescEn: shortEn,
@@ -280,7 +250,7 @@ class HerbProduct {
       ),
       imageUrl: map['imageUrl'] as String?,
       imageFileName: map['imageFileName'] as String?,
-      imageBytes: null, // never from Firestore
+      imageBytes: null, 
     );
   }
 }
