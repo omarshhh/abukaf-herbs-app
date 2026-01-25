@@ -1211,8 +1211,62 @@ abstract class AppLocalizations {
   /// No description provided for @locationMissingInProfile.
   ///
   /// In en, this message translates to:
-  /// **'لا يمكن حساب التوصيل لأن بيانات الموقع غير مكتملة. يرجى تحديد موقعك أولاً.'**
+  /// **'Cannot calculate delivery fee because your location data is incomplete. Please set your location first.'**
   String get locationMissingInProfile;
+
+  /// No description provided for @labelItems.
+  ///
+  /// In en, this message translates to:
+  /// **'Items'**
+  String get labelItems;
+
+  /// No description provided for @orderStatusPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get orderStatusPending;
+
+  /// No description provided for @orderStatusPreparing.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing'**
+  String get orderStatusPreparing;
+
+  /// No description provided for @orderStatusDelivering.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivering'**
+  String get orderStatusDelivering;
+
+  /// No description provided for @orderStatusDelivered.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivered'**
+  String get orderStatusDelivered;
+
+  /// No description provided for @orderStatusCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get orderStatusCancelled;
+
+  /// No description provided for @orderCancelledSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Order cancelled successfully.'**
+  String get orderCancelledSuccess;
+
+  /// No description provided for @orderItemsUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Items not available'**
+  String get orderItemsUnknown;
+
+  /// No description provided for @actionCancelOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel order'**
+  String get actionCancelOrder;
 }
 
 class _AppLocalizationsDelegate

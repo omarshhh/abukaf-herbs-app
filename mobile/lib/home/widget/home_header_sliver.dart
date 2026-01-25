@@ -3,13 +3,13 @@ import 'package:mobile/l10n/app_localizations.dart';
 
 import '../data/products_repo.dart';
 import '../products/product_details_page.dart';
-import '../../cart/controller/cart_controller.dart'; 
+import '../../cart/controller/cart_controller.dart';
 import 'for_you_strip.dart';
 
 class HomeHeaderSliver extends StatelessWidget {
   const HomeHeaderSliver({
     super.key,
-    required this.firstName,
+    required this.firstName, // موجود للتماشي مع الاستدعاء، غير مستخدم
     required this.productsRepo,
     required this.cart,
   });
@@ -20,22 +20,14 @@ class HomeHeaderSliver extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context)!;
-
+    // احتفظنا بالـ padding الخارجي فقط
     return SliverPadding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 10),
       sliver: SliverToBoxAdapter(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              t.helloUser(firstName),
-              style: Theme.of(
-                context,
-              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w900),
-            ),
-            const SizedBox(height: 12),
-
+            // ===== For You Strip (بدون ترحيب) =====
             ForYouStrip(
               repo: productsRepo,
               onProductTap: (p) {
@@ -51,7 +43,6 @@ class HomeHeaderSliver extends StatelessWidget {
                 );
               },
             ),
-
 
             const SizedBox(height: 14),
           ],

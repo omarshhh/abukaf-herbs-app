@@ -23,7 +23,6 @@ class CompleteProfileService {
         .doc(phone);
 
     await FirebaseFirestore.instance.runTransaction((tx) async {
-      // Read user doc (to know old phone if exists)
       final userSnap = await tx.get(userRef);
       final userData = userSnap.data() as Map<String, dynamic>?;
 

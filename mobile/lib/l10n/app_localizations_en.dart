@@ -582,5 +582,32 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get locationMissingInProfile =>
-      'لا يمكن حساب التوصيل لأن بيانات الموقع غير مكتملة. يرجى تحديد موقعك أولاً.';
+      'Cannot calculate delivery fee because your location data is incomplete. Please set your location first.';
+
+  @override
+  String get labelItems => 'Items';
+
+  @override
+  String get orderStatusPending => 'Pending';
+
+  @override
+  String get orderStatusPreparing => 'Preparing';
+
+  @override
+  String get orderStatusDelivering => 'Delivering';
+
+  @override
+  String get orderStatusDelivered => 'Delivered';
+
+  @override
+  String get orderStatusCancelled => 'Cancelled';
+
+  @override
+  String get orderCancelledSuccess => 'Order cancelled successfully.';
+
+  @override
+  String get orderItemsUnknown => 'Items not available';
+
+  @override
+  String get actionCancelOrder => 'Cancel order';
 }

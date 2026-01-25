@@ -35,7 +35,6 @@ class _PinnedTopSpacerDelegate extends SliverPersistentHeaderDelegate {
     double shrinkOffset,
     bool overlapsContent,
   ) {
-    // ✅ This stays pinned and prevents content from going under the status bar.
     return Container(color: color);
   }
 

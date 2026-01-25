@@ -221,7 +221,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String locationSaveFailed(Object error) {
-    return 'Failed to save location: $error';
+    return 'فشل حفظ الموقع: $error';
   }
 
   @override
@@ -496,16 +496,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get locationNextToMap => 'التالي: تحديد الموقع على الخريطة';
 
   @override
-  String get locationPickOnMapTitle => 'Pick location on map';
+  String get locationPickOnMapTitle => 'تحديد الموقع على الخريطة';
 
   @override
-  String get locationSave => 'Save location';
+  String get locationSave => 'حفظ الموقع';
 
   @override
-  String get locationPickFirst => 'Please pick your location on the map first.';
+  String get locationPickFirst => 'يرجى تحديد موقعك على الخريطة أولًا.';
 
   @override
-  String get locationDetecting => 'Detecting your location...';
+  String get locationDetecting => 'جاري تحديد موقعك...';
 
   @override
   String get locationFieldRequired => 'هذا الحقل مطلوب';
@@ -550,36 +550,63 @@ class AppLocalizationsAr extends AppLocalizations {
   String get govAqaba => 'العقبة';
 
   @override
-  String get locationPermissionTitle => 'Location Permission Required';
+  String get locationPermissionTitle => 'مطلوب إذن الموقع';
 
   @override
   String get locationPermissionRequiredMessage =>
-      'The app cannot work without location permission. Please allow location access to continue.';
+      'لا يمكن للتطبيق العمل بدون إذن الموقع. يرجى السماح بالوصول إلى الموقع للمتابعة.';
 
   @override
   String get locationPermissionDeniedForeverMessage =>
-      'Location permission is permanently denied. Please open settings and grant permission to continue.';
+      'تم رفض إذن الموقع بشكل دائم. يرجى فتح الإعدادات ومنح الإذن للمتابعة.';
 
   @override
   String get locationServiceDisabledMessage =>
-      'Location services (GPS) are disabled. Please enable them to continue.';
+      'خدمات الموقع (GPS) متوقفة. يرجى تفعيلها للمتابعة.';
 
   @override
-  String get locationRequestAgain => 'Request permission again';
+  String get locationRequestAgain => 'طلب الإذن مرة أخرى';
 
   @override
-  String get actionOpenSettings => 'Open settings';
+  String get actionOpenSettings => 'فتح الإعدادات';
 
   @override
-  String get locationWaitingPermission => 'Waiting for location permission...';
+  String get locationWaitingPermission => 'بانتظار منح إذن الموقع...';
 
   @override
-  String get actionRetry => 'Retry';
+  String get actionRetry => 'إعادة المحاولة';
 
   @override
-  String get actionBack => 'Back';
+  String get actionBack => 'رجوع';
 
   @override
   String get locationMissingInProfile =>
-      'Cannot calculate delivery fee because your location data is incomplete. Please set your location first.';
+      'لا يمكن حساب التوصيل لأن بيانات الموقع غير مكتملة. يرجى تحديد موقعك أولاً.';
+
+  @override
+  String get labelItems => 'عدد العناصر';
+
+  @override
+  String get orderStatusPending => 'قيد المعالجة';
+
+  @override
+  String get orderStatusPreparing => 'قيد التحضير';
+
+  @override
+  String get orderStatusDelivering => 'قيد التوصيل';
+
+  @override
+  String get orderStatusDelivered => 'تم التسليم';
+
+  @override
+  String get orderStatusCancelled => 'ملغي';
+
+  @override
+  String get orderCancelledSuccess => 'تم إلغاء الطلب بنجاح.';
+
+  @override
+  String get orderItemsUnknown => 'العناصر غير متاحة';
+
+  @override
+  String get actionCancelOrder => 'إلغاء الطلب';
 }

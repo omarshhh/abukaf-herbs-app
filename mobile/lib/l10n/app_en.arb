@@ -292,7 +292,24 @@
   },
 
 
-   "locationMissingInProfile": "لا يمكن حساب التوصيل لأن بيانات الموقع غير مكتملة. يرجى تحديد موقعك أولاً."
+  "locationMissingInProfile": "Cannot calculate delivery fee because your location data is incomplete. Please set your location first.",
+
+
+
+
+
+  "labelItems": "Items",
+  "orderStatusPending": "Pending",
+  "orderStatusPreparing": "Preparing",
+  "orderStatusDelivering": "Delivering",
+  "orderStatusDelivered": "Delivered",
+  "orderStatusCancelled": "Cancelled",
+  "orderCancelledSuccess": "Order cancelled successfully.",
+  "orderItemsUnknown": "Items not available",
+  "actionCancelOrder": "Cancel order"
+
+
+   
 
 
 

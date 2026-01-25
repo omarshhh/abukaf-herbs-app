@@ -1,22 +1,45 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:mobile/l10n/app_localizations.dart';
 import 'package:mobile/home/home_screen.dart';
 import 'package:mobile/location/location_form_page.dart';
 
-
-class LocationGate extends StatelessWidget {
+class LocationGate extends StatefulWidget {
   const LocationGate({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context)!;
+  State<LocationGate> createState() => _LocationGateState();
+}
 
+class _LocationGateState extends State<LocationGate> {
+  static const Duration _minSplash = Duration(milliseconds: 450);
+
+  bool _readyToDecide = false;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer(_minSplash, () {
+      if (!mounted) return;
+      setState(() => _readyToDecide = true);
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final u = FirebaseAuth.instance.currentUser;
     if (u == null) {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+      return const _GateLoading();
     }
 
     final ref = FirebaseFirestore.instance.collection('users').doc(u.uid);
@@ -24,24 +47,31 @@ class LocationGate extends StatelessWidget {
     return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
       stream: ref.snapshots(),
       builder: (context, snap) {
+        // ✅ لا تعرض أي AppBar خلال مرحلة البداية/التحميل
+        // حتى لو جاء snapshot بسرعة، ننتظر الحد الأدنى ثم نقرر
+        if (!_readyToDecide ||
+            snap.connectionState == ConnectionState.waiting) {
+          return const _GateLoading();
+        }
+
+        // لو في خطأ، نعرض رسالة بسيطة بدون AppBar (حتى لا يرجع الوميض)
         if (snap.hasError) {
           return Scaffold(
-            appBar: AppBar(title: Text(t.locationGateTitle), centerTitle: true),
-            body: Center(child: Text('خطأ: ${snap.error}')),
+            body: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Text(
+                  'Error: ${snap.error}',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
           );
         }
 
-        if (!snap.hasData) {
-          return Scaffold(
-            appBar: AppBar(title: Text(t.locationGateTitle), centerTitle: true),
-            body: const Center(child: CircularProgressIndicator()),
-          );
-        }
-
-        final data = snap.data!.data() ?? {};
+        final data = snap.data?.data() ?? {};
         final hasLocation = data['hasLocation'] == true;
         final loc = data['location'];
-
         final ok = hasLocation && loc is Map;
 
         if (ok) {
@@ -55,5 +85,14 @@ class LocationGate extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+class _GateLoading extends StatelessWidget {
+  const _GateLoading();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(body: Center(child: CircularProgressIndicator()));
   }
 }

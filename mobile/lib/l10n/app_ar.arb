@@ -273,20 +273,20 @@
 
 
 
-  "locationPermissionTitle": "Location Permission Required",
-  "locationPermissionRequiredMessage": "The app cannot work without location permission. Please allow location access to continue.",
-  "locationPermissionDeniedForeverMessage": "Location permission is permanently denied. Please open settings and grant permission to continue.",
-  "locationServiceDisabledMessage": "Location services (GPS) are disabled. Please enable them to continue.",
-  "locationRequestAgain": "Request permission again",
-  "actionOpenSettings": "Open settings",
-  "locationPickOnMapTitle": "Pick location on map",
-  "locationDetecting": "Detecting your location...",
-  "locationWaitingPermission": "Waiting for location permission...",
-  "locationPickFirst": "Please pick your location on the map first.",
-  "locationSave": "Save location",
-  "actionRetry": "Retry",
-  "actionBack": "Back",
-  "locationSaveFailed": "Failed to save location: {error}",
+  "locationPermissionTitle": "مطلوب إذن الموقع",
+  "locationPermissionRequiredMessage": "لا يمكن للتطبيق العمل بدون إذن الموقع. يرجى السماح بالوصول إلى الموقع للمتابعة.",
+  "locationPermissionDeniedForeverMessage": "تم رفض إذن الموقع بشكل دائم. يرجى فتح الإعدادات ومنح الإذن للمتابعة.",
+  "locationServiceDisabledMessage": "خدمات الموقع (GPS) متوقفة. يرجى تفعيلها للمتابعة.",
+  "locationRequestAgain": "طلب الإذن مرة أخرى",
+  "actionOpenSettings": "فتح الإعدادات",
+  "locationPickOnMapTitle": "تحديد الموقع على الخريطة",
+  "locationDetecting": "جاري تحديد موقعك...",
+  "locationWaitingPermission": "بانتظار منح إذن الموقع...",
+  "locationPickFirst": "يرجى تحديد موقعك على الخريطة أولًا.",
+  "locationSave": "حفظ الموقع",
+  "actionRetry": "إعادة المحاولة",
+  "actionBack": "رجوع",
+  "locationSaveFailed": "فشل حفظ الموقع: {error}",
   "@locationSaveFailed": {
     "placeholders": {
       "error": {}
@@ -294,8 +294,18 @@
   },
 
 
-  "locationMissingInProfile": "Cannot calculate delivery fee because your location data is incomplete. Please set your location first."
+  "locationMissingInProfile": "لا يمكن حساب التوصيل لأن بيانات الموقع غير مكتملة. يرجى تحديد موقعك أولاً.",
 
+
+  "labelItems": "عدد العناصر",
+  "orderStatusPending": "قيد المعالجة",
+  "orderStatusPreparing": "قيد التحضير",
+  "orderStatusDelivering": "قيد التوصيل",
+  "orderStatusDelivered": "تم التسليم",
+  "orderStatusCancelled": "ملغي",
+  "orderCancelledSuccess": "تم إلغاء الطلب بنجاح.",
+  "orderItemsUnknown": "العناصر غير متاحة",
+  "actionCancelOrder": "إلغاء الطلب"
 
 
 

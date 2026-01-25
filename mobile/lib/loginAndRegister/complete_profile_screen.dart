@@ -31,7 +31,6 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
     super.dispose();
   }
 
-  // Same validation style as Register
   bool _looksLikeJordanPhone(String input) {
     final v = input.trim().replaceAll(' ', '');
     return RegExp(r'^7\d{8}$').hasMatch(v) ||
@@ -40,17 +39,13 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
   }
 
   String _mapCompleteProfileError(AppLocalizations t, Object e) {
-    // Firestore "already exists" (phone taken)
     if (e is FirebaseException && e.plugin == 'cloud_firestore') {
       if (e.code == 'already-exists') return t.errorPhoneAlreadyUsed;
     }
 
-    // Auth missing user
     if (e is FirebaseAuthException) {
       if (e.code == 'no-current-user') return t.errorUnauthorized;
     }
-
-    // Network-ish
     final msg = e.toString().toLowerCase();
     if (msg.contains('network') || msg.contains('unavailable')) {
       return t.errorNetwork;
@@ -123,7 +118,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(t.completeProfileTitle),
-          automaticallyImplyLeading: false, // prevent going back
+          automaticallyImplyLeading: false, 
         ),
         body: SafeArea(
           child: SingleChildScrollView(
@@ -135,7 +130,6 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                 children: [
 
 
-                  // LOGO
                   Center(
                     child: Image.asset(
                       'assets/images/user_icon.png',

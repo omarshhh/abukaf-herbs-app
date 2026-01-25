@@ -6,9 +6,11 @@ class CartBottomBar extends StatelessWidget {
     required this.disabled,
     required this.label,
     required this.onCheckout,
+    this.loading = false,
   });
 
   final bool disabled;
+  final bool loading;
   final String label;
   final VoidCallback onCheckout;
 
@@ -29,8 +31,14 @@ class CartBottomBar extends StatelessWidget {
           children: [
             Expanded(
               child: FilledButton.icon(
-                onPressed: disabled ? null : onCheckout,
-                icon: const Icon(Icons.receipt_long_rounded),
+                onPressed: (disabled || loading) ? null : onCheckout,
+                icon: loading
+                    ? const SizedBox(
+                        width: 18,
+                        height: 18,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Icon(Icons.receipt_long_rounded),
                 label: Text(label),
               ),
             ),

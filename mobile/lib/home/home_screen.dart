@@ -4,6 +4,7 @@ import 'package:mobile/cart/controller/cart_controller.dart';
 import 'package:mobile/cart/widgets/cart_nav_icon.dart';
 import 'package:mobile/home/data/products_repo.dart';
 import 'package:mobile/l10n/app_localizations.dart';
+import 'package:mobile/orders/orders_tab.dart';
 
 import 'widget/home_categories_grid_sliver.dart';
 import 'widget/home_drawer.dart';
@@ -21,7 +22,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _index = 0;
 
-  // ✅ أنشئهم مرة واحدة (أفضل من إنشائهم داخل build)
   final MobileProductsRepo _productsRepo = MobileProductsRepo();
   final CartController _cart = CartController.I;
 
@@ -37,8 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
         productsRepo: _productsRepo,
         cart: _cart,
       ),
-      const _OrdersTab(),
-      const CartScreen(),
+      const OrdersTab(),
+      CartScreen(onGoOrders: () => setState(() => _index = 1)),
     ];
 
     return Scaffold(
@@ -150,7 +150,6 @@ class _CategoriesTab extends StatelessWidget {
               slivers: [
                 HomeSliverAppBar(onSearchPressed: () => _openSearch(context)),
 
-                // ✅ تم تمرير المطلوب (productsRepo + cart)
                 HomeHeaderSliver(
                   firstName: firstName,
                   productsRepo: productsRepo,
@@ -161,7 +160,6 @@ class _CategoriesTab extends StatelessWidget {
               ],
             ),
 
-            // paints ONLY system status bar area
             Positioned(
               top: 0,
               left: 0,
