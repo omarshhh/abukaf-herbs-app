@@ -609,4 +609,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get actionCancelOrder => 'إلغاء الطلب';
+
+  @override
+  String get actionContactUs => 'تواصل معنا';
 }

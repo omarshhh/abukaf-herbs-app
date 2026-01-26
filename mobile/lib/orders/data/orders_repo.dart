@@ -44,8 +44,12 @@ class OrdersRepo {
         unitPrice: it.unitPrice,
         qty: it.qty,
         lineTotal: it.lineTotal,
+        minQty: it.minQty,
+        maxQty: it.maxQty,
+        stepQty: it.stepQty,
       ).toMap();
     }).toList();
+
 
     final ref = await _db.collection('orders').add({
       'userId': uid,

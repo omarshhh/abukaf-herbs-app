@@ -10,6 +10,9 @@ class OrderItem {
     required this.unitPrice,
     required this.qty,
     required this.lineTotal,
+    required this.minQty,
+    required this.maxQty,
+    required this.stepQty,
   });
 
   final String productId;
@@ -22,6 +25,11 @@ class OrderItem {
   final double qty;
   final double lineTotal;
 
+  // ✅ new
+  final double minQty;
+  final double maxQty;
+  final double stepQty;
+
   Map<String, dynamic> toMap() => {
     'productId': productId,
     'nameAr': nameAr,
@@ -31,11 +39,15 @@ class OrderItem {
     'unitPrice': unitPrice,
     'qty': qty,
     'lineTotal': lineTotal,
+    // ✅ new
+    'minQty': minQty,
+    'maxQty': maxQty,
+    'stepQty': stepQty,
   };
 
   static OrderItem fromMap(Map<String, dynamic> m) {
-    double asDouble(dynamic v) =>
-        (v is num) ? v.toDouble() : double.tryParse('$v') ?? 0.0;
+    double asDouble(dynamic v, {double fb = 0.0}) =>
+        (v is num) ? v.toDouble() : double.tryParse('$v') ?? fb;
 
     return OrderItem(
       productId: (m['productId'] ?? '').toString(),
@@ -46,6 +58,10 @@ class OrderItem {
       unitPrice: asDouble(m['unitPrice']),
       qty: asDouble(m['qty']),
       lineTotal: asDouble(m['lineTotal']),
+      // ✅ new (fallback للطلبات القديمة)
+      minQty: asDouble(m['minQty'], fb: 1.0),
+      maxQty: asDouble(m['maxQty'], fb: 0.0),
+      stepQty: asDouble(m['stepQty'], fb: 1.0),
     );
   }
 }
@@ -84,6 +100,7 @@ class OrderModel {
 
   static OrderModel fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     final d = doc.data() ?? <String, dynamic>{};
+
     final rawItems = (d['items'] is List) ? (d['items'] as List) : const [];
     final items = rawItems
         .whereType<Map>()

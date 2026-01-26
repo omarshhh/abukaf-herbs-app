@@ -610,4 +610,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get actionCancelOrder => 'Cancel order';
+
+  @override
+  String get actionContactUs => 'Contact us';
 }

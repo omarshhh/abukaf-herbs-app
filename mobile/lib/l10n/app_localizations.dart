@@ -1267,6 +1267,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cancel order'**
   String get actionCancelOrder;
+
+  /// No description provided for @actionContactUs.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact us'**
+  String get actionContactUs;
 }
 
 class _AppLocalizationsDelegate

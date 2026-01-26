@@ -11,6 +11,7 @@ import 'widget/home_drawer.dart';
 import 'widget/home_header_sliver.dart';
 import 'widget/home_search_sheet.dart';
 import 'widget/home_sliver_app_bar.dart';
+import 'package:mobile/orders/widgets/orders_nav_icon.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -53,8 +54,8 @@ class _HomeScreenState extends State<HomeScreen> {
             label: t.navHome,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.receipt_long_outlined),
-            selectedIcon: const Icon(Icons.receipt_long),
+            icon: const OrdersNavIcon(icon: Icons.receipt_long_outlined),
+            selectedIcon: const OrdersNavIcon(icon: Icons.receipt_long),
             label: t.navOrders,
           ),
           NavigationDestination(

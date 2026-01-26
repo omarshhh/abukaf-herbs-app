@@ -305,7 +305,8 @@
   "orderStatusCancelled": "ملغي",
   "orderCancelledSuccess": "تم إلغاء الطلب بنجاح.",
   "orderItemsUnknown": "العناصر غير متاحة",
-  "actionCancelOrder": "إلغاء الطلب"
+  "actionCancelOrder": "إلغاء الطلب",
+  "actionContactUs": "تواصل معنا"
 
 
 

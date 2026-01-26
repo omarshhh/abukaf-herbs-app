@@ -7,7 +7,6 @@ import 'package:mobile/orders/data/orders_repo.dart';
 import 'package:mobile/orders/models/order_model.dart';
 import 'package:mobile/orders/order_details_screen.dart';
 
-
 class OrdersTab extends StatelessWidget {
   const OrdersTab({super.key});
 
@@ -23,7 +22,7 @@ class OrdersTab extends StatelessWidget {
   String _statusLabel(AppLocalizations t, String s) {
     switch (s) {
       case 'pending':
-        return t.orderStatusPending; 
+        return t.orderStatusPending;
       case 'preparing':
         return t.orderStatusPreparing;
       case 'delivering':
@@ -37,10 +36,46 @@ class OrdersTab extends StatelessWidget {
     }
   }
 
-  bool _canCancel(String status) {
-    if (status == 'delivering' || status == 'delivered') return false;
-    if (status == 'cancelled') return false;
-    return true;
+  /// الإلغاء مسموح فقط في pending (قيد المعالجة)
+  bool _canCancel(String status) => status == 'pending';
+
+  ({Color bg, Color fg, IconData icon}) _statusStyle(
+    ColorScheme cs,
+    String status,
+  ) {
+    switch (status) {
+      case 'delivered':
+        return (
+          bg: cs.tertiaryContainer,
+          fg: cs.onTertiaryContainer,
+          icon: Icons.check_circle_outline,
+        );
+      case 'cancelled':
+        return (
+          bg: cs.errorContainer,
+          fg: cs.onErrorContainer,
+          icon: Icons.cancel_outlined,
+        );
+      case 'delivering':
+        return (
+          bg: cs.primaryContainer,
+          fg: cs.onPrimaryContainer,
+          icon: Icons.local_shipping_outlined,
+        );
+      case 'preparing':
+        return (
+          bg: cs.secondaryContainer,
+          fg: cs.onSecondaryContainer,
+          icon: Icons.inventory_2_outlined,
+        );
+      case 'pending':
+      default:
+        return (
+          bg: cs.surfaceContainerHighest,
+          fg: cs.onSurface,
+          icon: Icons.hourglass_empty,
+        );
+    }
   }
 
   Future<void> _cancelOrder(BuildContext context, String orderId) async {
@@ -52,9 +87,9 @@ class OrdersTab extends StatelessWidget {
       );
 
       if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(t.orderCancelledSuccess)), 
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(t.orderCancelledSuccess)));
     } catch (e) {
       if (!context.mounted) return;
       ScaffoldMessenger.of(
@@ -119,6 +154,9 @@ class OrdersTab extends StatelessWidget {
               final created = o.createdAt?.toDate();
               final when = created == null ? '-' : _fmtDate(created);
 
+              final statusText = _statusLabel(t, o.status);
+              final st = _statusStyle(cs, o.status);
+
               final itemCount = o.items.length;
 
               final names = o.items
@@ -134,7 +172,7 @@ class OrdersTab extends StatelessWidget {
                   .toList();
 
               final shortNames = () {
-                if (names.isEmpty) return t.orderItemsUnknown; 
+                if (names.isEmpty) return t.orderItemsUnknown;
                 final take = names.take(3).toList();
                 final rest = names.length - take.length;
                 return rest > 0
@@ -142,7 +180,6 @@ class OrdersTab extends StatelessWidget {
                     : take.join(' • ');
               }();
 
-              final statusText = _statusLabel(t, o.status);
               final canCancel = _canCancel(o.status);
 
               return Card(
@@ -158,14 +195,34 @@ class OrdersTab extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Expanded(
-                            child: Text(
-                              statusText,
-                              style: theme.textTheme.titleMedium?.copyWith(
-                                fontWeight: FontWeight.w900,
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 7,
+                            ),
+                            decoration: BoxDecoration(
+                              color: st.bg,
+                              borderRadius: BorderRadius.circular(999),
+                              border: Border.all(
+                                color: cs.outlineVariant.withOpacity(0.35),
                               ),
                             ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(st.icon, size: 18, color: st.fg),
+                                const SizedBox(width: 6),
+                                Text(
+                                  statusText,
+                                  style: theme.textTheme.bodySmall?.copyWith(
+                                    color: st.fg,
+                                    fontWeight: FontWeight.w900,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
+                          const Spacer(),
                           Text(
                             '${o.total.toStringAsFixed(3)} ${o.currency}',
                             style: theme.textTheme.titleMedium?.copyWith(
@@ -175,7 +232,9 @@ class OrdersTab extends StatelessWidget {
                           ),
                         ],
                       ),
+
                       const SizedBox(height: 10),
+
                       Wrap(
                         spacing: 10,
                         runSpacing: 8,
@@ -213,22 +272,38 @@ class OrdersTab extends StatelessWidget {
                       Row(
                         children: [
                           Expanded(
-                            child: OutlinedButton.icon(
+                            child: FilledButton.icon(
                               onPressed: () => _openDetails(context, o),
                               icon: const Icon(Icons.visibility_outlined),
-                              label: Text(t.actionViewDetails), 
+                              label: Text(t.actionViewDetails),
                             ),
                           ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: FilledButton.icon(
-                              onPressed: canCancel
-                                  ? () => _cancelOrder(context, o.id)
-                                  : null,
-                              icon: const Icon(Icons.cancel_outlined),
-                              label: Text(t.actionCancelOrder), 
+
+                          if (canCancel) ...[
+                            const SizedBox(width: 10),
+                            TextButton.icon(
+                              onPressed: () => _cancelOrder(context, o.id),
+                              icon: Icon(
+                                Icons.cancel_outlined,
+                                size: 18,
+                                color: cs.error.withOpacity(0.75),
+                              ),
+                              label: Text(
+                                t.actionCancelOrder,
+                                style: TextStyle(
+                                  color: cs.error.withOpacity(0.75),
+                                  fontWeight: FontWeight.w800,
+                                ),
+                              ),
+                              style: TextButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 10,
+                                ),
+                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              ),
                             ),
-                          ),
+                          ],
                         ],
                       ),
                     ],

@@ -306,7 +306,8 @@
   "orderStatusCancelled": "Cancelled",
   "orderCancelledSuccess": "Order cancelled successfully.",
   "orderItemsUnknown": "Items not available",
-  "actionCancelOrder": "Cancel order"
+  "actionCancelOrder": "Cancel order",
+  "actionContactUs": "Contact us"
 
 
    
