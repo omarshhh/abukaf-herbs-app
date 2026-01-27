@@ -121,7 +121,6 @@ class _OrdersManagementPageState extends State<OrdersManagementPage>
     }
   }
 
-  /// (للعرض في الجدول) عنوان تقريبي: محافظة - منطقة
   String _approxAddress(Map<String, dynamic> order) {
     final loc = (order['location'] as Map?)?.cast<String, dynamic>() ?? {};
     final govKey = (loc['govKey'] ?? '').toString().trim();

@@ -138,6 +138,9 @@ class _HomeTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
 
+    final bottomInset = MediaQuery.of(context).padding.bottom;
+    final navH = NavigationBarTheme.of(context).height ?? 80.0;
+
     final categories = <CategoryItem>[
       CategoryItem(
         id: 'herbs',
@@ -190,8 +193,12 @@ class _HomeTab extends StatelessWidget {
                 cart: cart,
               ),
               HomeCategoriesGridSliver(categories: categories),
+              SliverToBoxAdapter(
+                child: SizedBox(height: 12 + navH + bottomInset),
+              ),
             ],
           ),
+
           Positioned(
             top: 0,
             left: 0,

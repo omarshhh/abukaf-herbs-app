@@ -761,4 +761,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get commonErrorPrefix => 'Error';
+
+  @override
+  String get cancelOrderDialogTitle => 'Cancel order?';
+
+  @override
+  String get cancelOrderDialogBody =>
+      'Are you sure you want to cancel this order? This action cannot be undone.';
+
+  @override
+  String get actionKeepOrder => 'Keep';
+
+  @override
+  String get actionConfirmCancel => 'Cancel order';
 }

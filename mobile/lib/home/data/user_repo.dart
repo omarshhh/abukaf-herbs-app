@@ -47,7 +47,6 @@ class UserRepo {
     final newRef = _db.collection('phone_index').doc(newPhone);
 
     await _db.runTransaction((tx) async {
-      // تأكد أن newPhone غير محجوز
       final newSnap = await tx.get(newRef);
       if (newSnap.exists) {
         throw FirebaseException(
@@ -56,8 +55,6 @@ class UserRepo {
           message: 'Phone number already exists',
         );
       }
-
-      // احذف القديم (إن وجد)
       if (oldPhone.trim().isNotEmpty) {
         final oldSnap = await tx.get(oldRef);
         if (oldSnap.exists) {
@@ -65,10 +62,8 @@ class UserRepo {
         }
       }
 
-      // احجز الجديد
       tx.set(newRef, {'uid': uid, 'createdAt': FieldValue.serverTimestamp()});
 
-      // حدث user doc
       tx.update(userRef, {
         'phone': newPhone,
         'updatedAt': FieldValue.serverTimestamp(),

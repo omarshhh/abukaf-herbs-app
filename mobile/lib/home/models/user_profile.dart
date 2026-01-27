@@ -5,7 +5,7 @@ class UserProfile {
   final String firstName;
   final String lastName;
   final String email;
-  final String phone; // keep as string
+  final String phone; 
   final Map<String, dynamic>? location;
 
   const UserProfile({

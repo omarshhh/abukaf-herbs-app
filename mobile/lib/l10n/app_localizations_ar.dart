@@ -759,4 +759,17 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get commonErrorPrefix => 'الخطأ';
+
+  @override
+  String get cancelOrderDialogTitle => 'إلغاء الطلب؟';
+
+  @override
+  String get cancelOrderDialogBody =>
+      'هل أنت متأكد أنك تريد إلغاء هذا الطلب؟ لا يمكن التراجع عن هذه العملية.';
+
+  @override
+  String get actionKeepOrder => 'تراجع';
+
+  @override
+  String get actionConfirmCancel => 'إلغاء الطلب';
 }

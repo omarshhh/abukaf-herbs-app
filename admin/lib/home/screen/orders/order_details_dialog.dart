@@ -15,7 +15,6 @@ class AdminOrderDetailsDialog extends StatelessWidget {
   final String orderId;
   final AdminUserCache userCache;
 
-  // ========= Helpers =========
 
   num _toNum(dynamic v) {
     if (v is num) return v;
@@ -79,7 +78,6 @@ class AdminOrderDetailsDialog extends StatelessWidget {
     return '';
   }
 
-  /// نص النسخ فقط (منظم)
   String _buildCopyBlock({
     required String customerName,
     required String phone,
@@ -103,7 +101,6 @@ class AdminOrderDetailsDialog extends StatelessWidget {
     return lines.join('\n');
   }
 
-  // ========= UI =========
 
   @override
   Widget build(BuildContext context) {
@@ -153,7 +150,6 @@ class AdminOrderDetailsDialog extends StatelessWidget {
               final userId = (data['userId'] ?? '').toString().trim();
               final items = (data['items'] as List?)?.cast<Map>() ?? const [];
 
-              // location
               final loc =
                   (data['location'] as Map?)?.cast<String, dynamic>() ?? {};
               final govKey = (loc['govKey'] ?? '').toString().trim();
@@ -165,7 +161,6 @@ class AdminOrderDetailsDialog extends StatelessWidget {
               final apartmentNo = (loc['apartmentNo'] ?? '').toString().trim();
               final mapsUrl = (loc['googleMapsUrl'] ?? '').toString().trim();
 
-              // name/phone fallbacks
               final nameFromOrder =
                   (data['fullName'] ?? data['customerName'] ?? '')
                       .toString()
@@ -204,12 +199,10 @@ class AdminOrderDetailsDialog extends StatelessWidget {
                   );
 
                   return Directionality(
-                    // يثبت RTL داخل الديالوج
                     textDirection: TextDirection.rtl,
                     child: ListView(
                       padding: const EdgeInsets.all(14),
                       children: [
-                        // بيانات العميل والموقع (عرض Rows + نسخ)
                         Card(
                           child: Padding(
                             padding: const EdgeInsets.all(12),
@@ -276,7 +269,7 @@ class AdminOrderDetailsDialog extends StatelessWidget {
                                       Expanded(
                                         child: Directionality(
                                           textDirection: TextDirection
-                                              .ltr, // رابط LTR دائمًا
+                                              .ltr, 
                                           child: SelectableText(
                                             mapsUrl,
                                             style: TextStyle(
@@ -303,7 +296,6 @@ class AdminOrderDetailsDialog extends StatelessWidget {
 
                         const SizedBox(height: 10),
 
-                        // الملخص المالي
                         Card(
                           child: Padding(
                             padding: const EdgeInsets.all(12),
@@ -332,7 +324,6 @@ class AdminOrderDetailsDialog extends StatelessWidget {
 
                         const SizedBox(height: 10),
 
-                        // العناصر (تكبير الكمية + ترتيب أقل سعر)
                         Card(
                           child: Padding(
                             padding: const EdgeInsets.all(12),
@@ -378,7 +369,6 @@ class AdminOrderDetailsDialog extends StatelessWidget {
                                       ? _fmtQty(minQty)
                                       : '${_fmtQty(minQty)} $unit';
 
-                                  // 50 غ / 2.250 JOD
                                   final minLine =
                                       '$minQtyText / ${_money(minPrice, currency)}';
 
@@ -414,7 +404,6 @@ class AdminOrderDetailsDialog extends StatelessWidget {
                                                 ),
                                                 const SizedBox(height: 8),
 
-                                                // الكمية أكبر وأوضح
                                                 Row(
                                                   children: [
                                                     const Text(
@@ -436,7 +425,6 @@ class AdminOrderDetailsDialog extends StatelessWidget {
                                                 ),
                                                 const SizedBox(height: 6),
 
-                                                // أقل سعر بصيغة نظيفة
                                                 Text(
                                                   minLine,
                                                   style: const TextStyle(
@@ -449,7 +437,6 @@ class AdminOrderDetailsDialog extends StatelessWidget {
 
                                           const SizedBox(width: 10),
 
-                                          // السعر على اليمين بصيغة LTR ثابتة
                                           Directionality(
                                             textDirection: TextDirection.ltr,
                                             child: Text(
@@ -492,7 +479,7 @@ class AdminOrderDetailsDialog extends StatelessWidget {
         ),
         const Spacer(),
         Directionality(
-          textDirection: TextDirection.ltr, // أرقام/عملة
+          textDirection: TextDirection.ltr,
           child: Text(
             v,
             style: TextStyle(

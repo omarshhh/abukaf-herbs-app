@@ -26,7 +26,6 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
   DateTime _startOfDay(DateTime d) => DateTime(d.year, d.month, d.day);
   DateTime _startOfMonth(DateTime d) => DateTime(d.year, d.month, 1);
 
-  // بداية الأسبوع: السبت
   DateTime _startOfWeek(DateTime d) {
     final dayStart = _startOfDay(d);
     final diff = (dayStart.weekday - DateTime.saturday) % 7;
@@ -78,8 +77,8 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
     );
 
     int orders = 0;
-    double sales = 0; // subTotal فقط
-    double delivery = 0; // فقط للعرض لو بدك
+    double sales = 0; 
+    double delivery = 0; 
     String currency = 'JOD';
 
     for (final doc in docs) {
@@ -127,7 +126,6 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Header Card
             Container(
               padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
@@ -204,7 +202,6 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
 
                   return ListView(
                     children: [
-                      // KPI grid
                       Wrap(
                         spacing: 12,
                         runSpacing: 12,
@@ -235,7 +232,6 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
 
                       const SizedBox(height: 14),
 
-                      // Optional: Show delivery total as separate info (NOT included in sales)
                       Card(
                         elevation: 0,
                         shape: RoundedRectangleBorder(

@@ -1561,6 +1561,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Error'**
   String get commonErrorPrefix;
+
+  /// No description provided for @cancelOrderDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel order?'**
+  String get cancelOrderDialogTitle;
+
+  /// No description provided for @cancelOrderDialogBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to cancel this order? This action cannot be undone.'**
+  String get cancelOrderDialogBody;
+
+  /// No description provided for @actionKeepOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep'**
+  String get actionKeepOrder;
+
+  /// No description provided for @actionConfirmCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel order'**
+  String get actionConfirmCancel;
 }
 
 class _AppLocalizationsDelegate

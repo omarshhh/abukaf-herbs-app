@@ -23,10 +23,7 @@ Future<void> showConfirmDialog(
             if (loading) return;
             setSt(() => loading = true);
 
-            // ✅ 1) اغلق الديالوج أولًا
             Navigator.pop(ctx);
-
-            // ✅ 2) نفّذ بعد الفريم التالي حتى لا يبقى overlay مرتبط
             WidgetsBinding.instance.addPostFrameCallback((_) async {
               try {
                 await onConfirm();

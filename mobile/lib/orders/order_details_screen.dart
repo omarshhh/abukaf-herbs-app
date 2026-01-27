@@ -256,7 +256,6 @@ class OrderDetailsScreen extends StatelessWidget {
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      // Price (force LTR)
                                       Text(
                                         minPriceLabel,
                                         textDirection: TextDirection.ltr,

@@ -4,7 +4,6 @@ class AnalyticsRepo {
   AnalyticsRepo(this.db);
   final FirebaseFirestore db;
 
-  /// طلبات تم توصيلها ضمن فترة deliveredAt
   Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>>
   fetchDeliveredInRange({
     required DateTime from,

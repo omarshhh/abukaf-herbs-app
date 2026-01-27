@@ -60,7 +60,6 @@ class MobileProductsRepo {
     final q = _normalize(query);
     if (q.isEmpty) return [];
 
-    // Search by prefix on nameLower
     Query<Map<String, dynamic>> ref = _db
         .collection('products')
         .where('isActive', isEqualTo: true);
@@ -69,7 +68,6 @@ class MobileProductsRepo {
       ref = ref.where('categoryId', isEqualTo: categoryId.trim());
     }
 
-    // لازم يكون عندك nameLower (موجود عندك)
     ref = ref
         .orderBy('nameLower')
         .startAt([q])
@@ -81,7 +79,6 @@ class MobileProductsRepo {
         .map((d) => HerbProduct.fromMap(d.id, d.data()))
         .toList();
 
-    // لو كتب أكثر من كلمة: فلترة محلية بسيطة (اختياري)
     final words = q.split(' ').where((e) => e.isNotEmpty).toList();
     if (words.length <= 1) return items;
 
@@ -91,11 +88,9 @@ class MobileProductsRepo {
     }).toList();
   }
 
-  // تطبيع بسيط (كافي)
   static String _normalize(String input) {
     var s = input.trim().toLowerCase();
 
-    // توحيد حروف عربية بسيطة
     s = s
         .replaceAll('أ', 'ا')
         .replaceAll('إ', 'ا')

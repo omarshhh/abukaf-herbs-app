@@ -17,7 +17,6 @@ class AdminUserCache {
       final doc = await db.collection('users').doc(key).get();
       final data = doc.data() ?? {};
 
-      // Fallbacks for name fields
       final fullNameDirect =
           (data['fullName'] ?? data['name'] ?? data['displayName'] ?? '')
               .toString()

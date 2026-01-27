@@ -100,7 +100,6 @@ class _EditNameSheetState extends State<EditNameSheet> {
     return PopScope(
       canPop: true,
       onPopInvoked: (_) {
-        // ✅ مهم: يلغي الفوكس قبل الخروج (Back أو سحب)
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Padding(

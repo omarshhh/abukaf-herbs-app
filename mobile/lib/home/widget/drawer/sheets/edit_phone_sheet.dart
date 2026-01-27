@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile/l10n/app_localizations.dart';
@@ -42,13 +41,11 @@ class _EditPhoneSheetState extends State<EditPhoneSheet> {
 
   bool _saving = false;
 
-  // Availability
   Timer? _debounce;
   bool _checking = false;
-  bool? _available; // null=unknown, true=available, false=taken
+  bool? _available; 
   String? _checkError;
 
-  // Keep current stored phone normalized for comparisons
   late final String _currentNormalized;
 
   @override
@@ -57,7 +54,6 @@ class _EditPhoneSheetState extends State<EditPhoneSheet> {
 
     _currentNormalized = _normalizeJordanPhone(widget.profile.phone);
 
-    // عرض للمستخدم بصيغة 07xxxxxxxx
     _phoneCtrl = TextEditingController(
       text: _toLocal07Display(_currentNormalized),
     );
@@ -80,9 +76,7 @@ class _EditPhoneSheetState extends State<EditPhoneSheet> {
     });
   }
 
-  // ========= Phone utils =========
 
-  // يقبل فقط: 07xxxxxxxx (10) أو 7xxxxxxxx (9)
   bool _looksLikeJordanPhone(String value) {
     final v = value.trim().replaceAll(' ', '');
     if (!RegExp(r'^\d+$').hasMatch(v)) return false;
@@ -91,28 +85,23 @@ class _EditPhoneSheetState extends State<EditPhoneSheet> {
     return false;
   }
 
-  // يحول إلى صيغة التخزين: +9627xxxxxxxx
   String _normalizeJordanPhone(String value) {
     final v = value.trim().replaceAll(' ', '');
 
-    // already normalized
     if (RegExp(r'^\+9627\d{8}$').hasMatch(v)) return v;
 
     if (RegExp(r'^7\d{8}$').hasMatch(v)) return '+962$v';
 
     if (RegExp(r'^07\d{8}$').hasMatch(v)) return '+962${v.substring(1)}';
 
-    return v; // fallback
+    return v; 
   }
 
-  // عرض للمستخدم بصيغة 07xxxxxxxx
   String _toLocal07Display(String normalizedOrRaw) {
     final v = normalizedOrRaw.trim();
     if (RegExp(r'^\+9627\d{8}$').hasMatch(v)) {
-      // +9627xxxxxxxx -> 07xxxxxxxx
       return '0${v.substring(4)}';
     }
-    // لو مخزن عندك 07.. أو 7.. رجّعها بشكل 07..
     if (RegExp(r'^7\d{8}$').hasMatch(v)) return '0$v';
     if (RegExp(r'^07\d{8}$').hasMatch(v)) return v;
 
@@ -124,20 +113,17 @@ class _EditPhoneSheetState extends State<EditPhoneSheet> {
   void _onPhoneChanged() {
     final raw = _phoneCtrl.text.trim();
 
-    // reset quick
     setState(() {
       _checkError = null;
       _available = null;
     });
 
-    // لا تفحص إلا إذا شكله صحيح
     if (!_looksLikeJordanPhone(raw)) {
       return;
     }
 
     final normalized = _normalizeJordanPhone(raw);
 
-    // لو نفس الرقم الحالي → اعتبره متاح (لأن المستخدم نفسه)
     if (normalized == _currentNormalized) {
       setState(() => _available = true);
       return;
@@ -186,12 +172,10 @@ class _EditPhoneSheetState extends State<EditPhoneSheet> {
 
     final normalized = _normalizeJordanPhone(s);
 
-    // صيغة خاطئة
     if (!RegExp(r'^\+9627\d{8}$').hasMatch(normalized)) {
       return t.invalidPhone;
     }
 
-    // إذا فحصنا وطلع مستخدم
     if (normalized != _currentNormalized && _available == false) {
       return t.phoneAlreadyUsed;
     }
@@ -207,7 +191,6 @@ class _EditPhoneSheetState extends State<EditPhoneSheet> {
 
     final normalized = _normalizeJordanPhone(_phoneCtrl.text);
 
-    // guard: إذا مستخدم
     if (normalized != _currentNormalized && _available == false) {
       ScaffoldMessenger.of(
         context,
@@ -219,7 +202,6 @@ class _EditPhoneSheetState extends State<EditPhoneSheet> {
     FocusManager.instance.primaryFocus?.unfocus();
 
     try {
-      // ✅ لازم تكون هذه الدالة بتعمل transaction على phone_index + users
       await widget.userRepo.changePhoneWithIndex(
         uid: widget.profile.uid,
         oldPhone: _currentNormalized,
@@ -268,7 +250,6 @@ class _EditPhoneSheetState extends State<EditPhoneSheet> {
               ),
               const SizedBox(height: 10),
 
-              // التنبيه داخل صفحة التعديل فقط
               _InlineNotice(text: t.editWarningOutForDelivery),
               const SizedBox(height: 12),
 
@@ -289,8 +270,6 @@ class _EditPhoneSheetState extends State<EditPhoneSheet> {
                 ),
                 validator: (v) => _validatePhone(t, v),
                 onChanged: (v) {
-                  // auto-normalize display:
-                  // إذا كتب 7xxxxxxxx خلّيه يظهر 07xxxxxxxx
                   final s = v.trim();
                   if (RegExp(r'^7\d{0,8}$').hasMatch(s)) {
                     final fixed = '0$s';

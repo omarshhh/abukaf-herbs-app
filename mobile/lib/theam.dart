@@ -68,7 +68,6 @@ class AppTheme {
         scrolledUnderElevation: 0,
         centerTitle: true,
 
-        // 🔒 System status bar protection (Wi-Fi / Time)
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: surfaceBackground,
           statusBarIconBrightness: Brightness.dark,

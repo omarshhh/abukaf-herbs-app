@@ -33,7 +33,7 @@ class _LocationMapPageState extends State<LocationMapPage> {
   bool _checking = true;
   bool _permissionGranted = false;
 
-  static const LatLng _fallback = LatLng(31.9539, 35.9106); // Amman
+  static const LatLng _fallback = LatLng(31.9539, 35.9106); 
 
   @override
   void initState() {

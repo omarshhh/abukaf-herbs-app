@@ -70,7 +70,7 @@ class _HomeSearchSheetState extends State<HomeSearchSheet> {
   Future<void> _openProduct(HerbProduct p) async {
     if (!mounted) return;
 
-    Navigator.pop(context); // اقفل الشيت
+    Navigator.pop(context); 
 
     await Navigator.push(
       context,

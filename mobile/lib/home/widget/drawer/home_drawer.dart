@@ -4,7 +4,6 @@ import 'package:mobile/l10n/app_localizations.dart';
 import '../../data/user_repo.dart';
 import '../../models/user_profile.dart';
 
-// ملفاتك الحالية حسب الصورة:
 import 'drawer_header.dart';
 import 'drawer_my_info_section.dart';
 import 'dialogs/confirm_dialog.dart';
@@ -23,7 +22,6 @@ class HomeDrawer extends StatelessWidget {
   final String uid;
   final UserRepo userRepo;
 
-  // ✅ نفس الأسماء التي تستعملها في home_screen.dart
   final Future<void> Function() onToggleLanguageConfirmed;
   final Future<void> Function() onLogoutConfirmed;
   final void Function(UserProfile profile) onEditLocation;
@@ -33,7 +31,6 @@ class HomeDrawer extends StatelessWidget {
     final t = AppLocalizations.of(context)!;
 
     return Drawer(
-      // بدون حواف ناعمة
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       child: SafeArea(
         child: StreamBuilder<UserProfile>(

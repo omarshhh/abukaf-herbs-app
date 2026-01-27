@@ -378,7 +378,13 @@
 "orderLabel": "طلب",
 "orderStatusLabel": "الحالة",
 "commonErrorTitle": "صار خطأ",
-"commonErrorPrefix": "الخطأ"
+"commonErrorPrefix": "الخطأ",
+
+
+"cancelOrderDialogTitle": "إلغاء الطلب؟",
+  "cancelOrderDialogBody": "هل أنت متأكد أنك تريد إلغاء هذا الطلب؟ لا يمكن التراجع عن هذه العملية.",
+  "actionKeepOrder": "تراجع",
+  "actionConfirmCancel": "إلغاء الطلب"
   
 
 

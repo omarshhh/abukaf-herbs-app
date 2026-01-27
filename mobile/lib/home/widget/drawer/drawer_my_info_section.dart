@@ -22,7 +22,7 @@ class DrawerMyInfoSection extends StatelessWidget {
   Future<void> _closeDrawerIfAny(BuildContext context) async {
     final scaffold = Scaffold.maybeOf(context);
     if (scaffold != null && scaffold.isDrawerOpen) {
-      Navigator.of(context).pop(); // close drawer route
+      Navigator.of(context).pop(); 
       await Future<void>.delayed(const Duration(milliseconds: 80));
     }
   }
@@ -40,7 +40,6 @@ class DrawerMyInfoSection extends StatelessWidget {
   }
 
   Future<void> _openLocationFlow(BuildContext context) async {
-    // نغلق drawer قبل أي overlay
     await _closeDrawerIfAny(context);
     if (!context.mounted) return;
 

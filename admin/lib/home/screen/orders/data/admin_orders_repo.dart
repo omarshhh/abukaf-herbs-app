@@ -15,7 +15,6 @@ class AdminOrdersRepo {
         .snapshots();
   }
 
-  /// Counter (counts docs in this status)
   Stream<int> watchCountByStatus(String status) {
     return db
         .collection('orders')

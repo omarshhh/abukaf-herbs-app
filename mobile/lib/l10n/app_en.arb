@@ -381,7 +381,13 @@
 "orderLabel": "Order",
 "orderStatusLabel": "Status",
 "commonErrorTitle": "Something went wrong",
-"commonErrorPrefix": "Error"
+"commonErrorPrefix": "Error",
+
+
+"cancelOrderDialogTitle": "Cancel order?",
+  "cancelOrderDialogBody": "Are you sure you want to cancel this order? This action cannot be undone.",
+  "actionKeepOrder": "Keep",
+  "actionConfirmCancel": "Cancel order"
 
 
 

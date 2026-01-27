@@ -31,7 +31,7 @@ class CategoryProductsPage extends StatelessWidget {
         context,
         MaterialPageRoute(
           builder: (_) => CartScreen(
-            onGoOrders: () {}, // ✅ حسب تعريفك الحالي
+            onGoOrders: () {}, 
           ),
         ),
       );
@@ -41,7 +41,7 @@ class CategoryProductsPage extends StatelessWidget {
       HomeSearchSheet.open(
         context,
         repo: repo,
-        categoryId: categoryId, // بحث داخل نفس الفئة
+        categoryId: categoryId, 
       );
     }
 

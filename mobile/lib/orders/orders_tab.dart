@@ -97,6 +97,32 @@ class OrdersTab extends StatelessWidget {
     }
   }
 
+  Future<void> _confirmCancelOrder(BuildContext context, String orderId) async {
+    final t = AppLocalizations.of(context)!;
+
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(t.cancelOrderDialogTitle),
+        content: Text(t.cancelOrderDialogBody),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(false),
+            child: Text(t.actionKeepOrder),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(ctx).pop(true),
+            child: Text(t.actionConfirmCancel),
+          ),
+        ],
+      ),
+    );
+
+    if (ok == true) {
+      await _cancelOrder(context, orderId);
+    }
+  }
+
   void _openDetails(BuildContext context, OrderModel o) {
     Navigator.of(
       context,
@@ -111,13 +137,13 @@ class OrdersTab extends StatelessWidget {
 
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) {
-      return Scaffold(
-        appBar: AppBar(title: Text(t.ordersTitle), centerTitle: true),
-        body: Center(child: Text(t.errorGeneric)),
-      );
+      return const Center(child: CircularProgressIndicator());
     }
 
     final repo = OrdersRepo(FirebaseFirestore.instance);
+
+    final bottomInset = MediaQuery.of(context).padding.bottom;
+    const navBarHeight = kBottomNavigationBarHeight;
 
     return Scaffold(
       appBar: AppBar(title: Text(t.ordersTitle), centerTitle: true),
@@ -145,7 +171,12 @@ class OrdersTab extends StatelessWidget {
           }
 
           return ListView.separated(
-            padding: const EdgeInsets.all(12),
+            padding: EdgeInsets.fromLTRB(
+              12,
+              12,
+              12,
+              12 + navBarHeight + bottomInset, 
+            ),
             itemCount: orders.length,
             separatorBuilder: (_, __) => const SizedBox(height: 10),
             itemBuilder: (context, i) {
@@ -207,7 +238,6 @@ class OrdersTab extends StatelessWidget {
                               ),
                             ),
                             child: Row(
-                              mainAxisSize: MainAxisSize.min,
                               children: [
                                 Icon(st.icon, size: 18, color: st.fg),
                                 const SizedBox(width: 6),
@@ -231,9 +261,7 @@ class OrdersTab extends StatelessWidget {
                           ),
                         ],
                       ),
-
                       const SizedBox(height: 10),
-
                       Wrap(
                         spacing: 10,
                         runSpacing: 8,
@@ -253,21 +281,17 @@ class OrdersTab extends StatelessWidget {
                           ),
                         ],
                       ),
-
                       const SizedBox(height: 10),
-
                       Text(
                         shortNames,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: cs.onSurface.withOpacity(0.65),
                           fontWeight: FontWeight.w700,
                         ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
                       ),
-
                       const SizedBox(height: 12),
-
                       Row(
                         children: [
                           Expanded(
@@ -277,11 +301,11 @@ class OrdersTab extends StatelessWidget {
                               label: Text(t.actionViewDetails),
                             ),
                           ),
-
                           if (canCancel) ...[
                             const SizedBox(width: 10),
                             TextButton.icon(
-                              onPressed: () => _cancelOrder(context, o.id),
+                              onPressed: () =>
+                                  _confirmCancelOrder(context, o.id),
                               icon: Icon(
                                 Icons.cancel_outlined,
                                 size: 18,
@@ -293,13 +317,6 @@ class OrdersTab extends StatelessWidget {
                                   color: cs.error.withOpacity(0.75),
                                   fontWeight: FontWeight.w800,
                                 ),
-                              ),
-                              style: TextButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                  vertical: 10,
-                                ),
-                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                               ),
                             ),
                           ],

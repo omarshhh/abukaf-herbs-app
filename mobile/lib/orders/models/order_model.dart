@@ -25,7 +25,6 @@ class OrderItem {
   final double qty;
   final double lineTotal;
 
-  // ✅ new
   final double minQty;
   final double maxQty;
   final double stepQty;
@@ -39,7 +38,6 @@ class OrderItem {
     'unitPrice': unitPrice,
     'qty': qty,
     'lineTotal': lineTotal,
-    // ✅ new
     'minQty': minQty,
     'maxQty': maxQty,
     'stepQty': stepQty,
@@ -58,7 +56,6 @@ class OrderItem {
       unitPrice: asDouble(m['unitPrice']),
       qty: asDouble(m['qty']),
       lineTotal: asDouble(m['lineTotal']),
-      // ✅ new (fallback للطلبات القديمة)
       minQty: asDouble(m['minQty'], fb: 1.0),
       maxQty: asDouble(m['maxQty'], fb: 0.0),
       stepQty: asDouble(m['stepQty'], fb: 1.0),
