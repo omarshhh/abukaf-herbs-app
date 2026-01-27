@@ -125,7 +125,7 @@
   "ordersTitle": "My Orders",
   "profileTitle": "Profile",
 
-  "ordersPlaceholder": "Orders Page (Later)",
+  "ordersPlaceholder": "NO Orders Yet",
   "profilePlaceholder": "Profile Page (Later)",
 
   "categoryProductsTitle": "Products",
@@ -307,7 +307,82 @@
   "orderCancelledSuccess": "Order cancelled successfully.",
   "orderItemsUnknown": "Items not available",
   "actionCancelOrder": "Cancel order",
-  "actionContactUs": "Contact us"
+  "actionContactUs": "Contact us",
+
+
+
+  
+  "changeLanguage": "Change Language",
+  "logout": "Log out",
+  "phone": "Phone",
+  "address": "Address",
+  "notSet": "Not set",
+  "noAddress": "No address",
+  "editName": "Edit Name",
+  "firstName": "First name",
+  "lastName": "Last name",
+  "fieldRequired": "This field is required",
+  "save": "Save",
+  "edit": "Edit",
+  "failedToSave": "Failed to save",
+  "featureNotAvailableYet": "This feature is not available yet",
+  "somethingWentWrong": "Something went wrong",
+  "buildingShort": "Bldg",
+  "apartmentShort": "Apt",
+
+
+
+
+  "accountLabel": "User account",
+  "myInfoTitle": "My Info",
+  "myInfoSubtitle": "View & edit your details",
+  "myNameLabel": "My name",
+  "myPhoneLabel": "My phone",
+  "myLocationLabel": "My location",
+
+  "confirmChangeLanguageTitle": "Confirm language change",
+  "confirmChangeLanguageBody": "Do you want to change the app language?",
+  "confirmChangeLanguageCta": "Change",
+
+  "confirmLogoutTitle": "Confirm logout",
+  "confirmLogoutBody": "Are you sure you want to log out?",
+  "confirmLogoutCta": "Logout",
+
+  "editName": "Edit name",
+  "editPhone": "Edit phone",
+  "editLocation": "Edit location",
+  "continueText": "Continue",
+
+  "editWarningOutForDelivery": "Note: Changes will not apply to orders that are already out for delivery.",
+
+  "invalidPhone": "Invalid phone number",
+
+  "aboutUsBody": "Abu Kaf Spice Shop - Al-Yasmeen Branch \"Your premier destination in Al-Yasmeen district for all things natural. At Abu Kaf, we take pride in offering the finest medicinal herbs, fresh spices that bring authentic flavor to your table, and a wide selection of premium nuts, natural oils, and skin and hair care products. We blend years of expertise with high quality to meet all your wellness and nutritional needs.\"",
+  "close": "Close",
+  "cancel": "Cancel",
+
+
+
+  "buildingLabel": "Building",
+  "apartmentLabel": "Apartment",
+
+
+  "phoneMax10Digits": "Maximum is 10 digits",
+  "phoneAlreadyUsed": "This phone is already used",
+  "phoneAvailable": "Phone is available",
+  "checkingPhone": "Checking phone...",
+  "searchNoResults": "No results found",
+
+
+"ordersTitle": "Orders",
+"ordersEmptyTitle": "No orders yet",
+"ordersEmptySubtitle": "Place your first order to see it here and track its status.",
+"ordersEmptyCta": "Browse products",
+"orderLabel": "Order",
+"orderStatusLabel": "Status",
+"commonErrorTitle": "Something went wrong",
+"commonErrorPrefix": "Error"
+
 
 
    

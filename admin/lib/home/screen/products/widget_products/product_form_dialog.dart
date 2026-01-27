@@ -149,6 +149,7 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
     final shortAr = _shortDescArCtrl.text.trim();
     final shortEn = _shortDescEnCtrl.text.trim();
 
+
     final product = HerbProduct(
       id: widget.initial?.id ?? 'temp',
       categoryId: _categoryId,
@@ -167,6 +168,7 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
       forYou: _forYou,
       shortDescAr: shortAr,
       shortDescEn: shortEn,
+
 
       unit: _unit,
       minQty: _toDouble(_minCtrl.text, fallback: 0),

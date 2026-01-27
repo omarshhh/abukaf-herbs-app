@@ -276,7 +276,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get profileTitle => 'الملف الشخصي';
 
   @override
-  String get ordersPlaceholder => 'صفحة الطلبات (لاحقًا)';
+  String get ordersPlaceholder => 'لا توجد طلبات بعد';
 
   @override
   String get profilePlaceholder => 'صفحة الحساب (لاحقًا)';
@@ -612,4 +612,151 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get actionContactUs => 'تواصل معنا';
+
+  @override
+  String get changeLanguage => 'تغيير اللغة';
+
+  @override
+  String get phone => 'الهاتف';
+
+  @override
+  String get address => 'العنوان';
+
+  @override
+  String get notSet => 'غير محدد';
+
+  @override
+  String get noAddress => 'لا يوجد عنوان';
+
+  @override
+  String get editName => 'تعديل الاسم';
+
+  @override
+  String get fieldRequired => 'هذا الحقل مطلوب';
+
+  @override
+  String get save => 'حفظ';
+
+  @override
+  String get edit => 'تعديل';
+
+  @override
+  String get failedToSave => 'فشل الحفظ';
+
+  @override
+  String get featureNotAvailableYet => 'هذه الميزة غير متاحة حاليًا';
+
+  @override
+  String get somethingWentWrong => 'حدث خطأ ما';
+
+  @override
+  String get buildingShort => 'عمارة';
+
+  @override
+  String get apartmentShort => 'شقة';
+
+  @override
+  String get accountLabel => 'حساب مستخدم';
+
+  @override
+  String get myInfoTitle => 'معلوماتي';
+
+  @override
+  String get myInfoSubtitle => 'عرض وتعديل بياناتك';
+
+  @override
+  String get myNameLabel => 'اسمي';
+
+  @override
+  String get myPhoneLabel => 'رقمي';
+
+  @override
+  String get myLocationLabel => 'موقعي';
+
+  @override
+  String get confirmChangeLanguageTitle => 'تأكيد تغيير اللغة';
+
+  @override
+  String get confirmChangeLanguageBody => 'هل تريد تغيير لغة التطبيق؟';
+
+  @override
+  String get confirmChangeLanguageCta => 'تغيير';
+
+  @override
+  String get confirmLogoutTitle => 'تأكيد تسجيل الخروج';
+
+  @override
+  String get confirmLogoutBody => 'هل أنت متأكد أنك تريد تسجيل الخروج؟';
+
+  @override
+  String get confirmLogoutCta => 'خروج';
+
+  @override
+  String get editPhone => 'تعديل الرقم';
+
+  @override
+  String get editLocation => 'تعديل الموقع';
+
+  @override
+  String get continueText => 'متابعة';
+
+  @override
+  String get editWarningOutForDelivery =>
+      'تنبيه: التعديل لا ينطبق على الطلبات التي خرجت للتوصيل.';
+
+  @override
+  String get invalidPhone => 'رقم غير صحيح';
+
+  @override
+  String get aboutUsBody =>
+      'عطارة أبو كف - فرع ضاحية الياسمين \"وجهتكم الأولى في ضاحية الياسمين لكل ما تقدمه الطبيعة من خيرات. نحن في عطارة أبو كف نفخر بتقديم أجود أنواع الأعشاب الطبية، والبهارات الطازجة التي تضفي نكهة أصيلة لمائدتكم، بالإضافة إلى تشكيلة واسعة من المكسرات الفاخرة، الزيوت الطبيعية، ومنتجات العناية بالبشرة والشعر. نجمع بين الخبرة الطويلة والجودة العالية لنلبي كافة احتياجاتكم الصحية والغذائية.\"';
+
+  @override
+  String get close => 'إغلاق';
+
+  @override
+  String get cancel => 'إلغاء';
+
+  @override
+  String get buildingLabel => 'عمارة';
+
+  @override
+  String get apartmentLabel => 'شقة';
+
+  @override
+  String get phoneMax10Digits => 'الحد الأقصى 10 أرقام';
+
+  @override
+  String get phoneAlreadyUsed => 'هذا الرقم مستخدم';
+
+  @override
+  String get phoneAvailable => 'الرقم متاح';
+
+  @override
+  String get checkingPhone => 'جاري التحقق من الرقم...';
+
+  @override
+  String get searchNoResults => 'لا توجد نتائج';
+
+  @override
+  String get ordersEmptyTitle => 'ما عندك طلبات لسه';
+
+  @override
+  String get ordersEmptySubtitle =>
+      'اطلب أول طلب عشان تشوفه هون وتتابع حالته بسهولة.';
+
+  @override
+  String get ordersEmptyCta => 'تصفّح المنتجات';
+
+  @override
+  String get orderLabel => 'طلب';
+
+  @override
+  String get orderStatusLabel => 'الحالة';
+
+  @override
+  String get commonErrorTitle => 'صار خطأ';
+
+  @override
+  String get commonErrorPrefix => 'الخطأ';
 }

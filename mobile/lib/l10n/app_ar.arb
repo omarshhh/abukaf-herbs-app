@@ -126,7 +126,7 @@
   "ordersTitle": "طلباتي",
   "profileTitle": "الملف الشخصي",
 
-  "ordersPlaceholder": "صفحة الطلبات (لاحقًا)",
+  "ordersPlaceholder": "لا توجد طلبات بعد",
   "profilePlaceholder": "صفحة الحساب (لاحقًا)",
 
   "categoryProductsTitle": "المنتجات",
@@ -306,7 +306,81 @@
   "orderCancelledSuccess": "تم إلغاء الطلب بنجاح.",
   "orderItemsUnknown": "العناصر غير متاحة",
   "actionCancelOrder": "إلغاء الطلب",
-  "actionContactUs": "تواصل معنا"
+  "actionContactUs": "تواصل معنا",
+
+
+
+  "changeLanguage": "تغيير اللغة",
+  "logout": "تسجيل الخروج",
+  "phone": "الهاتف",
+  "address": "العنوان",
+  "notSet": "غير محدد",
+  "noAddress": "لا يوجد عنوان",
+  "editName": "تعديل الاسم",
+  "firstName": "الاسم الأول",
+  "lastName": "اسم العائلة",
+  "fieldRequired": "هذا الحقل مطلوب",
+  "save": "حفظ",
+  "edit": "تعديل",
+  "failedToSave": "فشل الحفظ",
+  "featureNotAvailableYet": "هذه الميزة غير متاحة حاليًا",
+  "somethingWentWrong": "حدث خطأ ما",
+  "buildingShort": "عمارة",
+  "apartmentShort": "شقة",
+
+
+
+
+  "accountLabel": "حساب مستخدم",
+  "myInfoTitle": "معلوماتي",
+  "myInfoSubtitle": "عرض وتعديل بياناتك",
+  "myNameLabel": "اسمي",
+  "myPhoneLabel": "رقمي",
+  "myLocationLabel": "موقعي",
+
+  "confirmChangeLanguageTitle": "تأكيد تغيير اللغة",
+  "confirmChangeLanguageBody": "هل تريد تغيير لغة التطبيق؟",
+  "confirmChangeLanguageCta": "تغيير",
+
+  "confirmLogoutTitle": "تأكيد تسجيل الخروج",
+  "confirmLogoutBody": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+  "confirmLogoutCta": "خروج",
+
+  "editName": "تعديل الاسم",
+  "editPhone": "تعديل الرقم",
+  "editLocation": "تعديل الموقع",
+  "continueText": "متابعة",
+
+  "editWarningOutForDelivery": "تنبيه: التعديل لا ينطبق على الطلبات التي خرجت للتوصيل.",
+
+  "invalidPhone": "رقم غير صحيح",
+
+  "aboutUsBody": "عطارة أبو كف - فرع ضاحية الياسمين \"وجهتكم الأولى في ضاحية الياسمين لكل ما تقدمه الطبيعة من خيرات. نحن في عطارة أبو كف نفخر بتقديم أجود أنواع الأعشاب الطبية، والبهارات الطازجة التي تضفي نكهة أصيلة لمائدتكم، بالإضافة إلى تشكيلة واسعة من المكسرات الفاخرة، الزيوت الطبيعية، ومنتجات العناية بالبشرة والشعر. نجمع بين الخبرة الطويلة والجودة العالية لنلبي كافة احتياجاتكم الصحية والغذائية.\"",
+  "close": "إغلاق",
+  "cancel": "إلغاء",
+
+
+  "buildingLabel": "عمارة",
+  "apartmentLabel": "شقة",
+
+
+  "phoneMax10Digits": "الحد الأقصى 10 أرقام",
+  "phoneAlreadyUsed": "هذا الرقم مستخدم",
+  "phoneAvailable": "الرقم متاح",
+  "checkingPhone": "جاري التحقق من الرقم...",
+  "searchNoResults": "لا توجد نتائج",
+
+
+"ordersTitle": "طلباتي",
+"ordersEmptyTitle": "ما عندك طلبات لسه",
+"ordersEmptySubtitle": "اطلب أول طلب عشان تشوفه هون وتتابع حالته بسهولة.",
+"ordersEmptyCta": "تصفّح المنتجات",
+"orderLabel": "طلب",
+"orderStatusLabel": "الحالة",
+"commonErrorTitle": "صار خطأ",
+"commonErrorPrefix": "الخطأ"
+  
+
 
 
 

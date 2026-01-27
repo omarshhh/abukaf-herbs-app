@@ -36,7 +36,6 @@ class OrdersTab extends StatelessWidget {
     }
   }
 
-  /// الإلغاء مسموح فقط في pending (قيد المعالجة)
   bool _canCancel(String status) => status == 'pending';
 
   ({Color bg, Color fg, IconData icon}) _statusStyle(

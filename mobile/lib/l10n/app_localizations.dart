@@ -605,7 +605,7 @@ abstract class AppLocalizations {
   /// No description provided for @ordersTitle.
   ///
   /// In en, this message translates to:
-  /// **'My Orders'**
+  /// **'Orders'**
   String get ordersTitle;
 
   /// No description provided for @profileTitle.
@@ -617,7 +617,7 @@ abstract class AppLocalizations {
   /// No description provided for @ordersPlaceholder.
   ///
   /// In en, this message translates to:
-  /// **'Orders Page (Later)'**
+  /// **'NO Orders Yet'**
   String get ordersPlaceholder;
 
   /// No description provided for @profilePlaceholder.
@@ -713,7 +713,7 @@ abstract class AppLocalizations {
   /// No description provided for @logout.
   ///
   /// In en, this message translates to:
-  /// **'Logout'**
+  /// **'Log out'**
   String get logout;
 
   /// No description provided for @guest.
@@ -1273,6 +1273,294 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Contact us'**
   String get actionContactUs;
+
+  /// No description provided for @changeLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Language'**
+  String get changeLanguage;
+
+  /// No description provided for @phone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get phone;
+
+  /// No description provided for @address.
+  ///
+  /// In en, this message translates to:
+  /// **'Address'**
+  String get address;
+
+  /// No description provided for @notSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Not set'**
+  String get notSet;
+
+  /// No description provided for @noAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'No address'**
+  String get noAddress;
+
+  /// No description provided for @editName.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit name'**
+  String get editName;
+
+  /// No description provided for @fieldRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required'**
+  String get fieldRequired;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get edit;
+
+  /// No description provided for @failedToSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to save'**
+  String get failedToSave;
+
+  /// No description provided for @featureNotAvailableYet.
+  ///
+  /// In en, this message translates to:
+  /// **'This feature is not available yet'**
+  String get featureNotAvailableYet;
+
+  /// No description provided for @somethingWentWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong'**
+  String get somethingWentWrong;
+
+  /// No description provided for @buildingShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Bldg'**
+  String get buildingShort;
+
+  /// No description provided for @apartmentShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Apt'**
+  String get apartmentShort;
+
+  /// No description provided for @accountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'User account'**
+  String get accountLabel;
+
+  /// No description provided for @myInfoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My Info'**
+  String get myInfoTitle;
+
+  /// No description provided for @myInfoSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'View & edit your details'**
+  String get myInfoSubtitle;
+
+  /// No description provided for @myNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'My name'**
+  String get myNameLabel;
+
+  /// No description provided for @myPhoneLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'My phone'**
+  String get myPhoneLabel;
+
+  /// No description provided for @myLocationLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'My location'**
+  String get myLocationLabel;
+
+  /// No description provided for @confirmChangeLanguageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm language change'**
+  String get confirmChangeLanguageTitle;
+
+  /// No description provided for @confirmChangeLanguageBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to change the app language?'**
+  String get confirmChangeLanguageBody;
+
+  /// No description provided for @confirmChangeLanguageCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Change'**
+  String get confirmChangeLanguageCta;
+
+  /// No description provided for @confirmLogoutTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm logout'**
+  String get confirmLogoutTitle;
+
+  /// No description provided for @confirmLogoutBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to log out?'**
+  String get confirmLogoutBody;
+
+  /// No description provided for @confirmLogoutCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get confirmLogoutCta;
+
+  /// No description provided for @editPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit phone'**
+  String get editPhone;
+
+  /// No description provided for @editLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit location'**
+  String get editLocation;
+
+  /// No description provided for @continueText.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueText;
+
+  /// No description provided for @editWarningOutForDelivery.
+  ///
+  /// In en, this message translates to:
+  /// **'Note: Changes will not apply to orders that are already out for delivery.'**
+  String get editWarningOutForDelivery;
+
+  /// No description provided for @invalidPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid phone number'**
+  String get invalidPhone;
+
+  /// No description provided for @aboutUsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Abu Kaf Spice Shop - Al-Yasmeen Branch \"Your premier destination in Al-Yasmeen district for all things natural. At Abu Kaf, we take pride in offering the finest medicinal herbs, fresh spices that bring authentic flavor to your table, and a wide selection of premium nuts, natural oils, and skin and hair care products. We blend years of expertise with high quality to meet all your wellness and nutritional needs.\"'**
+  String get aboutUsBody;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @buildingLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Building'**
+  String get buildingLabel;
+
+  /// No description provided for @apartmentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Apartment'**
+  String get apartmentLabel;
+
+  /// No description provided for @phoneMax10Digits.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum is 10 digits'**
+  String get phoneMax10Digits;
+
+  /// No description provided for @phoneAlreadyUsed.
+  ///
+  /// In en, this message translates to:
+  /// **'This phone is already used'**
+  String get phoneAlreadyUsed;
+
+  /// No description provided for @phoneAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone is available'**
+  String get phoneAvailable;
+
+  /// No description provided for @checkingPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking phone...'**
+  String get checkingPhone;
+
+  /// No description provided for @searchNoResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No results found'**
+  String get searchNoResults;
+
+  /// No description provided for @ordersEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No orders yet'**
+  String get ordersEmptyTitle;
+
+  /// No description provided for @ordersEmptySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Place your first order to see it here and track its status.'**
+  String get ordersEmptySubtitle;
+
+  /// No description provided for @ordersEmptyCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse products'**
+  String get ordersEmptyCta;
+
+  /// No description provided for @orderLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Order'**
+  String get orderLabel;
+
+  /// No description provided for @orderStatusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get orderStatusLabel;
+
+  /// No description provided for @commonErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong'**
+  String get commonErrorTitle;
+
+  /// No description provided for @commonErrorPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get commonErrorPrefix;
 }
 
 class _AppLocalizationsDelegate

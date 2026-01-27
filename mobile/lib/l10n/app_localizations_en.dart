@@ -271,13 +271,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get categoriesTitle => 'Categories';
 
   @override
-  String get ordersTitle => 'My Orders';
+  String get ordersTitle => 'Orders';
 
   @override
   String get profileTitle => 'Profile';
 
   @override
-  String get ordersPlaceholder => 'Orders Page (Later)';
+  String get ordersPlaceholder => 'NO Orders Yet';
 
   @override
   String get profilePlaceholder => 'Profile Page (Later)';
@@ -329,7 +329,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aboutUs => 'About us';
 
   @override
-  String get logout => 'Logout';
+  String get logout => 'Log out';
 
   @override
   String get guest => 'Guest';
@@ -613,4 +613,152 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get actionContactUs => 'Contact us';
+
+  @override
+  String get changeLanguage => 'Change Language';
+
+  @override
+  String get phone => 'Phone';
+
+  @override
+  String get address => 'Address';
+
+  @override
+  String get notSet => 'Not set';
+
+  @override
+  String get noAddress => 'No address';
+
+  @override
+  String get editName => 'Edit name';
+
+  @override
+  String get fieldRequired => 'This field is required';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get edit => 'Edit';
+
+  @override
+  String get failedToSave => 'Failed to save';
+
+  @override
+  String get featureNotAvailableYet => 'This feature is not available yet';
+
+  @override
+  String get somethingWentWrong => 'Something went wrong';
+
+  @override
+  String get buildingShort => 'Bldg';
+
+  @override
+  String get apartmentShort => 'Apt';
+
+  @override
+  String get accountLabel => 'User account';
+
+  @override
+  String get myInfoTitle => 'My Info';
+
+  @override
+  String get myInfoSubtitle => 'View & edit your details';
+
+  @override
+  String get myNameLabel => 'My name';
+
+  @override
+  String get myPhoneLabel => 'My phone';
+
+  @override
+  String get myLocationLabel => 'My location';
+
+  @override
+  String get confirmChangeLanguageTitle => 'Confirm language change';
+
+  @override
+  String get confirmChangeLanguageBody =>
+      'Do you want to change the app language?';
+
+  @override
+  String get confirmChangeLanguageCta => 'Change';
+
+  @override
+  String get confirmLogoutTitle => 'Confirm logout';
+
+  @override
+  String get confirmLogoutBody => 'Are you sure you want to log out?';
+
+  @override
+  String get confirmLogoutCta => 'Logout';
+
+  @override
+  String get editPhone => 'Edit phone';
+
+  @override
+  String get editLocation => 'Edit location';
+
+  @override
+  String get continueText => 'Continue';
+
+  @override
+  String get editWarningOutForDelivery =>
+      'Note: Changes will not apply to orders that are already out for delivery.';
+
+  @override
+  String get invalidPhone => 'Invalid phone number';
+
+  @override
+  String get aboutUsBody =>
+      'Abu Kaf Spice Shop - Al-Yasmeen Branch \"Your premier destination in Al-Yasmeen district for all things natural. At Abu Kaf, we take pride in offering the finest medicinal herbs, fresh spices that bring authentic flavor to your table, and a wide selection of premium nuts, natural oils, and skin and hair care products. We blend years of expertise with high quality to meet all your wellness and nutritional needs.\"';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get buildingLabel => 'Building';
+
+  @override
+  String get apartmentLabel => 'Apartment';
+
+  @override
+  String get phoneMax10Digits => 'Maximum is 10 digits';
+
+  @override
+  String get phoneAlreadyUsed => 'This phone is already used';
+
+  @override
+  String get phoneAvailable => 'Phone is available';
+
+  @override
+  String get checkingPhone => 'Checking phone...';
+
+  @override
+  String get searchNoResults => 'No results found';
+
+  @override
+  String get ordersEmptyTitle => 'No orders yet';
+
+  @override
+  String get ordersEmptySubtitle =>
+      'Place your first order to see it here and track its status.';
+
+  @override
+  String get ordersEmptyCta => 'Browse products';
+
+  @override
+  String get orderLabel => 'Order';
+
+  @override
+  String get orderStatusLabel => 'Status';
+
+  @override
+  String get commonErrorTitle => 'Something went wrong';
+
+  @override
+  String get commonErrorPrefix => 'Error';
 }

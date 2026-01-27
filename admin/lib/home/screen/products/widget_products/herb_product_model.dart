@@ -1,12 +1,6 @@
 import 'dart:typed_data';
 
-enum ProductUnit {
-  gram, 
-  kilogram,
-  ml, 
-  liter, 
-  piece,
-}
+enum ProductUnit { gram, kilogram, ml, liter, piece }
 
 class HerbProduct {
   HerbProduct({
@@ -36,9 +30,9 @@ class HerbProduct {
     required this.isActive,
     required this.createdAt,
 
+
     this.imageUrl,
     this.imageFileName,
-
     this.imageBytes,
   });
 
@@ -72,6 +66,7 @@ class HerbProduct {
 
   DateTime createdAt;
 
+
   String? imageUrl;
   String? imageFileName;
 
@@ -103,6 +98,8 @@ class HerbProduct {
     double? unitPrice,
     bool? isActive,
     DateTime? createdAt,
+
+
     String? imageUrl,
     String? imageFileName,
     Uint8List? imageBytes,
@@ -137,9 +134,10 @@ class HerbProduct {
       unitPrice: unitPrice ?? this.unitPrice,
       isActive: isActive ?? this.isActive,
       createdAt: createdAt ?? this.createdAt,
+
+
       imageUrl: imageUrl ?? this.imageUrl,
       imageFileName: imageFileName ?? this.imageFileName,
-
       imageBytes: imageBytes ?? this.imageBytes,
     );
   }
@@ -167,6 +165,7 @@ class HerbProduct {
 
       'forYou': forYou,
       'shortDesc': {'ar': arShort, 'en': enShort},
+
 
       'unit': unit.name,
       'minQty': minQty,
@@ -236,6 +235,7 @@ class HerbProduct {
       shortDescAr: shortAr,
       shortDescEn: shortEn,
 
+
       unit: parsedUnit,
       minQty: toDouble(map['minQty'], fallback: 0),
       maxQty: toDouble(map['maxQty'], fallback: 0),
@@ -250,7 +250,7 @@ class HerbProduct {
       ),
       imageUrl: map['imageUrl'] as String?,
       imageFileName: map['imageFileName'] as String?,
-      imageBytes: null, 
+      imageBytes: null,
     );
   }
 }
